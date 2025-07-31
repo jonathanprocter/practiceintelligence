@@ -334,7 +334,7 @@ export default function Planner() {
     if (eventsError && eventsError.message?.includes('authentication')) {
       console.log('🔧 Detected authentication error, attempting auto-fix...');
       runAuthenticationFix().then(result => {
-        if (result.success) {
+        if (result.success).catch(error => console.error("Promise error:", error)) {
           console.log('✅ Authentication fixed, refetching data...');
           queryClient.invalidateQueries({ queryKey: ['/api/events'] });
         } else if (result.requiresAction) {
@@ -379,7 +379,7 @@ export default function Planner() {
         headers: {
           'Content-Type': 'application/json'
         }
-      });
+      }).catch(error => console.error("Fetch error:", error));
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

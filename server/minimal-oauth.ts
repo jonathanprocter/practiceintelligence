@@ -5,6 +5,7 @@ import { Express, Request, Response } from 'express';
 // Enhanced domain detection with multiple fallbacks
 function getCurrentDomain(): string {
   // Try multiple environment variables for domain detection
+  const baseUrl = process.env.BASE_URL;
   const domains = process.env.REPLIT_DOMAINS;
   const replId = process.env.REPL_ID;
   const replitUrl = process.env.REPLIT_URL;
@@ -15,6 +16,13 @@ function getCurrentDomain(): string {
     replitUrl,
     nodeEnv: process.env.NODE_ENV
   });
+
+  // Use BASE_URL if provided explicitly
+  if (baseUrl) {
+    const clean = baseUrl.replace(/\/$/, "");
+    console.log('✅ Using BASE_URL:', clean);
+    return clean;
+  }
 
   // Try REPLIT_DOMAINS first
   if (domains) {
@@ -712,7 +720,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         if (req.session) {
           req.session.user = mockUser;
           req.session.userId = mockUser.id;
-          req.session.passport = { user: mockUser.id };
+          req.session?.passport = { user: mockUser.id };
         }
         
         console.log('✅ Session restored from environment tokens');
@@ -758,7 +766,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         
         req.session.user = mockUser;
         req.session.userId = mockUser.id;
-        req.session.passport = { user: mockUser.id };
+        req.session?.passport = { user: mockUser.id };
         
         // Save session
         await new Promise((resolve, reject) => {

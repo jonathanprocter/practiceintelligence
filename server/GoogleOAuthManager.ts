@@ -32,8 +32,9 @@ export class GoogleOAuthManager {
 
   constructor() {
     const domains = process.env.REPLIT_DOMAINS?.split(",") || [];
-    const currentDomain = domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
-    const redirectUri = `https://${currentDomain}/api/auth/google/callback`;
+    const baseUrl = process.env.BASE_URL?.replace(/\/$/, "");
+    const currentDomain = baseUrl || domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
+    const redirectUri = `${currentDomain}/api/auth/google/callback`;
     
     console.log('🔧 OAuth Manager initialized with domain:', currentDomain);
     console.log('🔗 Redirect URI:', redirectUri);
@@ -247,8 +248,9 @@ export class GoogleOAuthManager {
   // Get current redirect URI
   getCurrentRedirectURI(): string {
     const domains = process.env.REPLIT_DOMAINS?.split(",") || [];
-    const currentDomain = domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
-    return `https://${currentDomain}/api/auth/google/callback`;
+    const baseUrl = process.env.BASE_URL?.replace(/\/$/, "");
+    const currentDomain = baseUrl || domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
+    return `${currentDomain}/api/auth/google/callback`;
   }
 }
 
