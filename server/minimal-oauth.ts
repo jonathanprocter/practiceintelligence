@@ -53,8 +53,8 @@ export function initializeMinimalOAuth() {
   console.log('🔐 Has Client Secret:', !!process.env.GOOGLE_CLIENT_SECRET);
 
   // Clear existing strategies but preserve session support
-  if (passport._strategies.google) {
-    delete passport._strategies.google;
+  if (passport._strategy('google')) {
+    passport.unuse('google');
   }
   
   // Clear existing serializers/deserializers
