@@ -333,14 +333,15 @@ export default function Planner() {
   React.useEffect(() => {
     if (eventsError && eventsError.message?.includes('authentication')) {
       console.log('🔧 Detected authentication error, attempting auto-fix...');
-      runAuthenticationFix().then(result => {
-        if (result.success) {
-          console.log('✅ Authentication fixed, refetching data...');
-          queryClient.invalidateQueries({ queryKey: ['/api/events'] });
-        } else if (result.requiresAction) {
-          console.log('⚠️ Manual authentication required:', result.message);
-        }
-      }).catch(error => console.error("Promise error:", error));
+      runAuthenticationFix()
+        .then(result => {
+          if (result.success) {
+            queryClient.invalidateQueries({ queryKey: ['/api/events'] });
+          } else if (result.requiresAction) {
+            console.log('⚠️ Manual authentication required:', result.message);
+          }
+        })
+        .catch(error => console.error('Promise error:', error));
     }
   }, [eventsError, queryClient]);
 
@@ -2551,10 +2552,10 @@ export default function Planner() {
                       console.log('Access token status:', document.cookie.includes('access_token'));
 
                       // Try to check authentication status
-                      fetch('/api/auth/status').catch(error => console.error("Fetch error:", error))
-                        .then(res => res.json().catch(error => console.error("Promise error:", error)))
+                      fetch('/api/auth/status')
+                        .then(res => res.json())
                         .then(data => {
-                          console.log('Auth Status Response:', data).catch(error => console.error("Promise error:", error));
+                          console.log('Auth Status Response:', data);
                           console.log('🔍 Full Auth Data:', {
                             isAuthenticated: data.isAuthenticated,
                             hasTokens: data.hasTokens,
@@ -2573,11 +2574,11 @@ export default function Planner() {
                             variant: data.isAuthenticated && data.hasTokens ? 'default' : 'destructive'
                           });
                         })
-                        .catch(err => {
-                          console.error('Auth Status Error:', err);
+                        .catch(error => {
+                          console.error('Fetch error:', error);
                           toast({
                             title: 'Auth Status Error',
-                            description: err.message,
+                            description: error.message,
                             variant: 'destructive'
                           });
                         });

@@ -54,7 +54,8 @@ export function demoAuditSystem() {
   console.log('This demonstrates what the audit system captures:\n');
   
   // Import the audit functions
-  import('../utils/exportAudit').then(({ auditExportData, logExportAudit, cleanEventTitle }).catch(error => console.error("Promise error:", error)) => {
+  import('../utils/exportAudit')
+    .then(({ auditExportData, logExportAudit, cleanEventTitle }) => {
     
     // 1. Show event data validation
     console.log('1. EVENT DATA VALIDATION:');
@@ -94,7 +95,8 @@ export function demoAuditSystem() {
     console.log('✓ Tracks calendar filtering effects');
     console.log('✓ Provides detailed export statistics');
     
-  });
+    })
+    .catch(error => console.error('Promise error:', error));
 }
 
 // Make it available globally for testing
