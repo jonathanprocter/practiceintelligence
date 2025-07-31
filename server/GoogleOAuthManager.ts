@@ -6,6 +6,7 @@ import { users } from '@shared/schema';
 import { eq } from 'drizzle-orm';
 import fs from 'fs/promises';
 import path from 'path';
+import { getBaseUrl } from './utils/getBaseUrl';
 
 interface UserTokens {
   access_token: string;
@@ -31,11 +32,10 @@ export class GoogleOAuthManager {
   ];
 
   constructor() {
-    const domains = process.env.REPLIT_DOMAINS?.split(",") || [];
-    const currentDomain = domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
-    const redirectUri = `https://${currentDomain}/api/auth/google/callback`;
-    
-    console.log('🔧 OAuth Manager initialized with domain:', currentDomain);
+    const baseUrl = getBaseUrl();
+    const redirectUri = `${baseUrl}/api/auth/google/callback`;
+
+    console.log('🔧 OAuth Manager initialized with base URL:', baseUrl);
     console.log('🔗 Redirect URI:', redirectUri);
 
     // NEVER use dev tokens in production - only real OAuth credentials
@@ -246,9 +246,7 @@ export class GoogleOAuthManager {
 
   // Get current redirect URI
   getCurrentRedirectURI(): string {
-    const domains = process.env.REPLIT_DOMAINS?.split(",") || [];
-    const currentDomain = domains[0] || "474155cb-26cc-45e2-9759-28eaffdac638-00-20mxsrmp7mzl4.worf.replit.dev";
-    return `https://${currentDomain}/api/auth/google/callback`;
+    return `${getBaseUrl()}/api/auth/google/callback`;
   }
 }
 

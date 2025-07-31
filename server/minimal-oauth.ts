@@ -1,39 +1,7 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Express, Request, Response } from 'express';
-
-// Enhanced domain detection with multiple fallbacks
-function getCurrentDomain(): string {
-  // Try multiple environment variables for domain detection
-  const domains = process.env.REPLIT_DOMAINS;
-  const replId = process.env.REPL_ID;
-  const replitUrl = process.env.REPLIT_URL;
-
-  console.log('🌐 Domain detection:', {
-    domains,
-    replId,
-    replitUrl,
-    nodeEnv: process.env.NODE_ENV
-  });
-
-  // Try REPLIT_DOMAINS first
-  if (domains) {
-    const domain = `https://${domains.split(',')[0]}`;
-    console.log('✅ Using REPLIT_DOMAINS:', domain);
-    return domain;
-  }
-
-  // Try REPLIT_URL if available
-  if (replitUrl) {
-    console.log('✅ Using REPLIT_URL:', replitUrl);
-    return replitUrl;
-  }
-
-  // Fallback to current known domain
-  const fallbackDomain = 'https://5a6f843f-53cb-48cf-8afc-05f223a337ff-00-3gvxznlnxvdl8.riker.replit.dev';
-  console.log('⚠️ Using fallback domain:', fallbackDomain);
-  return fallbackDomain;
-}
+import { getBaseUrl } from './utils/getBaseUrl';
 
 // Initialize OAuth with minimal configuration
 export function initializeMinimalOAuth() {
@@ -46,7 +14,7 @@ export function initializeMinimalOAuth() {
     delete process.env.GOOGLE_REFRESH_TOKEN;
   }
 
-  const redirectUri = `${getCurrentDomain()}/api/auth/callback`;
+  const redirectUri = `${getBaseUrl()}/api/auth/callback`;
 
   console.log('🔗 Redirect URI:', redirectUri);
   console.log('🔑 Has Client ID:', !!process.env.GOOGLE_CLIENT_ID);
@@ -326,13 +294,13 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   // Configuration check with redirect URI validation
   app.get('/api/auth/config', (req: Request, res: Response) => {
-    const redirectUri = `${getCurrentDomain()}/api/auth/callback`;
+    const redirectUri = `${getBaseUrl()}/api/auth/callback`;
     res.json({
       hasClientId: !!process.env.GOOGLE_CLIENT_ID,
       hasClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
       hasAccessToken: !!process.env.GOOGLE_ACCESS_TOKEN,
       redirectUri: redirectUri,
-      currentDomain: getCurrentDomain(),
+      currentDomain: getBaseUrl(),
       clientId: process.env.GOOGLE_CLIENT_ID?.substring(0, 10) + '...',
       instructions: [
         'Add this EXACT redirect URI to Google Cloud Console:',
@@ -349,7 +317,7 @@ export function addMinimalOAuthRoutes(app: Express) {
     res.json({
       success: true,
       message: 'Redirect URI is reachable',
-      redirectUri: `${getCurrentDomain()}/api/auth/callback`,
+      redirectUri: `${getBaseUrl()}/api/auth/callback`,
       timestamp: new Date().toISOString()
     });
   });
