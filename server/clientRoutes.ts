@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { storage } from './storage';
+import { analyzeText } from './aiHelpers';
 import { 
   insertClientSchema, 
   insertSessionNoteSchema,
@@ -260,9 +261,6 @@ function determineMaterialType(mimetype: string): string {
 }
 
 async function generateAIConceptualization(client: any, sessionNotes: any[], materials: any[]) {
-  // This would integrate with OpenAI API to generate case conceptualization
-  // For now, return a structured response
-  
   const allText = [
     client.notes || '',
     ...sessionNotes.map(note => [
@@ -274,27 +272,18 @@ async function generateAIConceptualization(client: any, sessionNotes: any[], mat
     ...materials.map(material => material.contentText || '')
   ].join('\n\n');
 
-  // This would call OpenAI API with the collected text
-  // const aiResponse = await openai.chat.completions.create({...})
-  
-  // Mock response for now
+  const prompt = `Generate a concise case conceptualization for the following client data:\n\n${allText}`;
+  let summary = '';
+  try {
+    summary = await analyzeText(prompt);
+  } catch (err) {
+    console.error('AI analysis failed:', err);
+  }
+
   return {
     conceptualizationData: {
-      clientProfile: `Comprehensive case analysis for ${client.name}`,
-      keyThemes: ['Progress tracking', 'Goal setting', 'Risk management'],
-      treatmentApproach: 'Evidence-based intervention strategies'
-    },
-    presentingProblems: ['Primary concern area', 'Secondary issues'],
-    treatmentGoals: ['Short-term objectives', 'Long-term outcomes'],
-    interventionsUsed: ['CBT techniques', 'Behavioral strategies'],
-    progressIndicators: {
-      improvementAreas: ['Communication', 'Coping skills'],
-      challengeAreas: ['Consistency', 'Follow-through']
-    },
-    riskFactors: [],
-    strengths: ['Client engagement', 'Family support'],
-    recommendations: ['Continue current approach', 'Consider group therapy'],
-    confidenceScore: 0.85
+      clientProfile: summary || `Case analysis for ${client.name}`
+    }
   };
 }
 
