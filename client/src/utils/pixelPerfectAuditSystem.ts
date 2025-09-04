@@ -96,7 +96,7 @@ export class PixelPerfectAuditSystem {
     
     if (!weeklyGrid || !gridContainer) {
       // Use fallback values based on audit success
-      console.log('📊 Using fallback measurements based on successful comprehensive audit');
+// console.log('📊 Using fallback measurements based on successful comprehensive audit');
       return this.getFallbackMeasurements();
     }
 
@@ -160,15 +160,15 @@ export class PixelPerfectAuditSystem {
     };
 
     this.measurements = measurements;
-    console.log('✅ Dashboard measurements extracted:', measurements);
+// console.log('✅ Dashboard measurements extracted:', measurements);
     return measurements;
   }
 
   /**
    * Run comprehensive audit comparing dashboard to PDF configuration
    */
-  async runPixelPerfectAudit(pdfConfig: any): Promise<AuditResult> {
-    console.log('🔍 Running 100% pixel-perfect audit...');
+  async runPixelPerfectAudit(pdfConfig: unknown): Promise<AuditResult> {
+// console.log('🔍 Running 100% pixel-perfect audit...');
     
     if (!this.measurements) {
       await this.extractDashboardMeasurements();
@@ -284,8 +284,8 @@ export class PixelPerfectAuditSystem {
       timestamp: new Date(),
     };
 
-    console.log(`🎯 Pixel-Perfect Audit Complete: ${finalScore}% accuracy`);
-    console.log(`📊 Found ${inconsistencies.length} inconsistencies`);
+// console.log(`🎯 Pixel-Perfect Audit Complete: ${finalScore}% accuracy`);
+// console.log(`📊 Found ${inconsistencies.length} inconsistencies`);
     
     return result;
   }
@@ -293,7 +293,7 @@ export class PixelPerfectAuditSystem {
   /**
    * Generate 100% pixel-perfect PDF configuration
    */
-  generatePixelPerfectConfig(): any {
+  generatePixelPerfectConfig(): unknown {
     if (!this.measurements) {
       throw new Error('Measurements not extracted. Run extractDashboardMeasurements first.');
     }

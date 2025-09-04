@@ -24,7 +24,7 @@ export const auditIsolatedCalendarExport = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<AuditResult> => {
-  console.log('🔍 Starting comprehensive isolated calendar audit...');
+// console.log('🔍 Starting comprehensive isolated calendar audit...');
 
   const issues: AuditIssue[] = [];
   let score = 100;
@@ -71,7 +71,7 @@ export const auditIsolatedCalendarExport = async (
     summary
   };
 
-  console.log('📊 Audit completed:', result);
+// console.log('📊 Audit completed:', result);
   return result;
 };
 
@@ -85,7 +85,7 @@ function auditDataIntegrity(selectedDate: Date, events: CalendarEvent[]): AuditI
   // Filter events for selected date
   const dayEvents = filterEventsForDate(events, selectedDate);
 
-  console.log(`📅 Auditing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`📅 Auditing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
 
   // Check if Calvin Hill appointment is present (based on screenshot)
   const calvinHillEvent = dayEvents.find(event => 
@@ -200,7 +200,7 @@ function auditEventDisplay(selectedDate: Date, events: CalendarEvent[]): AuditIs
 
   const dayEvents = filterEventsForDate(events, selectedDate);
 
-  console.log('📋 Event display audit:', {
+// console.log('📋 Event display audit:', {
     totalEvents: dayEvents.length,
     eventTitles: dayEvents.map(e => e.title)
   });
@@ -310,34 +310,34 @@ export const runIsolatedCalendarAudit = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🚀 Running isolated calendar audit...');
+// console.log('🚀 Running isolated calendar audit...');
 
   const auditResult = await auditIsolatedCalendarExport(selectedDate, events);
 
-  console.log('\n📊 ISOLATED CALENDAR AUDIT REPORT');
-  console.log('==================================');
-  console.log(auditResult.summary);
-  console.log('\n🔍 ISSUES FOUND:');
+// console.log('\n📊 ISOLATED CALENDAR AUDIT REPORT');
+// console.log('==================================');
+// console.log(auditResult.summary);
+// console.log('\n🔍 ISSUES FOUND:');
 
   auditResult.issues.forEach((issue, index) => {
-    console.log(`\n${index + 1}. [${issue.severity.toUpperCase()}] ${issue.category.toUpperCase()}`);
-    console.log(`   Problem: ${issue.description}`);
-    console.log(`   Expected: ${issue.expectedValue}`);
-    console.log(`   Actual: ${issue.actualValue}`);
-    console.log(`   Fix: ${issue.fix}`);
+// console.log(`\n${index + 1}. [${issue.severity.toUpperCase()}] ${issue.category.toUpperCase()}`);
+// console.log(`   Problem: ${issue.description}`);
+// console.log(`   Expected: ${issue.expectedValue}`);
+// console.log(`   Actual: ${issue.actualValue}`);
+// console.log(`   Fix: ${issue.fix}`);
   });
 
-  console.log('\n💡 RECOMMENDATIONS:');
+// console.log('\n💡 RECOMMENDATIONS:');
   auditResult.recommendations.forEach(rec => {
-    console.log(`   ${rec}`);
+// console.log(`   ${rec}`);
   });
 
-  console.log('\n🔧 Ready for autonomous fixes...');
+// console.log('\n🔧 Ready for autonomous fixes...');
 };
 
 // Implemented corrected date filtering logic
 function filterEventsForDate(events: CalendarEvent[], targetDate: Date): CalendarEvent[] {
-    console.log(`🔍 Filtering ${events.length} events for date:`, targetDate.toDateString());
+// console.log(`🔍 Filtering ${events.length} events for date:`, targetDate.toDateString());
 
     const startOfDay = new Date(targetDate);
     startOfDay.setHours(0, 0, 0, 0);
@@ -360,23 +360,23 @@ function filterEventsForDate(events: CalendarEvent[], targetDate: Date): Calenda
                      (eventStart <= endOfDay && eventEnd >= startOfDay);
 
       if (isOnDate) {
-        console.log(`✅ Found event: ${event.title} on ${eventStart.toDateString()}`);
+// console.log(`✅ Found event: ${event.title} on ${eventStart.toDateString()}`);
       }
 
       return isOnDate;
     });
 
-    console.log(`📊 Filtered results: ${filtered.length} events found for ${targetDate.toDateString()}`);
+// console.log(`📊 Filtered results: ${filtered.length} events found for ${targetDate.toDateString()}`);
     return filtered;
   }
 
   // Debugging utility function
 function debugEventFiltering(events: CalendarEvent[], selectedDate: Date) {
-  console.log('*** DEBUG EVENT FILTERING ***');
-  console.log(`Total events: ${events.length}`);
-  console.log(`Selected date: ${selectedDate.toDateString()}`);
+// console.log('*** DEBUG EVENT FILTERING ***');
+// console.log(`Total events: ${events.length}`);
+// console.log(`Selected date: ${selectedDate.toDateString()}`);
   events.forEach(event => {
-    console.log(`  Event: ${event.title}, Start: ${new Date(event.startTime).toDateString()}`);
+// console.log(`  Event: ${event.title}, Start: ${new Date(event.startTime).toDateString()}`);
   });
-  console.log('****************************');
+// console.log('****************************');
 }

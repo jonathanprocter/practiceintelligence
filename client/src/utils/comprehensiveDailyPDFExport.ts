@@ -30,13 +30,13 @@ export const exportComprehensiveDailyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 Starting Comprehensive Daily PDF Export...');
-    console.log(`📅 Date: ${selectedDate.toDateString()}`);
-    console.log(`📊 Total events: ${events.length}`);
+// console.log('🎯 Starting Comprehensive Daily PDF Export...');
+// console.log(`📅 Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
 
     // Filter events for the selected date
     const dayEvents = filterEventsForDate(events, selectedDate);
-    console.log(`📋 Events for this date: ${dayEvents.length}`);
+// console.log(`📋 Events for this date: ${dayEvents.length}`);
 
     // Create the PDF document with extended height
     const pdf = new jsPDF('portrait', 'pt', [PDF_CONFIG.pageWidth, PDF_CONFIG.pageHeight]);
@@ -48,7 +48,7 @@ export const exportComprehensiveDailyPDF = async (
     const fileName = `comprehensive-daily-${formatDateForFilename(selectedDate)}.pdf`;
     pdf.save(fileName);
     
-    console.log(`✅ Comprehensive daily PDF exported: ${fileName}`);
+// console.log(`✅ Comprehensive daily PDF exported: ${fileName}`);
   } catch (error) {
     console.error('❌ Error exporting comprehensive daily PDF:', error);
     throw error;

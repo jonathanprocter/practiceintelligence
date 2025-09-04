@@ -12,7 +12,7 @@ export async function testAllIntegrations() {
     const { getNotionDatabases } = await import('./notion');
     const databases = await getNotionDatabases();
     console.log(`✅ Notion: Connected successfully with ${databases.length} databases found`);
-    databases.forEach((db: any, index: number) => {
+    databases.forEach((db: unknown, index: number) => {
       const title = db.title?.[0]?.plain_text || 'Untitled Database';
       console.log(`   ${index + 1}. ${title} (ID: ${db.id.substring(0, 8)}...)`);
     });
@@ -57,7 +57,7 @@ export async function testAllIntegrations() {
     console.log(`✅ Calendar Events: ${events.length} events found in database`);
     
     // Show breakdown by source
-    const sources = events.reduce((acc: any, event: any) => {
+    const sources = events.reduce((acc: unknown, event: unknown) => {
       acc[event.source] = (acc[event.source] || 0) + 1;
       return acc;
     }, {});

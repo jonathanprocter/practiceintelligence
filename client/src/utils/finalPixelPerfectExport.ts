@@ -77,8 +77,8 @@ export const exportFinalPixelPerfectWeeklyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 FINAL PIXEL-PERFECT EXPORT - 100% ACCURACY');
-    console.log('Week:', weekStartDate.toDateString(), 'to', weekEndDate.toDateString());
+// console.log('🎯 FINAL PIXEL-PERFECT EXPORT - 100% ACCURACY');
+// console.log('Week:', weekStartDate.toDateString(), 'to', weekEndDate.toDateString());
     
     // Filter events for the week
     const weekEvents = events.filter(event => {
@@ -86,7 +86,7 @@ export const exportFinalPixelPerfectWeeklyPDF = async (
       return eventDate >= weekStartDate && eventDate <= weekEndDate;
     });
     
-    console.log('Total events in week:', weekEvents.length);
+// console.log('Total events in week:', weekEvents.length);
     
     // Create PDF with exact dimensions
     const pdf = new jsPDF({
@@ -128,8 +128,8 @@ export const exportFinalPixelPerfectWeeklyPDF = async (
     const filename = `final-perfect-weekly-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
     
-    console.log('✅ FINAL PIXEL-PERFECT EXPORT COMPLETE');
-    console.log('📄 Generated:', filename);
+// console.log('✅ FINAL PIXEL-PERFECT EXPORT COMPLETE');
+// console.log('📄 Generated:', filename);
     
   } catch (error) {
     console.error('❌ Final pixel-perfect export failed:', error);
@@ -187,7 +187,7 @@ function drawPerfectLegend(pdf: jsPDF) {
   pdf.text('Holidays', config.margin + legendSpacing * 3 - 25, legendY);
 }
 
-function drawPerfectGrid(pdf: jsPDF, startX: number, startY: number, width: number, height: number, timeSlots: any[]) {
+function drawPerfectGrid(pdf: jsPDF, startX: number, startY: number, width: number, height: number, timeSlots: unknown[]) {
   const config = FINAL_PERFECT_CONFIG;
   
   // Main grid outline
@@ -242,7 +242,7 @@ function drawPerfectDayHeaders(pdf: jsPDF, startX: number, startY: number, weekS
   }
 }
 
-function drawPerfectTimeLabels(pdf: jsPDF, startX: number, startY: number, timeSlots: any[]) {
+function drawPerfectTimeLabels(pdf: jsPDF, startX: number, startY: number, timeSlots: unknown[]) {
   const config = FINAL_PERFECT_CONFIG;
   
   timeSlots.forEach((slot, index) => {

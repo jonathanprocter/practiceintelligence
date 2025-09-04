@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Badge } from '@/components/ui/Badge';
 import { Calendar as CalendarIcon, Clock, MapPin, User, Zap, Plus } from "lucide-react";
 import { OptimalTimeSuggestions } from "./ConflictDetector";
 import { useToast } from "@/hooks/use-toast";
 
 interface SmartSchedulingProps {
-  selectedClient?: any;
-  existingEvents: any[];
-  onScheduleAppointment?: (appointmentData: any) => void;
+  selectedClient?: unknown;
+  existingEvents: unknown[];
+  onScheduleAppointment?: (appointmentData: unknown) => void;
 }
 
 export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppointment }: SmartSchedulingProps) {
@@ -37,7 +37,7 @@ export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppo
 
   // Create appointment mutation
   const createAppointmentMutation = useMutation({
-    mutationFn: async (appointmentData: any) => {
+    mutationFn: async (appointmentData: unknown) => {
       const response = await fetch('/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppo
       });
       setIsScheduling(false);
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       toast({
         title: "Error",
         description: error.message || "Failed to schedule appointment",
@@ -63,7 +63,7 @@ export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppo
     }
   });
 
-  const handleScheduleAppointment = (timeSlot: any) => {
+  const handleScheduleAppointment = (timeSlot: unknown) => {
     if (!selectedClient) {
       toast({
         title: "Client Required",
@@ -87,7 +87,7 @@ export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppo
     onScheduleAppointment?.(appointmentData);
   };
 
-  const handleTemplateSelect = (template: any) => {
+  const handleTemplateSelect = (template: unknown) => {
     setSelectedTemplate(template);
     setSelectedDuration(template.duration);
   };
@@ -163,7 +163,7 @@ export function SmartScheduling({ selectedClient, existingEvents, onScheduleAppo
                     No templates available. Create templates to get started.
                   </div>
                 ) : (
-                  templates.map((template: any) => (
+                  templates.map((template: unknown) => (
                     <Card 
                       key={template.id}
                       className={`cursor-pointer transition-colors hover:bg-muted/50 ${

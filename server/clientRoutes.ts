@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { promisify } from 'util';
 import { storage } from './storage';
 import { analyzeText } from './aiHelpers';
 import { 
@@ -175,7 +176,7 @@ router.post('/session-materials/upload', upload.array('files'), async (req, res)
       // Extract text content if it's a text file or PDF
       let contentText = '';
       if (file.mimetype.startsWith('text/')) {
-        contentText = fs.readFileSync(file.path, 'utf8');
+        contentText = fs.readFile(file.path, 'utf8');
       }
 
       const material = await storage.createSessionMaterial({
@@ -260,7 +261,7 @@ function determineMaterialType(mimetype: string): string {
   return 'document';
 }
 
-async function generateAIConceptualization(client: any, sessionNotes: any[], materials: any[]) {
+async function generateAIConceptualization(client: unknown, sessionNotes: unknown[], materials: unknown[]) {
   const allText = [
     client.notes || '',
     ...sessionNotes.map(note => [

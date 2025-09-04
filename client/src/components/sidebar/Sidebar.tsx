@@ -86,12 +86,12 @@ export const Sidebar = ({
         <div className="mt-2">
           <button 
             onClick={async () => {
-              console.log('🔄 Manual authentication audit triggered');
+// console.log('🔄 Manual authentication audit triggered');
               const result = await (window as any).autonomousAuthAudit?.runComprehensiveAudit();
               if (result?.fixed) {
-                console.log('✅ Authentication fixed successfully');
+// console.log('✅ Authentication fixed successfully');
               } else {
-                console.log('❌ Authentication issues remain');
+// console.log('❌ Authentication issues remain');
               }
             }}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition-colors"

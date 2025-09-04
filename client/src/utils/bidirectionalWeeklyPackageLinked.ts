@@ -16,9 +16,9 @@ export const exportLinkedWeeklyPackage = async (
   events: CalendarEvent[],
 ): Promise<string> => {
   try {
-    console.log("🔗 ENHANCED BIDIRECTIONAL WEEKLY PACKAGE EXPORT STARTING...");
-    console.log(`📅 Week range: ${weekStartDate.toDateString()} to ${weekEndDate.toDateString()}`);
-    console.log(`📊 Events count: ${events.length}`);
+// console.log("🔗 ENHANCED BIDIRECTIONAL WEEKLY PACKAGE EXPORT STARTING...");
+// console.log(`📅 Week range: ${weekStartDate.toDateString()} to ${weekEndDate.toDateString()}`);
+// console.log(`📊 Events count: ${events.length}`);
 
     // Filter events to only include those in the current week
     const weekStart = new Date(weekStartDate);
@@ -32,15 +32,15 @@ export const exportLinkedWeeklyPackage = async (
       return eventDate >= weekStart && eventDate <= weekEnd;
     });
 
-    console.log(`📊 Week Events: ${weekEvents.length} (filtered from ${events.length})`);
+// console.log(`📊 Week Events: ${weekEvents.length} (filtered from ${events.length})`);
 
     // Use the enhanced bidirectional linked PDF export system
     const filename = await exportBidirectionalWeeklyPackage(weekEvents, weekStartDate);
 
-    console.log("✅ ENHANCED BIDIRECTIONAL WEEKLY PACKAGE EXPORT COMPLETE");
-    console.log(`📄 Single PDF file with navigation: ${filename}`);
-    console.log("🔗 Includes clickable navigation between all 8 pages");
-    console.log("📱 Weekly overview + 7 daily pages with full bidirectional links");
+// console.log("✅ ENHANCED BIDIRECTIONAL WEEKLY PACKAGE EXPORT COMPLETE");
+// console.log(`📄 Single PDF file with navigation: ${filename}`);
+// console.log("🔗 Includes clickable navigation between all 8 pages");
+// console.log("📱 Weekly overview + 7 daily pages with full bidirectional links");
 
     return filename;
   } catch (error) {

@@ -43,7 +43,7 @@ export class DynamicDailyPlannerGenerator {
     const endHour = 23;
     const endMinute = 30;
 
-    console.log('🕐 GENERATING TIME SLOTS: 06:00 to 23:30');
+// console.log('🕐 GENERATING TIME SLOTS: 06:00 to 23:30');
 
     for (let hour = startHour; hour <= endHour; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
@@ -54,8 +54,8 @@ export class DynamicDailyPlannerGenerator {
       }
     }
 
-    console.log(`🕐 GENERATED ${slots.length} TIME SLOTS:`, slots.slice(0, 3), '...', slots.slice(-3));
-    console.log('🕐 FIRST SLOT:', slots[0], 'LAST SLOT:', slots[slots.length - 1]);
+// console.log(`🕐 GENERATED ${slots.length} TIME SLOTS:`, slots.slice(0, 3), '...', slots.slice(-3));
+// console.log('🕐 FIRST SLOT:', slots[0], 'LAST SLOT:', slots[slots.length - 1]);
 
     return slots;
   }
@@ -105,17 +105,17 @@ export class DynamicDailyPlannerGenerator {
     const currentWeekStart = this.getWeekStart(currentDate);
     const currentWeekEnd = this.getWeekEnd(currentDate);
 
-    console.log(`📊 Statistics calculation for ${currentDate.toDateString()}`);
-    console.log(`📅 Week range: ${currentWeekStart.toDateString()} to ${currentWeekEnd.toDateString()}`);
-    console.log(`📋 Total events passed: ${allEvents.length}`);
-    console.log(`📋 Daily appointments: ${appointments.length}`);
+// console.log(`📊 Statistics calculation for ${currentDate.toDateString()}`);
+// console.log(`📅 Week range: ${currentWeekStart.toDateString()} to ${currentWeekEnd.toDateString()}`);
+// console.log(`📋 Total events passed: ${allEvents.length}`);
+// console.log(`📋 Daily appointments: ${appointments.length}`);
 
     // Filter events for the current week
     const weeklyEvents = allEvents.filter(event => {
       const eventDate = new Date(event.startTime);
       const inWeek = eventDate >= currentWeekStart && eventDate <= currentWeekEnd;
       if (inWeek) {
-        console.log(`✅ Weekly event: ${event.title} on ${eventDate.toDateString()}`);
+// console.log(`✅ Weekly event: ${event.title} on ${eventDate.toDateString()}`);
       }
       return inWeek;
     });
@@ -310,7 +310,7 @@ export class DynamicDailyPlannerGenerator {
       return eventDateStr === targetDateStr;
     });
 
-    console.log(`🔧 FILTERED EVENTS: ${dailyEvents.length} events for ${targetDateStr} (from ${events.length} total)`);
+// console.log(`🔧 FILTERED EVENTS: ${dailyEvents.length} events for ${targetDateStr} (from ${events.length} total)`);
 
     const appointments = this.convertCalendarEventsToAppointments(dailyEvents);
     const freeTimeSlots = this.calculateFreeTimeSlots(appointments);

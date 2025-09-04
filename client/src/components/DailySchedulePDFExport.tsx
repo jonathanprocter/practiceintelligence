@@ -13,8 +13,8 @@ interface DailySchedulePDFExportProps {
 
 const DailySchedulePDFExport: React.FC<DailySchedulePDFExportProps> = ({ data }) => {
   // Debug: Log the received data
-  console.log('📊 DailySchedulePDFExport received data:', data);
-  console.log('📅 Appointments:', data.appointments);
+// console.log('📊 DailySchedulePDFExport received data:', data);
+// console.log('📅 Appointments:', data.appointments);
 
   // Generate time slots for the day (7 AM to 7 PM)
   const generateTimeSlots = () => {
@@ -29,7 +29,7 @@ const DailySchedulePDFExport: React.FC<DailySchedulePDFExportProps> = ({ data })
   };
 
   const timeSlots = generateTimeSlots();
-  console.log('🕒 Generated time slots:', timeSlots.slice(0, 5), '... (total:', timeSlots.length, ')');
+// console.log('🕒 Generated time slots:', timeSlots.slice(0, 5), '... (total:', timeSlots.length, ')');
 
   // Helper function to format time
   const formatTime = (timeString: string) => {
@@ -315,7 +315,7 @@ const DailySchedulePDFExport: React.FC<DailySchedulePDFExportProps> = ({ data })
           
           // Debug log for first few slots
           if (index < 5) {
-            console.log(`🕒 Time slot ${timeSlot}: ${appointment ? `Found appointment: ${appointment.clientName}` : 'No appointment'}`);
+// console.log(`🕒 Time slot ${timeSlot}: ${appointment ? `Found appointment: ${appointment.clientName}` : 'No appointment'}`);
           }
           
           return (

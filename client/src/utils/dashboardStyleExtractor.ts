@@ -44,8 +44,8 @@ export function extractDashboardStyles(): StyleExtractionResult {
   const startTime = Date.now();
   const errors: string[] = [];
 
-  console.log('🔍 Starting dashboard style extraction...');
-  console.log('📋 Available IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+// console.log('🔍 Starting dashboard style extraction...');
+// console.log('📋 Available IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
 
   // Try multiple selectors to find the calendar grid
   const gridSelectors = [
@@ -64,7 +64,7 @@ export function extractDashboardStyles(): StyleExtractionResult {
   for (const selector of gridSelectors) {
     calendarContainer = document.querySelector(selector);
     if (calendarContainer) {
-      console.log(`✅ Found calendar grid with selector: ${selector}`);
+// console.log(`✅ Found calendar grid with selector: ${selector}`);
       break;
     }
   }
@@ -74,7 +74,7 @@ export function extractDashboardStyles(): StyleExtractionResult {
     // Try to find any main container as fallback
     calendarContainer = document.querySelector('main, .main, #root > div, [role="main"]');
     if (calendarContainer) {
-      console.log('📦 Using fallback container');
+// console.log('📦 Using fallback container');
     } else {
       console.error('❌ No suitable container found');
       return { measurements: getDefaultMeasurements(), extractionTime: Date.now() - startTime, success: false, errors };
@@ -145,7 +145,7 @@ export function extractDashboardStyles(): StyleExtractionResult {
       colors
     };
 
-    console.log('✅ Dashboard measurements extracted:', measurements);
+// console.log('✅ Dashboard measurements extracted:', measurements);
 
     return {
       measurements,
@@ -173,7 +173,7 @@ export function getDashboardMeasurements(): DashboardMeasurements {
 
 export async function captureScreenshot(): Promise<string | null> {
   try {
-    console.log('📸 Capturing dashboard screenshot...');
+// console.log('📸 Capturing dashboard screenshot...');
 
     const calendarContainer = document.querySelector('.calendar-container, .weekly-calendar, .planner-container');
     if (!calendarContainer) {
@@ -190,7 +190,7 @@ export async function captureScreenshot(): Promise<string | null> {
     });
 
     const dataUrl = canvas.toDataURL('image/png');
-    console.log('✅ Screenshot captured successfully');
+// console.log('✅ Screenshot captured successfully');
 
     return dataUrl;
 
@@ -230,10 +230,10 @@ function getDefaultMeasurements(): DashboardMeasurements {
 }
 
 // Style comparison utility function for debugging
-export function logStyleComparison(dashboardStyles: any, pdfStyles: any) {
+export function logStyleComparison(dashboardStyles: unknown, pdfStyles: unknown) {
   console.group('🎯 STYLE COMPARISON');
-  console.log('📐 Dashboard Measurements:', dashboardStyles);
-  console.log('📄 PDF Configuration:', pdfStyles);
+// console.log('📐 Dashboard Measurements:', dashboardStyles);
+// console.log('📄 PDF Configuration:', pdfStyles);
   console.groupEnd();
 }
 

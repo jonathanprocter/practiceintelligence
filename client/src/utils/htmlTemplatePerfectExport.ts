@@ -94,7 +94,7 @@ function filterRealAppointments(events: CalendarEvent[]): CalendarEvent[] {
       event.title.trim() === '' ||
       event.title.trim().length === 0
     )) {
-      console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
+// console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
       return false;
     }
     
@@ -143,7 +143,7 @@ function getEventTypeInfo(event: CalendarEvent) {
 /**
  * Draw header section matching HTML layout
  */
-function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, config: any) {
+function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, config: unknown) {
   const { margin, scaleFactor } = config;
   const { headerHeight, colors, fonts } = HTML_TEMPLATE_CONSTANTS;
   
@@ -204,7 +204,7 @@ function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, co
 /**
  * Draw stats bar matching HTML layout
  */
-function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: any, yPosition: number) {
+function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: unknown, yPosition: number) {
   const { margin, scaleFactor } = config;
   const { statsBarHeight, colors, fonts } = HTML_TEMPLATE_CONSTANTS;
   
@@ -260,7 +260,7 @@ function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: any, yPositio
 /**
  * Draw time grid matching HTML layout
  */
-function drawTimeGrid(pdf: jsPDF, config: any, yPosition: number) {
+function drawTimeGrid(pdf: jsPDF, config: unknown, yPosition: number) {
   const { margin, scaleFactor } = config;
   const { timeSlotHeight, timeColumnWidth, colors, fonts } = HTML_TEMPLATE_CONSTANTS;
   
@@ -315,7 +315,7 @@ function drawTimeGrid(pdf: jsPDF, config: any, yPosition: number) {
 /**
  * Draw appointments matching HTML layout
  */
-function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[], config: any, gridStartY: number) {
+function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[], config: unknown, gridStartY: number) {
   const { margin, scaleFactor } = config;
   const { timeSlotHeight, timeColumnWidth, colors, fonts, appointment } = HTML_TEMPLATE_CONSTANTS;
   
@@ -327,7 +327,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     return eventDateString === selectedDateString;
   }).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
   
-  console.log(`📅 Rendering ${dayEvents.length} appointments for ${selectedDateString}`);
+// console.log(`📅 Rendering ${dayEvents.length} appointments for ${selectedDateString}`);
   
   dayEvents.forEach((event, index) => {
     const eventDate = new Date(event.startTime);
@@ -344,7 +344,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     
     // Skip if outside time range
     if (startSlotIndex < 0 || startSlotIndex >= TIME_SLOTS.length) {
-      console.log(`⚠️ Skipping appointment outside time range: ${event.title}`);
+// console.log(`⚠️ Skipping appointment outside time range: ${event.title}`);
       return;
     }
     
@@ -426,14 +426,14 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     
     pdf.text(timeRange, textX, textY);
     
-    console.log(`✅ Rendered appointment: ${cleanTitle} (${timeRange})`);
+// console.log(`✅ Rendered appointment: ${cleanTitle} (${timeRange})`);
   });
 }
 
 /**
  * Draw footer matching HTML layout
  */
-function drawFooter(pdf: jsPDF, selectedDate: Date, config: any, yPosition: number) {
+function drawFooter(pdf: jsPDF, selectedDate: Date, config: unknown, yPosition: number) {
   const { margin, scaleFactor } = config;
   const { footerHeight, colors, fonts } = HTML_TEMPLATE_CONSTANTS;
   
@@ -496,7 +496,7 @@ export async function exportHTMLTemplatePerfect(
   deviceType: 'remarkable' | 'usLetter' = 'usLetter'
 ): Promise<void> {
   try {
-    console.log('🎯 Starting HTML Template Perfect Export');
+// console.log('🎯 Starting HTML Template Perfect Export');
     
     // Get device configuration
     const config = DEVICE_CONFIGS[deviceType];
@@ -510,7 +510,7 @@ export async function exportHTMLTemplatePerfect(
     
     // Filter real appointments only
     const realEvents = filterRealAppointments(events);
-    console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
+// console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
     
     // Draw sections in exact HTML order
     let currentY = config.margin;
@@ -538,7 +538,7 @@ export async function exportHTMLTemplatePerfect(
     await new Promise<void>((resolve, reject) => {
       try {
         pdf.save(filename);
-        console.log(`✅ HTML Template Perfect PDF exported: ${filename}`);
+// console.log(`✅ HTML Template Perfect PDF exported: ${filename}`);
         resolve();
       } catch (error) {
         console.error('❌ Error saving PDF:', error);

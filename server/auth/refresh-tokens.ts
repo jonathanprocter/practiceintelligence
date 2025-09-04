@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
 
@@ -8,7 +9,7 @@ export default async function handler(req: Request, res: Response) {
   }
 
   try {
-    console.log('🔄 Token refresh requested...');
+// console.log('🔄 Token refresh requested...');
 
     const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
     
@@ -44,7 +45,7 @@ export default async function handler(req: Request, res: Response) {
     
     // Update .env file
     const envPath = path.join(process.cwd(), '.env');
-    let envContent = fs.readFileSync(envPath, 'utf8');
+    let envContent = fs.readFile(envPath, 'utf8');
     
     const updateEnvVariable = (content: string, key: string, value: string) => {
       const regex = new RegExp(`^${key}=.*$`, 'm');
@@ -65,9 +66,9 @@ export default async function handler(req: Request, res: Response) {
       process.env.GOOGLE_REFRESH_TOKEN = tokens.refresh_token;
     }
 
-    fs.writeFileSync(envPath, envContent);
+    fs.writeFile(envPath, envContent);
 
-    console.log('✅ Tokens refreshed successfully');
+// console.log('✅ Tokens refreshed successfully');
 
     return res.status(200).json({
       success: true,

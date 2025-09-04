@@ -156,7 +156,7 @@ export const drawScaledDailyTemplate = (
     return eventDate.toDateString() === selectedDate.toDateString();
   });
   
-  console.log(`📅 Filtered ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`📅 Filtered ${dayEvents.length} events for ${selectedDate.toDateString()}`);
   
   // === HEADER SECTION ===
   // Background
@@ -492,5 +492,5 @@ export const drawScaledDailyTemplate = (
     pdf.text(text, navStartX + (index * navSpacing), footerY + 15, { align: 'center' });
   });
   
-  console.log(`✅ Scaled daily template applied for ${dayName}`);
+// console.log(`✅ Scaled daily template applied for ${dayName}`);
 };

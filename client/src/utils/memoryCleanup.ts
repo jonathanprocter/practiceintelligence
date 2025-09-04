@@ -21,7 +21,7 @@ export const performMemoryCleanup = () => {
     });
     (window as any).__blobUrls = [];
     
-    console.log('✅ Memory cleanup completed');
+// console.log('✅ Memory cleanup completed');
   } catch (error) {
     console.warn('Memory cleanup warning:', error);
   }

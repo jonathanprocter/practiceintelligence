@@ -4,13 +4,13 @@ import { ConsoleManager } from '../../utils/consoleManager';
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
-  errorInfo?: any;
+  errorInfo?: unknown;
 }
 
 interface ErrorBoundaryProps {
   children: ReactNode;
   fallbackComponent?: ReactNode;
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo: unknown) => void;
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: unknown) {
     ConsoleManager.throttledLog('ErrorBoundary caught an error:', {
       error: error.message,
       stack: error.stack,

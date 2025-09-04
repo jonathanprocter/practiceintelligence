@@ -9,7 +9,7 @@ export const exportWeeklyCalendarHTML = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('Creating PDF from your exact template layout...');
+// console.log('Creating PDF from your exact template layout...');
     
     // Filter events for the current week
     const weekEvents = events.filter(event => {
@@ -326,7 +326,7 @@ export const exportWeeklyCalendarHTML = async (
     const filename = `weekly-planner-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
 
-    console.log(`✅ Weekly calendar exported: ${filename}`);
+// console.log(`✅ Weekly calendar exported: ${filename}`);
   } catch (error) {
     console.error('Error exporting weekly calendar:', error);
     throw error;
@@ -1117,8 +1117,8 @@ function generateWeeklyHTML(
 </html>`;
 }
 
-function processEventsForGrid(events: CalendarEvent[], weekStartDate: Date, timeSlots: string[]): any[][] {
-  const grid: any[][] = Array(7).fill(null).map(() => Array(timeSlots.length).fill(null).map(() => []));
+function processEventsForGrid(events: CalendarEvent[], weekStartDate: Date, timeSlots: string[]): unknown[][] {
+  const grid: unknown[][] = Array(7).fill(null).map(() => Array(timeSlots.length).fill(null).map(() => []));
   
   events.forEach(event => {
     const eventDate = new Date(event.startTime);

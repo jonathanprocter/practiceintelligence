@@ -1,6 +1,6 @@
 // Emergency Navigation Fix - Remove corrupted elements and rebuild clean navigation
 export const emergencyNavigationFix = () => {
-  console.log('🚨 STARTING EMERGENCY NAVIGATION FIX...');
+// console.log('🚨 STARTING EMERGENCY NAVIGATION FIX...');
   
   // Step 1: Remove all corrupted elements
   const removeCorruptedElements = () => {
@@ -24,7 +24,7 @@ export const emergencyNavigationFix = () => {
       }
     });
     
-    console.log('✅ Removed corrupted navigation elements');
+// console.log('✅ Removed corrupted navigation elements');
   };
   
   // Step 2: Fix header date and clean up corrupted text
@@ -63,7 +63,7 @@ export const emergencyNavigationFix = () => {
       }
     });
     
-    console.log('✅ Fixed header date and cleaned corrupted text');
+// console.log('✅ Fixed header date and cleaned corrupted text');
   };
   
   // Step 3: Add simple navigation buttons
@@ -121,7 +121,7 @@ export const emergencyNavigationFix = () => {
       view.insertAdjacentHTML('beforeend', footerHTML);
     });
     
-    console.log('✅ Added simple navigation buttons');
+// console.log('✅ Added simple navigation buttons');
   };
   
   // Step 4: Remove broken navigation styles
@@ -143,7 +143,7 @@ export const emergencyNavigationFix = () => {
     `;
     document.head.appendChild(style);
     
-    console.log('✅ Added cleanup styles');
+// console.log('✅ Added cleanup styles');
   };
   
   // Execute all cleanup steps
@@ -152,8 +152,8 @@ export const emergencyNavigationFix = () => {
   addSimpleNavigation();
   removeBrokenStyles();
   
-  console.log('✅ EMERGENCY NAVIGATION FIX COMPLETE!');
-  console.log('Navigation should now be clean and functional');
+// console.log('✅ EMERGENCY NAVIGATION FIX COMPLETE!');
+// console.log('Navigation should now be clean and functional');
 };
 
 // Auto-execute on page load

@@ -64,7 +64,7 @@ export const exportRemarkableProPerfect = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🎯 Creating perfect reMarkable Pro PDF with exact specifications');
+// console.log('🎯 Creating perfect reMarkable Pro PDF with exact specifications');
   
   // Create PDF with exact reMarkable Pro dimensions
   const pdf = new jsPDF({
@@ -84,7 +84,7 @@ export const exportRemarkableProPerfect = async (
   const filename = `reMarkable-Pro-Weekly-${weekRange.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`;
   
   pdf.save(filename);
-  console.log('✅ Perfect reMarkable Pro PDF generated with exact specifications');
+// console.log('✅ Perfect reMarkable Pro PDF generated with exact specifications');
 };
 
 async function generatePerfectLayout(
@@ -319,7 +319,7 @@ function generatePerfectAppointments(pdf: jsPDF, weekStartDate: Date, events: Ca
     return eventDate >= weekStartDate && eventDate <= weekEndDate;
   });
   
-  console.log(`📊 Processing ${weekEvents.length} events for perfect layout`);
+// console.log(`📊 Processing ${weekEvents.length} events for perfect layout`);
   
   weekEvents.forEach(event => {
     const eventStart = new Date(event.startTime);

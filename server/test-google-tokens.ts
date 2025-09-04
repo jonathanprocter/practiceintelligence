@@ -4,7 +4,7 @@
 
 import { google } from "googleapis";
 
-export async function testGoogleTokens(req: any, res: any) {
+export async function testGoogleTokens(req: unknown, res: unknown) {
   console.log("🧪 Testing Google tokens directly...");
 
   try {

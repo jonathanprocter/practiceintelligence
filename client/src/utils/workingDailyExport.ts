@@ -205,7 +205,7 @@ function drawEvents(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[]) {
     return eventDate.toDateString() === selectedDate.toDateString();
   }).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
   
-  console.log(`Drawing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`Drawing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
   
   dayEvents.forEach((event, index) => {
     const eventStart = new Date(event.startTime);
@@ -218,7 +218,7 @@ function drawEvents(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[]) {
     
     // Skip events outside our time range (6:00 AM to 11:30 PM)
     if (totalMinutesFrom6AM < 0 || totalMinutesFrom6AM > (17.5 * 60)) {
-      console.log(`Event ${event.title} outside time range (6:00-23:30), skipping`);
+// console.log(`Event ${event.title} outside time range (6:00-23:30), skipping`);
       return;
     }
     
@@ -326,9 +326,9 @@ export const exportWorkingDailyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('=== WORKING DAILY PDF EXPORT ===');
-    console.log('Date:', selectedDate.toDateString());
-    console.log('Total events:', events.length);
+// console.log('=== WORKING DAILY PDF EXPORT ===');
+// console.log('Date:', selectedDate.toDateString());
+// console.log('Total events:', events.length);
     
     // Filter events for the selected date
     const dayEvents = events.filter(event => {
@@ -336,7 +336,7 @@ export const exportWorkingDailyPDF = async (
       return eventDate.toDateString() === selectedDate.toDateString();
     });
     
-    console.log('Events for selected date:', dayEvents.length);
+// console.log('Events for selected date:', dayEvents.length);
     
     // Create PDF
     const pdf = new jsPDF({
@@ -354,8 +354,8 @@ export const exportWorkingDailyPDF = async (
     const fileName = `daily-planner-${selectedDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(fileName);
     
-    console.log(`PDF saved as: ${fileName}`);
-    console.log('=== DAILY PDF EXPORT COMPLETE ===');
+// console.log(`PDF saved as: ${fileName}`);
+// console.log('=== DAILY PDF EXPORT COMPLETE ===');
     
   } catch (error) {
     console.error('Daily PDF export failed:', error);

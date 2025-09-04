@@ -38,7 +38,7 @@ sessionStore.on('error', (err) => {
 
 // Add connection error handling
 sessionStore.on('connect', () => {
-  console.log('✅ Session store connected to PostgreSQL');
+// console.log('✅ Session store connected to PostgreSQL');
 });
 
 sessionStore.on('disconnect', () => {
@@ -101,8 +101,8 @@ app.use((req, res, next) => {
 
 // Session debugging and persistence middleware
 app.use((req, res, next) => {
-  console.log(`🔍 Session ID: ${req.sessionID}`);
-  console.log(`🔍 Session data:`, req.session);
+// console.log(`🔍 Session ID: ${req.sessionID}`);
+// console.log(`🔍 Session data:`, req.session);
 
   // Ensure session is saved after each request
   const originalSend = res.send;
@@ -118,12 +118,12 @@ app.use((req, res, next) => {
 
 (async () => {
   try {
-    console.log('Starting server setup...');
+// console.log('Starting server setup...');
     const server = await registerRoutes(app);
-    console.log('Routes registered successfully');
+// console.log('Routes registered successfully');
 
     // Global error handler
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
@@ -152,12 +152,12 @@ app.use((req, res, next) => {
 
   // CRITICAL: Ensure API routes are fully registered before Vite setup
   // to prevent frontend from intercepting OAuth callbacks
-  console.log('✅ All API routes registered, now setting up frontend...');
+// console.log('✅ All API routes registered, now setting up frontend...');
 
   if (app.get("env") === "development") {
-    console.log('Setting up Vite (after API routes)...');
+// console.log('Setting up Vite (after API routes)...');
     await setupVite(app, server);
-    console.log('Vite setup complete');
+// console.log('Vite setup complete');
   } else {
     serveStatic(app);
   }
@@ -168,22 +168,22 @@ app.use((req, res, next) => {
   const port = 5000;
 
   // Add error handling before listen
-  server.on('error', (err: any) => {
+  server.on('error', (err: unknown) => {
     console.error('Server error:', err);
     if (err.code === 'EADDRINUSE') {
       console.error(`Port ${port} is already in use`);
-      console.log('Please use the Clean Start workflow to kill existing processes');
+// console.log('Please use the Clean Start workflow to kill existing processes');
       process.exit(1);
     }
   });
 
   // Graceful shutdown
   const gracefulShutdown = () => {
-    console.log('Shutting down gracefully...');
+// console.log('Shutting down gracefully...');
     server.close(() => {
-      console.log('HTTP server closed');
+// console.log('HTTP server closed');
       pool.end(() => {
-        console.log('Database pool closed');
+// console.log('Database pool closed');
         process.exit(0);
       });
     });

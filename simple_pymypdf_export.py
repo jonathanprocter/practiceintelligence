@@ -1,5 +1,5 @@
         #!/usr/bin/env python3
-        """
+"""
         PyMyPDF Bidirectional Export - REPLACEMENT VERSION
         ==================================================
 

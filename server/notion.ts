@@ -85,7 +85,7 @@ export async function findDatabaseByTitle(title: string) {
 }
 
 // Create a new database if one with a matching title does not exist
-export async function createDatabaseIfNotExists(title: string, properties: any) {
+export async function createDatabaseIfNotExists(title: string, properties: unknown) {
     const existingDb = await findDatabaseByTitle(title);
     if (existingDb) {
         return existingDb;
@@ -154,7 +154,7 @@ export async function createCalendarEventsDatabase() {
 }
 
 // Sync calendar event to Notion
-export async function syncEventToNotion(event: any, databaseId: string) {
+export async function syncEventToNotion(event: unknown, databaseId: string) {
     try {
         const properties = {
             Title: {
@@ -248,7 +248,7 @@ export async function getNotionEvents(databaseId: string) {
             database_id: databaseId,
         });
 
-        return response.results.map((page: any) => {
+        return response.results.map((page: unknown) => {
             const properties = page.properties;
 
             return {

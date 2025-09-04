@@ -8,11 +8,11 @@ def safe_parse_datetime(date_str):
         return None
     try:
         return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
-    except:
+    except Exception:
         try:
             clean_date = date_str.split('.')[0] + 'Z'
             return datetime.fromisoformat(clean_date.replace('Z', '+00:00'))
-        except:
+        except Exception:
             return None
 
 def main():

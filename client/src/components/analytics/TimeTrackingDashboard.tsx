@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Progress } from '@/components/ui/Progress';
 import { 
   Clock, 
   Target, 
@@ -41,7 +41,7 @@ interface ProductivityMetrics {
   efficiency: number;
 }
 
-export function TimeTrackingDashboard({ events }: { events: any[] }) {
+export function TimeTrackingDashboard({ events }: { events: unknown[] }) {
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
   const [activeTimer, setActiveTimer] = useState<string | null>(null);
   const [currentTask, setCurrentTask] = useState('');
@@ -96,7 +96,7 @@ export function TimeTrackingDashboard({ events }: { events: any[] }) {
     calculateMetrics(mockEntries, events);
   }, [events]);
 
-  const calculateMetrics = (entries: TimeEntry[], calendarEvents: any[]) => {
+  const calculateMetrics = (entries: TimeEntry[], calendarEvents: unknown[]) => {
     const totalMinutes = entries.reduce((sum, entry) => sum + entry.duration, 0);
     const billableMinutes = entries.filter(e => e.billable).reduce((sum, entry) => sum + entry.duration, 0);
     const focusedMinutes = entries.filter(e => e.category === 'focused').reduce((sum, entry) => sum + entry.duration, 0);

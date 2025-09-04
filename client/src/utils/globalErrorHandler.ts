@@ -26,7 +26,7 @@ if (typeof window !== 'undefined') {
         }
       });
       const result = await response.json();
-      console.log('Fix session result:', result);
+// console.log('Fix session result:', result);
       return result;
     } catch (error) {
       console.error('Fix session error:', error);
@@ -40,7 +40,7 @@ if (typeof window !== 'undefined') {
         credentials: 'include'
       });
       const result = await response.json();
-      console.log('Auth status:', result);
+// console.log('Auth status:', result);
       return result;
     } catch (error) {
       console.error('Auth status error:', error);
@@ -54,7 +54,7 @@ if (typeof window !== 'undefined') {
     document.cookie.split(";").forEach((c) => {
       document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
-    console.log('Authentication data cleared');
+// console.log('Authentication data cleared');
     window.location.reload();
   };
 
@@ -63,24 +63,24 @@ if (typeof window !== 'undefined') {
   };
 
   (window as any).runDiagnostics = async () => {
-    console.log('Running comprehensive diagnostics...');
+// console.log('Running comprehensive diagnostics...');
     
     try {
       const statusResponse = await fetch('/api/auth/status', { credentials: 'include' });
       const status = await statusResponse.json();
-      console.log('1. Auth Status:', status);
+// console.log('1. Auth Status:', status);
 
       const eventsResponse = await fetch('/api/events', { credentials: 'include' });
-      console.log('2. Events Response Status:', eventsResponse.status);
+// console.log('2. Events Response Status:', eventsResponse.status);
 
       if (eventsResponse.status === 401) {
-        console.log('3. Running auto-fix...');
+// console.log('3. Running auto-fix...');
         const fixResult = await (window as any).fixSessionNow();
-        console.log('4. Fix Result:', fixResult);
+// console.log('4. Fix Result:', fixResult);
 
         if (fixResult.success) {
           const retryEventsResponse = await fetch('/api/events', { credentials: 'include' });
-          console.log('5. Retry Events Response Status:', retryEventsResponse.status);
+// console.log('5. Retry Events Response Status:', retryEventsResponse.status);
         }
       }
     } catch (error) {
@@ -88,12 +88,12 @@ if (typeof window !== 'undefined') {
     }
   };
 
-  console.log('🛠️ Session fix commands available:');
-  console.log('  fixSessionNow() - Fix authentication session');
-  console.log('  testAuthenticatedSession() - Test and debug session');
-  console.log('  clearAuthenticationData() - Clear all auth data');
-  console.log('  forceGoogleOAuth() - Force fresh OAuth');
-  console.log('  runDiagnostics() - Run comprehensive diagnostics');
+// console.log('🛠️ Session fix commands available:');
+// console.log('  fixSessionNow() - Fix authentication session');
+// console.log('  testAuthenticatedSession() - Test and debug session');
+// console.log('  clearAuthenticationData() - Clear all auth data');
+// console.log('  forceGoogleOAuth() - Force fresh OAuth');
+// console.log('  runDiagnostics() - Run comprehensive diagnostics');
 }
 
 export {};

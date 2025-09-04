@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Button } from '@/components/ui/Button';
 import { DollarSign, TrendingUp, TrendingDown, Calendar, Users, Clock, RefreshCw } from "lucide-react";
 
 interface RevenueAnalyticsProps {
-  events: any[];
+  events: unknown[];
 }
 
 export function RevenueAnalytics({ events }: RevenueAnalyticsProps) {

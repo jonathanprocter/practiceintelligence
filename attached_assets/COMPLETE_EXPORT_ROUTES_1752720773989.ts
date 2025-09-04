@@ -875,6 +875,6 @@ export function registerExportRoutes(app: Express): void {
     }
   });
 
-  console.log('✅ Enhanced export routes registered successfully');
+// // console.log('✅ Enhanced export routes registered successfully');
 }
 

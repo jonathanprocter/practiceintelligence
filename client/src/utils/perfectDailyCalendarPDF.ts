@@ -18,7 +18,7 @@ export const exportPerfectDailyCalendarPDF = async (options: DailyPDFOptions): P
   const { selectedDate, events, showStats = true } = options;
 
   try {
-    console.log('🎯 Creating perfect daily calendar PDF that matches application interface exactly...');
+// console.log('🎯 Creating perfect daily calendar PDF that matches application interface exactly...');
 
     // Filter events for the selected date
     const dayEvents = events.filter(event => {
@@ -26,7 +26,7 @@ export const exportPerfectDailyCalendarPDF = async (options: DailyPDFOptions): P
       return eventDate.toDateString() === selectedDate.toDateString();
     });
     
-    console.log(`📅 Processing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`📅 Processing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
 
     // Find the daily calendar view container
     const dailyViewSelectors = [
@@ -64,7 +64,7 @@ export const exportPerfectDailyCalendarPDF = async (options: DailyPDFOptions): P
       throw new Error('Could not find daily calendar container. Please ensure you are viewing the daily calendar.');
     }
 
-    console.log('📍 Found daily calendar container:', dailyContainer.className);
+// console.log('📍 Found daily calendar container:', dailyContainer.className);
 
     // Prepare the container for optimal capture
     const originalState = await prepareContainerForCapture(dailyContainer);
@@ -104,12 +104,12 @@ export const exportPerfectDailyCalendarPDF = async (options: DailyPDFOptions): P
         }
       };
 
-      console.log('📸 Capturing daily calendar interface...');
+// console.log('📸 Capturing daily calendar interface...');
       
       // Capture the daily calendar
       const canvas = await html2canvas(dailyContainer, canvasOptions);
       
-      console.log(`📐 Captured canvas: ${canvas.width}x${canvas.height}`);
+// console.log(`📐 Captured canvas: ${canvas.width}x${canvas.height}`);
 
       // Create PDF with optimal dimensions
       const pdf = await createPDFFromCanvas(canvas, selectedDate, dayEvents.length, showStats);
@@ -118,8 +118,8 @@ export const exportPerfectDailyCalendarPDF = async (options: DailyPDFOptions): P
       const fileName = `daily-calendar-${selectedDate.toISOString().split('T')[0]}.pdf`;
       pdf.save(fileName);
 
-      console.log('✅ Perfect daily calendar PDF exported successfully');
-      console.log(`📄 File saved as: ${fileName}`);
+// console.log('✅ Perfect daily calendar PDF exported successfully');
+// console.log(`📄 File saved as: ${fileName}`);
 
     } finally {
       // Restore original container state

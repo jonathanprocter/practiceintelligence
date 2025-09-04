@@ -11,7 +11,7 @@ export const exportBrowserMatchingWeeklyPDF = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🔄 Creating browser-matching weekly PDF using EXACT Python specifications...');
+// console.log('🔄 Creating browser-matching weekly PDF using EXACT Python specifications...');
 
   // Create PDF with US Letter landscape (11 x 8.5 inches = 792 x 612 points)
   const pdf = new jsPDF({
@@ -39,8 +39,8 @@ export const exportBrowserMatchingWeeklyPDF = async (
     totalRows: 37 // 1 header + 36 time slots
   };
   
-  console.log('📊 EXACT Python specifications scaled to PDF:', config);
-  console.log('📊 Scale factor:', scaleFactor);
+// console.log('📊 EXACT Python specifications scaled to PDF:', config);
+// console.log('📊 Scale factor:', scaleFactor);
 
   const gridStartX = config.margin;
   const gridStartY = config.margin + config.headerHeight + config.lineSpacing;
@@ -104,7 +104,7 @@ export const exportBrowserMatchingWeeklyPDF = async (
     timeSlots.push(`${hour.toString().padStart(2, '0')}30`);  // Half hour
   }
   
-  console.log(`Generated ${timeSlots.length} time slots as per Python spec`);
+// console.log(`Generated ${timeSlots.length} time slots as per Python spec`);
 
   // Draw all time rows
   let currentY = tableStartY + config.rowHeight;
@@ -163,7 +163,7 @@ export const exportBrowserMatchingWeeklyPDF = async (
     return eventDate >= weekStartDate && eventDate <= weekEndDate;
   });
 
-  console.log(`Rendering ${weekEvents.length} events using Python grid positioning...`);
+// console.log(`Rendering ${weekEvents.length} events using Python grid positioning...`);
 
   weekEvents.forEach(event => {
     const eventDate = new Date(event.startTime);
@@ -257,14 +257,14 @@ export const exportBrowserMatchingWeeklyPDF = async (
   const filename = `browser-matching-weekly-${weekStartDate.getFullYear()}-${String(weekStartDate.getMonth() + 1).padStart(2, '0')}-${String(weekStartDate.getDate()).padStart(2, '0')}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ Browser-matching weekly PDF saved: ${filename}`);
+// console.log(`✅ Browser-matching weekly PDF saved: ${filename}`);
 };
 
 export const exportBrowserMatchingDailyPDF = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🔄 Creating browser-matching daily PDF...');
+// console.log('🔄 Creating browser-matching daily PDF...');
 
   // Create PDF with 8.5x11 portrait format
   const pdf = new jsPDF({
@@ -279,7 +279,7 @@ export const exportBrowserMatchingDailyPDF = async (
     return eventDate.toDateString() === selectedDate.toDateString();
   });
 
-  console.log(`Found ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`Found ${dayEvents.length} events for ${selectedDate.toDateString()}`);
 
   // Configuration for daily view
   const config = {
@@ -459,5 +459,5 @@ export const exportBrowserMatchingDailyPDF = async (
   const filename = `browser-matching-daily-${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ Browser-matching daily PDF saved: ${filename}`);
+// console.log(`✅ Browser-matching daily PDF saved: ${filename}`);
 };

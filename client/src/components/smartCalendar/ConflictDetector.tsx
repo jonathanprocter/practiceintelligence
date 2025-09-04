@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { AlertTriangle, Clock, MapPin, Calendar, CheckCircle2, RefreshCw } from "lucide-react";
 import { SmartCalendarIntelligence } from "@/utils/smartCalendarIntelligence";
 
 interface ConflictDetectorProps {
-  existingEvents: any[];
+  existingEvents: unknown[];
   showActiveConflicts?: boolean;
 }
 
 interface OptimalTimeSuggestionsProps {
   date: Date;
   duration: number;
-  existingEvents: any[];
+  existingEvents: unknown[];
 }
 
 export function ConflictDetector({ existingEvents, showActiveConflicts = true }: ConflictDetectorProps) {
@@ -229,7 +229,7 @@ export function ConflictDetector({ existingEvents, showActiveConflicts = true }:
                         )}
                         {conflict.events && conflict.events.length > 0 && (
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {conflict.events.map((event: any, eventIndex: number) => (
+                            {conflict.events.map((event: unknown, eventIndex: number) => (
                               <Badge key={eventIndex} variant="outline" className="text-xs">
                                 {event.title}
                               </Badge>

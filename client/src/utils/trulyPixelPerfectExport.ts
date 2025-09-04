@@ -218,16 +218,16 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 Creating TRULY pixel-perfect weekly PDF using dashboard styles...');
+// console.log('🎯 Creating TRULY pixel-perfect weekly PDF using dashboard styles...');
 
     // STEP 1: Perform visual comparison and capture exact measurements as requested by user
-    console.log('📸 Step 1: Capturing dashboard screenshot for visual comparison...');
+// console.log('📸 Step 1: Capturing dashboard screenshot for visual comparison...');
     let visualComparison;
     try {
       visualComparison = await performVisualComparison();
-      console.log('🎯 Visual comparison completed with score:', visualComparison.pixelPerfectScore || 0);
+// console.log('🎯 Visual comparison completed with score:', visualComparison.pixelPerfectScore || 0);
     } catch (error) {
-      console.log('⚠️ Visual comparison failed, continuing with export:', error);
+// console.log('⚠️ Visual comparison failed, continuing with export:', error);
       visualComparison = {
         pixelPerfectScore: 0,
         visualDifferences: [],
@@ -237,7 +237,7 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
     }
 
     // STEP 2: Extract exact print-optimized styles from dashboard
-    console.log('📐 Step 2: Extracting exact dashboard measurements...');
+// console.log('📐 Step 2: Extracting exact dashboard measurements...');
     const exactMeasurements = extractPrintOptimizedStyles();
 
     if (!exactMeasurements) {
@@ -245,7 +245,7 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
     }
 
     // STEP 3: Use exact dashboard dimensions for PDF configuration
-    console.log('🎯 Step 3: Creating PDF with exact dashboard dimensions...');
+// console.log('🎯 Step 3: Creating PDF with exact dashboard dimensions...');
 
     // Extract styles from actual dashboard
     const dashboardStyles = getDashboardStyles();
@@ -291,18 +291,18 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
     } : baseConfig;
 
     // ROOT CAUSE ANALYSIS: Log every transformation step
-    console.log('🔍 ROOT CAUSE ANALYSIS - Value Flow:');
-    console.log('  Step 1 - Dashboard Extracted:', {
+// console.log('🔍 ROOT CAUSE ANALYSIS - Value Flow:');
+// console.log('  Step 1 - Dashboard Extracted:', {
       timeColumnWidth: exactMeasurements?.timeColumnWidth,
       dayColumnWidth: exactMeasurements?.dayColumnWidth,
       timeSlotHeight: exactMeasurements?.timeSlotHeight
     });
-    console.log('  Step 2 - PDF Config Applied:', {
+// console.log('  Step 2 - PDF Config Applied:', {
       timeColumnWidth: exactConfig.timeColumnWidth,
       dayColumnWidth: exactConfig.dayColumnWidth,
       slotHeight: exactConfig.slotHeight
     });
-    console.log('  Step 3 - About to render PDF with these EXACT values (no further scaling)');
+// console.log('  Step 3 - About to render PDF with these EXACT values (no further scaling)');
 
     // Log detailed comparison as requested by user
     if (exactMeasurements) {
@@ -332,8 +332,8 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
       }
     });
 
-    console.log(`📅 Rendering ${weekEvents.length} events with dashboard-extracted styles`);
-    console.log('Events to render:', weekEvents.map(e => ({ title: e.title, start: e.startTime, source: e.source })));
+// console.log(`📅 Rendering ${weekEvents.length} events with dashboard-extracted styles`);
+// console.log('Events to render:', weekEvents.map(e => ({ title: e.title, start: e.startTime, source: e.source })));
 
     // Create PDF with exact dashboard proportions
     const pdf = new jsPDF({
@@ -442,12 +442,12 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
     const timeSlots = generateTimeSlots();
 
     // Step 4 - FINAL VALUES BEFORE PDF RENDERING
-    console.log('  Step 4 - ACTUAL VALUES BEING USED FOR PDF RENDERING:');
-    console.log('    config.timeColumnWidth:', config.timeColumnWidth);
-    console.log('    config.dayColumnWidth:', config.dayColumnWidth);
-    console.log('    config.slotHeight:', config.slotHeight);
-    console.log('    gridStartY:', gridStartY);
-    console.log('    Total content width:', config.contentWidth);
+// console.log('  Step 4 - ACTUAL VALUES BEING USED FOR PDF RENDERING:');
+// console.log('    config.timeColumnWidth:', config.timeColumnWidth);
+// console.log('    config.dayColumnWidth:', config.dayColumnWidth);
+// console.log('    config.slotHeight:', config.slotHeight);
+// console.log('    gridStartY:', gridStartY);
+// console.log('    Total content width:', config.contentWidth);
 
     // Grid outline with rounded corners
     pdf.setLineWidth(2);
@@ -667,22 +667,22 @@ export const exportTrulyPixelPerfectWeeklyPDF = async (
     const fileName = `Pixel_Perfect_Weekly_${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(fileName);
 
-    console.log(`✅ Truly pixel-perfect weekly PDF exported: ${fileName}`);
-    console.log('🎯 Used dashboard-extracted styles for exact visual replication');
+// console.log(`✅ Truly pixel-perfect weekly PDF exported: ${fileName}`);
+// console.log('🎯 Used dashboard-extracted styles for exact visual replication');
 
     // STEP 5: COMPREHENSIVE PIXEL-PERFECT AUDIT
-    console.log('\n🔍 PERFORMING COMPREHENSIVE PIXEL-PERFECT AUDIT...');
+// console.log('\n🔍 PERFORMING COMPREHENSIVE PIXEL-PERFECT AUDIT...');
     try {
       const currentDate = new Date();
       const currentEvents = (window as any).currentEvents || [];
       const { runPixelPerfectAudit } = await import('./pixelPerfectAudit');
       const auditResults = await runPixelPerfectAudit(currentDate, currentEvents);
 
-      console.log('\n📊 AUDIT SUMMARY:');
-      console.log(`   - Pixel-perfect score: ${auditResults.overallScore || 0}%`);
-      console.log(`   - Visual truth table: ${auditResults.visualTruthTable?.length || 0} parameters`);
-      console.log(`   - Recommendations: ${auditResults.recommendations?.length || 0}`);
-      console.log('   - Full audit results saved to localStorage');
+// console.log('\n📊 AUDIT SUMMARY:');
+// console.log(`   - Pixel-perfect score: ${auditResults.overallScore || 0}%`);
+// console.log(`   - Visual truth table: ${auditResults.visualTruthTable?.length || 0} parameters`);
+// console.log(`   - Recommendations: ${auditResults.recommendations?.length || 0}`);
+// console.log('   - Full audit results saved to localStorage');
 
       // Save audit results to localStorage
       localStorage.setItem('pixelPerfectAuditResults', JSON.stringify(auditResults));

@@ -114,10 +114,10 @@ export class ComprehensivePixelAnalyzer {
     date: Date,
     events: CalendarEvent[]
   ): Promise<RealPixelAnalysis> {
-    console.log('🔍 STARTING COMPREHENSIVE PIXEL-PERFECT ANALYSIS');
-    console.log('='.repeat(100));
-    console.log(`📅 Analysis Date: ${format(date, 'EEE MMM dd yyyy')}`);
-    console.log(`📊 Events Count: ${events.length}`);
+// console.log('🔍 STARTING COMPREHENSIVE PIXEL-PERFECT ANALYSIS');
+// console.log('='.repeat(100));
+// console.log(`📅 Analysis Date: ${format(date, 'EEE MMM dd yyyy')}`);
+// console.log(`📊 Events Count: ${events.length}`);
 
     const issues: RealPixelIssue[] = [];
     const recommendations: string[] = [];
@@ -190,10 +190,10 @@ export class ComprehensivePixelAnalyzer {
       
       const percentage = Math.round((totalScore / maxScore) * 100);
       
-      console.log(`\n🎯 COMPREHENSIVE ANALYSIS COMPLETE`);
-      console.log(`📊 Final Score: ${totalScore}/${maxScore} (${percentage}%)`);
-      console.log(`🔧 Issues Found: ${issues.length}`);
-      console.log(`💡 Recommendations: ${recommendations.length}`);
+// console.log(`\n🎯 COMPREHENSIVE ANALYSIS COMPLETE`);
+// console.log(`📊 Final Score: ${totalScore}/${maxScore} (${percentage}%)`);
+// console.log(`🔧 Issues Found: ${issues.length}`);
+// console.log(`💡 Recommendations: ${recommendations.length}`);
       
       return {
         overallScore: totalScore,
@@ -215,7 +215,7 @@ export class ComprehensivePixelAnalyzer {
    * Capture dashboard screenshot with precise measurements
    */
   private async captureDashboardWithMeasurements(): Promise<string> {
-    console.log('📸 Capturing dashboard with measurement overlay...');
+// console.log('📸 Capturing dashboard with measurement overlay...');
     
     // Try multiple selectors to find the calendar container
     const calendarSelectors = [
@@ -235,7 +235,7 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of calendarSelectors) {
       calendarContainer = document.querySelector(selector);
       if (calendarContainer) {
-        console.log(`📍 Found calendar container with selector: ${selector}`);
+// console.log(`📍 Found calendar container with selector: ${selector}`);
         break;
       }
     }
@@ -248,7 +248,7 @@ export class ComprehensivePixelAnalyzer {
     this.dashboardElement = calendarContainer as HTMLElement;
     
     // Log available elements for debugging
-    console.log('🔍 Available elements in container:');
+// console.log('🔍 Available elements in container:');
     const allElements = this.dashboardElement.querySelectorAll('*');
     const elementCounts = new Map<string, number>();
     
@@ -261,7 +261,7 @@ export class ComprehensivePixelAnalyzer {
       }
     });
     
-    console.log('📊 Element counts:', Object.fromEntries(elementCounts));
+// console.log('📊 Element counts:', Object.fromEntries(elementCounts));
     
     // Create measurement overlay
     const measurementOverlay = this.createMeasurementOverlay();
@@ -284,7 +284,7 @@ export class ComprehensivePixelAnalyzer {
       measurementOverlay.parentNode.removeChild(measurementOverlay);
     }
     
-    console.log('✅ Dashboard screenshot with measurements captured');
+// console.log('✅ Dashboard screenshot with measurements captured');
     return screenshot;
   }
 
@@ -292,14 +292,14 @@ export class ComprehensivePixelAnalyzer {
    * Extract precise dashboard measurements
    */
   private async extractPreciseDashboardMeasurements(): Promise<DashboardMeasurements> {
-    console.log('📏 Extracting precise dashboard measurements...');
+// console.log('📏 Extracting precise dashboard measurements...');
     
     if (!this.dashboardElement) {
       throw new Error('Dashboard element not available for measurements');
     }
 
     const rect = this.dashboardElement.getBoundingClientRect();
-    console.log('📐 Dashboard element rect:', rect);
+// console.log('📐 Dashboard element rect:', rect);
     
     // Try multiple selectors to find time column
     const timeColumnSelectors = [
@@ -315,14 +315,14 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of timeColumnSelectors) {
       timeColumn = this.dashboardElement.querySelector(selector);
       if (timeColumn) {
-        console.log(`📍 Found time column with selector: ${selector}`);
+// console.log(`📍 Found time column with selector: ${selector}`);
         break;
       }
     }
     
     const timeColumnRect = timeColumn?.getBoundingClientRect();
     const timeColumnWidth = timeColumnRect?.width || 80; // Default fallback
-    console.log('📏 Time column width:', timeColumnWidth);
+// console.log('📏 Time column width:', timeColumnWidth);
     
     // Try multiple selectors to find day columns
     const dayColumnSelectors = [
@@ -338,14 +338,14 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of dayColumnSelectors) {
       dayColumns = this.dashboardElement.querySelectorAll(selector);
       if (dayColumns.length > 0) {
-        console.log(`📍 Found ${dayColumns.length} day columns with selector: ${selector}`);
+// console.log(`📍 Found ${dayColumns.length} day columns with selector: ${selector}`);
         break;
       }
     }
     
     const dayColumnWidth = dayColumns && dayColumns.length > 0 ? 
       dayColumns[0].getBoundingClientRect().width : 110; // Default fallback
-    console.log('📏 Day column width:', dayColumnWidth);
+// console.log('📏 Day column width:', dayColumnWidth);
     
     // Try multiple selectors to find time slots
     const timeSlotSelectors = [
@@ -361,14 +361,14 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of timeSlotSelectors) {
       timeSlots = this.dashboardElement.querySelectorAll(selector);
       if (timeSlots.length > 0) {
-        console.log(`📍 Found ${timeSlots.length} time slots with selector: ${selector}`);
+// console.log(`📍 Found ${timeSlots.length} time slots with selector: ${selector}`);
         break;
       }
     }
     
     const timeSlotHeight = timeSlots && timeSlots.length > 0 ?
       timeSlots[0].getBoundingClientRect().height : 40; // Default fallback
-    console.log('📏 Time slot height:', timeSlotHeight);
+// console.log('📏 Time slot height:', timeSlotHeight);
     
     // Try multiple selectors to find header
     const headerSelectors = [
@@ -384,25 +384,25 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of headerSelectors) {
       header = this.dashboardElement.querySelector(selector);
       if (header) {
-        console.log(`📍 Found header with selector: ${selector}`);
+// console.log(`📍 Found header with selector: ${selector}`);
         break;
       }
     }
     
     const headerHeight = header?.getBoundingClientRect().height || 60; // Default fallback
-    console.log('📏 Header height:', headerHeight);
+// console.log('📏 Header height:', headerHeight);
     
     // Extract event positions
     const eventPositions = await this.extractEventPositions();
-    console.log('📍 Event positions extracted:', eventPositions.length);
+// console.log('📍 Event positions extracted:', eventPositions.length);
     
     // Extract font measurements
     const fontSizes = await this.extractFontMeasurements();
-    console.log('🔤 Font sizes extracted:', fontSizes);
+// console.log('🔤 Font sizes extracted:', fontSizes);
     
     // Extract color measurements
     const colors = await this.extractColorMeasurements();
-    console.log('🎨 Colors extracted:', colors);
+// console.log('🎨 Colors extracted:', colors);
     
     const measurements: DashboardMeasurements = {
       timeColumnWidth,
@@ -414,7 +414,7 @@ export class ComprehensivePixelAnalyzer {
       colors
     };
     
-    console.log('✅ Dashboard measurements extracted:', measurements);
+// console.log('✅ Dashboard measurements extracted:', measurements);
     return measurements;
   }
 
@@ -422,8 +422,8 @@ export class ComprehensivePixelAnalyzer {
    * Calculate expected PDF measurements based on dashboard
    */
   private calculateExpectedPDFMeasurements(dashboard: DashboardMeasurements): ExpectedPDFMeasurements {
-    console.log('📐 Calculating expected PDF measurements...');
-    console.log('📊 Dashboard input:', dashboard);
+// console.log('📐 Calculating expected PDF measurements...');
+// console.log('📊 Dashboard input:', dashboard);
     
     // Standard PDF dimensions (8.5x11 inches at 72 DPI)
     const pageWidth = 612; // points
@@ -434,20 +434,20 @@ export class ComprehensivePixelAnalyzer {
     const availableWidth = pageWidth - margins.left - margins.right;
     const availableHeight = pageHeight - margins.top - margins.bottom;
     
-    console.log('📏 Available PDF space:', { availableWidth, availableHeight });
+// console.log('📏 Available PDF space:', { availableWidth, availableHeight });
     
     // Ensure we have valid measurements
     const timeColumnWidth = dashboard.timeColumnWidth || 80;
     const dayColumnWidth = dashboard.dayColumnWidth || 110;
     const timeSlotHeight = dashboard.timeSlotHeight || 40;
     
-    console.log('📐 Using measurements:', { timeColumnWidth, dayColumnWidth, timeSlotHeight });
+// console.log('📐 Using measurements:', { timeColumnWidth, dayColumnWidth, timeSlotHeight });
     
     // Calculate scaling factor to fit dashboard proportions
     const dashboardTotalWidth = timeColumnWidth + (dayColumnWidth * 7);
     const scalingFactor = dashboardTotalWidth > 0 ? availableWidth / dashboardTotalWidth : 1;
     
-    console.log('📊 Scaling calculation:', { 
+// console.log('📊 Scaling calculation:', { 
       dashboardTotalWidth, 
       availableWidth, 
       scalingFactor 
@@ -468,7 +468,7 @@ export class ComprehensivePixelAnalyzer {
       expectedTimeSlotHeight
     };
     
-    console.log('✅ Expected PDF measurements calculated:', expected);
+// console.log('✅ Expected PDF measurements calculated:', expected);
     return expected;
   }
 
@@ -479,7 +479,7 @@ export class ComprehensivePixelAnalyzer {
     dashboard: DashboardMeasurements,
     expectedPDF: ExpectedPDFMeasurements
   ): Promise<{score: number, issues: RealPixelIssue[]}> {
-    console.log('📏 Analyzing measurement accuracy...');
+// console.log('📏 Analyzing measurement accuracy...');
     
     const issues: RealPixelIssue[] = [];
     let score = 0;
@@ -605,7 +605,7 @@ export class ComprehensivePixelAnalyzer {
     if (scalingFactorAccuracy >= 90 || isPixelPerfectExport) {
       score += 50;
       if (isPixelPerfectExport) {
-        console.log('✅ Pixel-perfect export detected - scaling factor is consistent for dashboard→PDF conversion');
+// console.log('✅ Pixel-perfect export detected - scaling factor is consistent for dashboard→PDF conversion');
       }
     } else {
       issues.push({
@@ -621,7 +621,7 @@ export class ComprehensivePixelAnalyzer {
       });
     }
     
-    console.log(`📏 Measurement accuracy score: ${score}/${maxCategoryScore}`);
+// console.log(`📏 Measurement accuracy score: ${score}/${maxCategoryScore}`);
     return { score, issues };
   }
 
@@ -632,7 +632,7 @@ export class ComprehensivePixelAnalyzer {
     events: CalendarEvent[],
     dashboard: DashboardMeasurements
   ): Promise<{score: number, issues: RealPixelIssue[]}> {
-    console.log('🎯 Analyzing positioning accuracy...');
+// console.log('🎯 Analyzing positioning accuracy...');
     
     const issues: RealPixelIssue[] = [];
     let score = 0;
@@ -705,7 +705,7 @@ export class ComprehensivePixelAnalyzer {
       });
     }
     
-    console.log(`🎯 Positioning accuracy score: ${score}/${maxCategoryScore}`);
+// console.log(`🎯 Positioning accuracy score: ${score}/${maxCategoryScore}`);
     return { score, issues };
   }
 
@@ -713,7 +713,7 @@ export class ComprehensivePixelAnalyzer {
    * Analyze color accuracy
    */
   private async analyzeColorAccuracy(dashboard: DashboardMeasurements): Promise<{score: number, issues: RealPixelIssue[]}> {
-    console.log('🎨 Analyzing color accuracy...');
+// console.log('🎨 Analyzing color accuracy...');
     
     const issues: RealPixelIssue[] = [];
     let score = 0;
@@ -723,7 +723,7 @@ export class ComprehensivePixelAnalyzer {
     // In a real implementation, this would compare extracted colors with PDF colors
     score = maxCategoryScore;
     
-    console.log(`🎨 Color accuracy score: ${score}/${maxCategoryScore}`);
+// console.log(`🎨 Color accuracy score: ${score}/${maxCategoryScore}`);
     return { score, issues };
   }
 
@@ -731,7 +731,7 @@ export class ComprehensivePixelAnalyzer {
    * Analyze font accuracy
    */
   private async analyzeFontAccuracy(dashboard: DashboardMeasurements): Promise<{score: number, issues: RealPixelIssue[]}> {
-    console.log('🔤 Analyzing font accuracy...');
+// console.log('🔤 Analyzing font accuracy...');
     
     const issues: RealPixelIssue[] = [];
     let score = 0;
@@ -741,7 +741,7 @@ export class ComprehensivePixelAnalyzer {
     // In a real implementation, this would compare extracted fonts with PDF fonts
     score = maxCategoryScore;
     
-    console.log(`🔤 Font accuracy score: ${score}/${maxCategoryScore}`);
+// console.log(`🔤 Font accuracy score: ${score}/${maxCategoryScore}`);
     return { score, issues };
   }
 
@@ -749,7 +749,7 @@ export class ComprehensivePixelAnalyzer {
    * Analyze spacing accuracy
    */
   private async analyzeSpacingAccuracy(dashboard: DashboardMeasurements): Promise<{score: number, issues: RealPixelIssue[]}> {
-    console.log('📏 Analyzing spacing accuracy...');
+// console.log('📏 Analyzing spacing accuracy...');
     
     const issues: RealPixelIssue[] = [];
     let score = 0;
@@ -759,7 +759,7 @@ export class ComprehensivePixelAnalyzer {
     // In a real implementation, this would compare extracted spacing with PDF spacing
     score = maxCategoryScore;
     
-    console.log(`📏 Spacing accuracy score: ${score}/${maxCategoryScore}`);
+// console.log(`📏 Spacing accuracy score: ${score}/${maxCategoryScore}`);
     return { score, issues };
   }
 
@@ -801,7 +801,7 @@ export class ComprehensivePixelAnalyzer {
     for (const selector of eventSelectors) {
       events = this.dashboardElement.querySelectorAll(selector);
       if (events.length > 0) {
-        console.log(`📍 Found ${events.length} events with selector: ${selector}`);
+// console.log(`📍 Found ${events.length} events with selector: ${selector}`);
         break;
       }
     }
@@ -826,7 +826,7 @@ export class ComprehensivePixelAnalyzer {
       });
     }
     
-    console.log(`📍 Extracted ${positions.length} event positions`);
+// console.log(`📍 Extracted ${positions.length} event positions`);
     return positions;
   }
 
@@ -954,34 +954,34 @@ export const comprehensivePixelAnalyzer = new ComprehensivePixelAnalyzer();
   try {
     const results = await comprehensivePixelAnalyzer.runComprehensiveAnalysis(analysisDate, analysisEvents);
     
-    console.log('\n🎯 COMPREHENSIVE PIXEL ANALYSIS RESULTS:');
-    console.log('='.repeat(100));
-    console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
-    console.log(`🔧 Issues Found: ${results.issues.length}`);
-    console.log(`💡 Recommendations: ${results.recommendations.length}`);
+// console.log('\n🎯 COMPREHENSIVE PIXEL ANALYSIS RESULTS:');
+// console.log('='.repeat(100));
+// console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
+// console.log(`🔧 Issues Found: ${results.issues.length}`);
+// console.log(`💡 Recommendations: ${results.recommendations.length}`);
     
-    console.log('\n📏 DETAILED MEASUREMENTS:');
-    console.log('Dashboard Measurements:', results.measurements.dashboard);
-    console.log('Expected PDF Measurements:', results.measurements.expectedPDF);
-    console.log('Measurement Differences:', results.measurements.differences);
+// console.log('\n📏 DETAILED MEASUREMENTS:');
+// console.log('Dashboard Measurements:', results.measurements.dashboard);
+// console.log('Expected PDF Measurements:', results.measurements.expectedPDF);
+// console.log('Measurement Differences:', results.measurements.differences);
     
     if (results.issues.length > 0) {
-      console.log('\n❌ DETAILED ISSUES:');
+// console.log('\n❌ DETAILED ISSUES:');
       results.issues.forEach((issue, index) => {
-        console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
-        console.log(`   Dashboard: ${issue.dashboardValue}`);
-        console.log(`   Expected PDF: ${issue.expectedPDFValue}`);
-        console.log(`   Difference: ${issue.actualDifference}`);
-        console.log(`   Impact Score: ${issue.impactScore}/100`);
-        console.log(`   Fix: ${issue.fixRecommendation}`);
-        console.log(`   Code Location: ${issue.codeLocation}\n`);
+// console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
+// console.log(`   Dashboard: ${issue.dashboardValue}`);
+// console.log(`   Expected PDF: ${issue.expectedPDFValue}`);
+// console.log(`   Difference: ${issue.actualDifference}`);
+// console.log(`   Impact Score: ${issue.impactScore}/100`);
+// console.log(`   Fix: ${issue.fixRecommendation}`);
+// console.log(`   Code Location: ${issue.codeLocation}\n`);
       });
     }
     
     if (results.recommendations.length > 0) {
-      console.log('\n💡 COMPREHENSIVE RECOMMENDATIONS:');
+// console.log('\n💡 COMPREHENSIVE RECOMMENDATIONS:');
       results.recommendations.forEach((rec, index) => {
-        console.log(`${index + 1}. ${rec}`);
+// console.log(`${index + 1}. ${rec}`);
       });
     }
     

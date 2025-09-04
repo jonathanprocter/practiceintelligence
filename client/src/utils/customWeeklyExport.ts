@@ -8,7 +8,7 @@ export const exportCustomWeeklyCalendar = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🎯 Starting custom weekly calendar export with user specifications...');
+// console.log('🎯 Starting custom weekly calendar export with user specifications...');
   
   // Create PDF with 11" x 8.5" landscape (792x612 points) for US Letter format
   const pdf = new jsPDF({
@@ -72,10 +72,10 @@ export const exportCustomWeeklyCalendar = async (
   const filename = `custom-weekly-planner-${weekStartDate.toISOString().split('T')[0]}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ Custom weekly calendar exported: ${filename}`);
+// console.log(`✅ Custom weekly calendar exported: ${filename}`);
 };
 
-function drawHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, config: any): void {
+function drawHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, config: unknown): void {
   // Set font and color for header
   pdf.setFont('helvetica', 'bold');
   pdf.setFontSize(24);
@@ -104,7 +104,7 @@ function drawHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, config: 
   );
 }
 
-function drawTimeGrid(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], config: any): void {
+function drawTimeGrid(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], config: unknown): void {
   const gridStartY = config.topMargin + config.headerHeight + config.headerLineSpacing;
   
   // Calculate dimensions
@@ -181,7 +181,7 @@ function drawTimeGrid(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], 
   drawEvents(pdf, weekStartDate, events, config, gridStartY, dayColumnWidth, slotHeight, timeSlots);
 }
 
-function drawDayHeaders(pdf: jsPDF, weekStartDate: Date, headerY: number, config: any, dayColumnWidth: number): void {
+function drawDayHeaders(pdf: jsPDF, weekStartDate: Date, headerY: number, config: unknown, dayColumnWidth: number): void {
   const dayNames = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   const headerHeight = 30;
   
@@ -219,7 +219,7 @@ function drawDayHeaders(pdf: jsPDF, weekStartDate: Date, headerY: number, config
   }
 }
 
-function drawEvents(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], config: any, gridStartY: number, dayColumnWidth: number, slotHeight: number, timeSlots: any[]): void {
+function drawEvents(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], config: unknown, gridStartY: number, dayColumnWidth: number, slotHeight: number, timeSlots: unknown[]): void {
   events.forEach(event => {
     const eventDate = new Date(event.startTime);
     const endDate = new Date(event.endTime);

@@ -2,9 +2,9 @@ import jsPDF from 'jspdf';
 import { CalendarEvent } from '../types/calendar';
 
 export async function exportSimplePDF(selectedDate: Date, events: CalendarEvent[]) {
-  console.log('🚀 Starting Simple PDF Export');
-  console.log('📅 Date:', selectedDate.toDateString());
-  console.log('📊 Events:', events.length);
+// console.log('🚀 Starting Simple PDF Export');
+// console.log('📅 Date:', selectedDate.toDateString());
+// console.log('📊 Events:', events.length);
 
   try {
     // Create PDF document
@@ -46,10 +46,10 @@ export async function exportSimplePDF(selectedDate: Date, events: CalendarEvent[
 
     // Save the PDF
     const filename = `simple-daily-${selectedDate.toISOString().split('T')[0]}.pdf`;
-    console.log('💾 Saving PDF as:', filename);
+// console.log('💾 Saving PDF as:', filename);
     pdf.save(filename);
     
-    console.log('✅ Simple PDF export completed successfully');
+// console.log('✅ Simple PDF export completed successfully');
     return true;
     
   } catch (error) {

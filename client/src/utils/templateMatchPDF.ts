@@ -66,7 +66,7 @@ export const exportTemplateMatchPDF = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('Starting Template Match PDF export...');
+// console.log('Starting Template Match PDF export...');
   
   const pdf = new jsPDF({
     orientation: 'landscape',
@@ -193,7 +193,7 @@ export const exportTemplateMatchPDF = async (
   // Draw time slots - COMPLETE range from 06:00 to 23:30
   const timeSlots = Object.keys(TIME_POSITIONS).sort();
   const totalSlots = timeSlots.length; // Should be 36 slots total
-  console.log(`Drawing ${totalSlots} time slots from ${timeSlots[0]} to ${timeSlots[timeSlots.length-1]}`);
+// console.log(`Drawing ${totalSlots} time slots from ${timeSlots[0]} to ${timeSlots[timeSlots.length-1]}`);
   const slotHeight = 20; // Fixed 20pt per slot to ensure we fit all slots
   
   for (let i = 0; i < timeSlots.length; i++) {
@@ -277,12 +277,12 @@ export const exportTemplateMatchPDF = async (
     });
     
     // Draw events
-    console.log(`Day ${dayIndex} (${currentDate.toDateString()}): ${dayEvents.length} events`);
+// console.log(`Day ${dayIndex} (${currentDate.toDateString()}): ${dayEvents.length} events`);
     dayEvents.forEach((event, eventIndex) => {
       const startTime = new Date(event.startTime);
       const endTime = new Date(event.endTime);
       
-      console.log(`  Event ${eventIndex}: ${event.title} at ${startTime.toLocaleTimeString()}`);
+// console.log(`  Event ${eventIndex}: ${event.title} at ${startTime.toLocaleTimeString()}`);
       
       // Get position from template mapping
       const startHour = startTime.getHours();
@@ -307,7 +307,7 @@ export const exportTemplateMatchPDF = async (
             templatePosition = pos;
           }
         }
-        console.log(`Mapped ${timeKey} to closest time ${closestTime} at position ${templatePosition}`);
+// console.log(`Mapped ${timeKey} to closest time ${closestTime} at position ${templatePosition}`);
       }
       
       // Calculate event height based on duration (convert to PDF points)
@@ -396,5 +396,5 @@ export const exportTemplateMatchPDF = async (
   // Save the PDF
   pdf.save(filename);
   
-  console.log(`Template Match PDF exported: ${filename}`);
+// console.log(`Template Match PDF exported: ${filename}`);
 };

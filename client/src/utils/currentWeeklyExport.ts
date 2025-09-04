@@ -61,8 +61,8 @@ export const exportCurrentWeeklyView = (
   const normalizedWeekEnd = new Date(weekEnd);
   normalizedWeekEnd.setHours(23, 59, 59, 999);
   
-  console.log(`📊 Exporting weekly view: ${normalizedWeekStart.toDateString()} to ${normalizedWeekEnd.toDateString()}`);
-  console.log(`📊 Total events available: ${events.length}`);
+// console.log(`📊 Exporting weekly view: ${normalizedWeekStart.toDateString()} to ${normalizedWeekEnd.toDateString()}`);
+// console.log(`📊 Total events available: ${events.length}`);
   
   const pdf = new jsPDF({
     orientation: 'landscape',
@@ -86,10 +86,10 @@ export const exportCurrentWeeklyView = (
            eventDate <= normalizedWeekEnd;
   });
   
-  console.log(`🔍 Monday events found: ${mondayEvents.length}`);
+// console.log(`🔍 Monday events found: ${mondayEvents.length}`);
   mondayEvents.forEach(event => {
     const eventDate = new Date(event.startTime);
-    console.log(`  - "${event.title}" at ${eventDate.toLocaleString()}`);
+// console.log(`  - "${event.title}" at ${eventDate.toLocaleString()}`);
   });
   
   // Save the PDF with dynamic filename
@@ -264,20 +264,20 @@ const drawCurrentWeeklyEvents = (pdf: jsPDF, events: CalendarEvent[], weekStart:
   weekEnd.setDate(weekStartNormalized.getDate() + 6);
   weekEnd.setHours(23, 59, 59, 999); // End of Sunday
 
-  console.log(`🗓️ Week boundaries: ${weekStartNormalized.toISOString()} to ${weekEnd.toISOString()}`);
+// console.log(`🗓️ Week boundaries: ${weekStartNormalized.toISOString()} to ${weekEnd.toISOString()}`);
 
   const weekEvents = events.filter(event => {
     const eventDate = new Date(event.startTime);
     const isInWeek = eventDate >= weekStartNormalized && eventDate <= weekEnd;
     
     if (!isInWeek && eventDate.getDay() === 1) { // Monday events
-      console.log(`❌ Monday event excluded: "${event.title}" at ${eventDate.toISOString()}`);
+// console.log(`❌ Monday event excluded: "${event.title}" at ${eventDate.toISOString()}`);
     }
     
     return isInWeek;
   });
 
-  console.log(`📊 Filtered ${weekEvents.length} events for current week (${events.length} total)`);
+// console.log(`📊 Filtered ${weekEvents.length} events for current week (${events.length} total)`);
 
   weekEvents.forEach(event => {
     const eventStart = new Date(event.startTime);
@@ -287,7 +287,7 @@ const drawCurrentWeeklyEvents = (pdf: jsPDF, events: CalendarEvent[], weekStart:
     const dayOfWeek = eventStart.getDay();
     const adjustedDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Sunday = 6, Monday = 0
     
-    console.log(`📅 Event "${event.title}" on ${eventStart.toDateString()}: dayOfWeek=${dayOfWeek}, adjustedDay=${adjustedDay}`);
+// console.log(`📅 Event "${event.title}" on ${eventStart.toDateString()}: dayOfWeek=${dayOfWeek}, adjustedDay=${adjustedDay}`);
 
     // Calculate position within the 6:00 AM - 11:30 PM range
     const eventHour = eventStart.getHours();
@@ -295,13 +295,13 @@ const drawCurrentWeeklyEvents = (pdf: jsPDF, events: CalendarEvent[], weekStart:
     
     // Skip events outside our time range
     if (eventHour < 6 || eventHour >= 24) {
-      console.log(`⏰ Event "${event.title}" outside time range: ${eventHour}:${eventMinute.toString().padStart(2, '0')}`);
+// console.log(`⏰ Event "${event.title}" outside time range: ${eventHour}:${eventMinute.toString().padStart(2, '0')}`);
       return;
     }
     
     const slotIndex = (eventHour - 6) * 2 + (eventMinute >= 30 ? 1 : 0);
     
-    console.log(`🎯 Positioning "${event.title}": hour=${eventHour}, minute=${eventMinute}, slotIndex=${slotIndex}, adjustedDay=${adjustedDay}`);
+// console.log(`🎯 Positioning "${event.title}": hour=${eventHour}, minute=${eventMinute}, slotIndex=${slotIndex}, adjustedDay=${adjustedDay}`);
 
     const x = margins + timeColumnWidth + adjustedDay * dayColumnWidth + 2;
     const y = gridStartY + slotIndex * timeSlotHeight + 2;

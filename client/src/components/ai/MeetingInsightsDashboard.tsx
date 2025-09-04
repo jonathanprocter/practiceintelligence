@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Progress } from '@/components/ui/Progress';
 import { 
   Brain, 
   TrendingUp, 
@@ -44,7 +44,7 @@ interface AIRecommendation {
   impact: string;
 }
 
-export function MeetingInsightsDashboard({ events }: { events: any[] }) {
+export function MeetingInsightsDashboard({ events }: { events: unknown[] }) {
   const [insights, setInsights] = useState<MeetingInsight[]>([]);
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
   const [selectedInsight, setSelectedInsight] = useState<MeetingInsight | null>(null);

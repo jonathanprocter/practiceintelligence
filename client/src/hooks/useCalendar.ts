@@ -38,7 +38,7 @@ export const useCalendar = () => {
     const persistedEvents = savedEvents ? JSON.parse(savedEvents) : [];
 
     // Convert string dates back to Date objects
-    const convertedEvents = persistedEvents.map((event: any) => ({
+    const convertedEvents = persistedEvents.map((event: unknown) => ({
       ...event,
       startTime: new Date(event.startTime),
       endTime: new Date(event.endTime)
@@ -70,7 +70,7 @@ export const useCalendar = () => {
     const startDate = getWeekStartDate(date);
     const endDate = getWeekEndDate(date);
 
-    console.log(`Updating week for date: ${date.toDateString()}, week: ${startDate.toDateString()} to ${endDate.toDateString()}`);
+// console.log(`Updating week for date: ${date.toDateString()}, week: ${startDate.toDateString()} to ${endDate.toDateString()}`);
 
     const days: CalendarDay[] = [];
     for (let i = 0; i < 7; i++) {
@@ -88,7 +88,7 @@ export const useCalendar = () => {
 
           // Debug for Monday July 7th specifically
           if (eventDateStr === 'Mon Jul 07 2025' && currentDateStr.includes('Jul 07')) {
-            console.log(`✅ MONDAY MATCH: ${event.title} matched with day ${currentDateStr}`);
+// console.log(`✅ MONDAY MATCH: ${event.title} matched with day ${currentDateStr}`);
           }
 
           return eventDateStr === currentDateStr;
@@ -192,7 +192,7 @@ export const useCalendar = () => {
       };
 
       // Immediately update current week with new events
-      console.log('Updating current week with events:', events.length);
+// console.log('Updating current week with events:', events.length);
 
       // Recalculate current week with new events
       const startDate = getWeekStartDate(prev.currentDate);
@@ -214,7 +214,7 @@ export const useCalendar = () => {
 
             // Debug for Monday July 7th specifically
             if (eventDateStr === 'Mon Jul 07 2025' && currentDateStr.includes('Jul 07')) {
-              console.log(`✅ MONDAY MATCH: ${event.title} matched with day ${currentDateStr}`);
+// console.log(`✅ MONDAY MATCH: ${event.title} matched with day ${currentDateStr}`);
             }
 
             return eventDateStr === currentDateStr;
@@ -389,7 +389,7 @@ export const useCalendar = () => {
       updateEvents(eventsData);
     } else if (eventsData && eventsData.length === 0 && state.events.length > 0) {
       // During server reconnections, keep existing events instead of clearing them
-      console.log('🔄 Preserving existing events during server reconnection');
+// console.log('🔄 Preserving existing events during server reconnection');
     }
   }, [eventsData]);
 

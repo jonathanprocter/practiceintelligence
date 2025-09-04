@@ -91,7 +91,7 @@ function shouldIncludeAppointment(appt: CalendarEvent): boolean {
       title.includes("dummy") ||
       title.includes("sample") ||
       title.includes("placeholder")) {
-    console.log(`🚫 Filtering out test appointment: "${appt.title}"`);
+// console.log(`🚫 Filtering out test appointment: "${appt.title}"`);
     return false;
   }
   
@@ -99,7 +99,7 @@ function shouldIncludeAppointment(appt: CalendarEvent): boolean {
   if (title.includes("paul benjamin") || 
       title.includes("ghost") || 
       title.includes("populating")) {
-    console.log(`🚫 Filtering out ghost appointment: "${appt.title}"`);
+// console.log(`🚫 Filtering out ghost appointment: "${appt.title}"`);
     return false;
   }
   
@@ -126,14 +126,14 @@ export const exportHtmlTemplateDailyPDF = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('=== PIXEL-PERFECT DAILY TEMPLATE PDF EXPORT ===');
+// console.log('=== PIXEL-PERFECT DAILY TEMPLATE PDF EXPORT ===');
   
   // Device detection and configuration
   const isRemarkable = detectRemarkableDevice();
   const config = isRemarkable ? LAYOUT_CONSTANTS.remarkable : LAYOUT_CONSTANTS.usLetter;
   
-  console.log(`📱 Device: ${isRemarkable ? 'reMarkable Paper Pro' : 'US Letter'}`);
-  console.log(`📏 Dimensions: ${config.pageWidth}x${config.pageHeight}pt`);
+// console.log(`📱 Device: ${isRemarkable ? 'reMarkable Paper Pro' : 'US Letter'}`);
+// console.log(`📏 Dimensions: ${config.pageWidth}x${config.pageHeight}pt`);
   
   // Filter events for selected date AND remove test/ghost appointments
   const dayEvents = events.filter(event => {
@@ -147,8 +147,8 @@ export const exportHtmlTemplateDailyPDF = async (
     return eventDate.toDateString() === selectedDate.toDateString();
   }).length;
   
-  console.log(`📅 Events for ${selectedDate.toDateString()}:`, dayEvents.length);
-  console.log(`🧹 Filtered out ${totalDayEvents - dayEvents.length} test/ghost appointments`);
+// console.log(`📅 Events for ${selectedDate.toDateString()}:`, dayEvents.length);
+// console.log(`🧹 Filtered out ${totalDayEvents - dayEvents.length} test/ghost appointments`);
   
   // Create PDF with exact dimensions
   const pdf = new jsPDF({
@@ -166,14 +166,14 @@ export const exportHtmlTemplateDailyPDF = async (
   const filename = `daily-template-${dateStr}${deviceSuffix}.pdf`;
   
   pdf.save(filename);
-  console.log(`✅ Pixel-perfect PDF exported: ${filename}`);
+// console.log(`✅ Pixel-perfect PDF exported: ${filename}`);
 };
 
 async function drawPixelPerfectLayout(
   pdf: jsPDF,
   selectedDate: Date,
   dayEvents: CalendarEvent[],
-  config: any
+  config: unknown
 ): Promise<void> {
   let currentY = config.margin;
   
@@ -198,7 +198,7 @@ function drawPreciseHeader(
   selectedDate: Date,
   dayEvents: CalendarEvent[],
   y: number,
-  config: any
+  config: unknown
 ): number {
   const { pageWidth, margin, fonts } = config;
   
@@ -241,7 +241,7 @@ function drawPreciseStatsBar(
   pdf: jsPDF,
   dayEvents: CalendarEvent[],
   y: number,
-  config: any
+  config: unknown
 ): number {
   const { pageWidth, margin, fonts } = config;
   
@@ -290,7 +290,7 @@ function drawPreciseStatsBar(
   return y + config.statsBarHeight;
 }
 
-function drawPreciseLegend(pdf: jsPDF, y: number, config: any): number {
+function drawPreciseLegend(pdf: jsPDF, y: number, config: unknown): number {
   const { pageWidth, margin, fonts } = config;
   
   // Position legend at top right exactly as HTML
@@ -336,7 +336,7 @@ function drawPreciseTimeGrid(
   pdf: jsPDF,
   dayEvents: CalendarEvent[],
   y: number,
-  config: any
+  config: unknown
 ): void {
   const { pageWidth, margin, timeColumnWidth, timeRowHeight, fonts } = config;
   const appointmentColumnWidth = pageWidth - margin * 2 - timeColumnWidth;
@@ -396,7 +396,7 @@ function drawPreciseAppointments(
   gridY: number,
   appointmentX: number,
   appointmentWidth: number,
-  config: any
+  config: unknown
 ): void {
   const { timeRowHeight, fonts } = config;
   
@@ -492,7 +492,7 @@ function drawPreciseAppointments(
       const cleanTitle = safeTitle.substring(0, 12);
       
       // Debug logging to see what's happening
-      console.log(`📝 Title processing: "${originalTitle}" → "${afterEmojiStrip}" → "${safeTitle}" → "${cleanTitle}"`);
+// console.log(`📝 Title processing: "${originalTitle}" → "${afterEmojiStrip}" → "${safeTitle}" → "${cleanTitle}"`);
       
       pdf.text(cleanTitle, textX, textY, { maxWidth });
       
@@ -515,7 +515,7 @@ function drawPreciseAppointments(
   });
 }
 
-function drawPreciseFooter(pdf: jsPDF, config: any): void {
+function drawPreciseFooter(pdf: jsPDF, config: unknown): void {
   const { pageWidth, pageHeight, margin, fonts } = config;
   const footerY = pageHeight - config.footerHeight;
   

@@ -56,15 +56,15 @@ export interface IStorage {
 
   // Session materials
   getSessionMaterials(clientId: number, userId: number): Promise<any[]>;
-  createSessionMaterial(material: any): Promise<any>;
+  createSessionMaterial(material: unknown): Promise<unknown>;
 
   // AI case conceptualization
   getAIConceptualization(clientId: number, userId: number): Promise<any | null>;
-  saveAIConceptualization(conceptualization: any): Promise<any>;
+  saveAIConceptualization(conceptualization: unknown): Promise<unknown>;
 
   // Client notes
   getClientNotes(clientId: number, userId: number): Promise<any[]>;
-  createClientNote(note: any): Promise<any>;
+  createClientNote(note: unknown): Promise<unknown>;
 
   // Conflict detection
   detectScheduleConflicts(userId: number, startTime: Date, endTime: Date, eventId?: number): Promise<ScheduleConflict[]>;
@@ -131,14 +131,14 @@ export class DatabaseStorage implements IStorage {
       // First check by username (most reliable)
       const userByUsername = await this.getUserByUsername('default_user');
       if (userByUsername) {
-        console.log('✅ Default user found by username with ID:', userByUsername.id);
+// console.log('✅ Default user found by username with ID:', userByUsername.id);
         return userByUsername;
       }
 
       // Check if user with ID 1 exists
       const userById = await this.getUser(1);
       if (userById) {
-        console.log('✅ Default user found by ID 1');
+// console.log('✅ Default user found by ID 1');
         return userById;
       }
 
@@ -156,7 +156,7 @@ export class DatabaseStorage implements IStorage {
           })
           .returning();
 
-        console.log('✅ Created new default user with ID:', user.id);
+// console.log('✅ Created new default user with ID:', user.id);
         return user;
       } catch (error) {
         console.error('❌ Error creating default user:', error);
@@ -164,7 +164,7 @@ export class DatabaseStorage implements IStorage {
         // If creation failed, try to find any existing default user
         const fallbackUser = await this.getUserByUsername('default_user');
         if (fallbackUser) {
-          console.log('✅ Using fallback default user with ID:', fallbackUser.id);
+// console.log('✅ Using fallback default user with ID:', fallbackUser.id);
           return fallbackUser;
         }
         
@@ -621,7 +621,7 @@ export class DatabaseStorage implements IStorage {
     return result.rows as any[];
   }
 
-  async createSessionMaterial(material: any): Promise<any> {
+  async createSessionMaterial(material: unknown): Promise<unknown> {
     const result = await db.execute(sql`
       INSERT INTO session_materials (
         client_id, user_id, material_type, file_name, file_path, 
@@ -645,7 +645,7 @@ export class DatabaseStorage implements IStorage {
     return result.rows[0] || null;
   }
 
-  async saveAIConceptualization(conceptualization: any): Promise<any> {
+  async saveAIConceptualization(conceptualization: unknown): Promise<unknown> {
     const result = await db.execute(sql`
       INSERT INTO ai_conceptualizations (
         client_id, user_id, conceptualization_text, key_themes,
@@ -671,7 +671,7 @@ export class DatabaseStorage implements IStorage {
     return result.rows as any[];
   }
 
-  async createClientNote(note: any): Promise<any> {
+  async createClientNote(note: unknown): Promise<unknown> {
     const result = await db.execute(sql`
       INSERT INTO client_notes (
         client_id, user_id, note_type, title, content, is_confidential, tags

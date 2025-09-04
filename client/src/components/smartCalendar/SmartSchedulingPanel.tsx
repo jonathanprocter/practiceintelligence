@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Badge } from '@/components/ui/Badge';
 import { Brain, Users, TrendingUp, Clock, Calendar, AlertTriangle } from "lucide-react";
 import { ClientManager } from "@/components/professionalWorkflow/ClientManager";
 import { ConflictDetector, OptimalTimeSuggestions } from "@/components/smartCalendar/ConflictDetector";
@@ -10,8 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 
 interface SmartSchedulingPanelProps {
   currentDate: Date;
-  events: any[];
-  onScheduleAppointment?: (appointmentData: any) => void;
+  events: unknown[];
+  onScheduleAppointment?: (appointmentData: unknown) => void;
 }
 
 export function SmartSchedulingPanel({ 
@@ -135,7 +135,7 @@ export function SmartSchedulingPanel({
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-2">
-                    {templates.map((template: any) => (
+                    {templates.map((template: unknown) => (
                       <Button
                         key={template.id}
                         variant="outline"
@@ -186,7 +186,7 @@ export function SmartSchedulingPanel({
   );
 }
 
-function RevenueAnalyticsDashboard({ analytics }: { analytics: any }) {
+function RevenueAnalyticsDashboard({ analytics }: { analytics: unknown }) {
   if (!analytics) {
     return (
       <Card>

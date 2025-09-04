@@ -13,7 +13,7 @@ export const applyCurrentWeeklyTemplate = (
   weekStart: Date,
   weekEnd: Date
 ): void => {
-  console.log('📄 Applying EXACT Current Weekly Export template...');
+// console.log('📄 Applying EXACT Current Weekly Export template...');
   
   // Normalize dates exactly like the original
   const normalizedWeekStart = new Date(weekStart);
@@ -29,7 +29,7 @@ export const applyCurrentWeeklyTemplate = (
   drawCurrentWeeklyHeader(pdf, normalizedWeekStart, normalizedWeekEnd);
   drawCurrentWeeklyGrid(pdf, events, normalizedWeekStart);
   
-  console.log('✅ Applied EXACT Current Weekly Export template');
+// console.log('✅ Applied EXACT Current Weekly Export template');
 };
 
 /**
@@ -588,7 +588,7 @@ export const applyBrowserReplicaTemplate = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('📄 Applying EXACT Browser Replica PDF template logic...');
+// console.log('📄 Applying EXACT Browser Replica PDF template logic...');
   
   // Filter events for the selected date
   const dayEvents = events.filter(event => {
@@ -774,5 +774,5 @@ export const applyBrowserReplicaTemplate = async (
     }
   });
   
-  console.log('✅ Applied EXACT Browser Replica PDF template logic');
+// console.log('✅ Applied EXACT Browser Replica PDF template logic');
 };

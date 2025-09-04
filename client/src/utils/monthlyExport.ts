@@ -39,7 +39,7 @@ export const exportMonthlyCalendar = (
   selectedDate: Date,
   events: CalendarEvent[]
 ): void => {
-  console.log('🗓️ Starting Monthly Calendar Export');
+// console.log('🗓️ Starting Monthly Calendar Export');
   
   const pdf = new jsPDF({
     orientation: 'landscape',
@@ -56,8 +56,8 @@ export const exportMonthlyCalendar = (
     return eventDate >= monthStart && eventDate <= monthEnd;
   });
 
-  console.log(`📅 Month: ${format(monthStart, 'MMMM yyyy')}`);
-  console.log(`📊 Events: ${monthEvents.length}`);
+// console.log(`📅 Month: ${format(monthStart, 'MMMM yyyy')}`);
+// console.log(`📊 Events: ${monthEvents.length}`);
 
   // Draw header
   drawMonthlyHeader(pdf, selectedDate);
@@ -69,7 +69,7 @@ export const exportMonthlyCalendar = (
   const filename = `monthly-calendar-${format(selectedDate, 'yyyy-MM')}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ Monthly calendar exported: ${filename}`);
+// console.log(`✅ Monthly calendar exported: ${filename}`);
 };
 
 const drawMonthlyHeader = (pdf: jsPDF, selectedDate: Date): void => {

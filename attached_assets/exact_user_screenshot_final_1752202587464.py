@@ -37,7 +37,7 @@ def create_exact_user_screenshot_final(
         font_legend = ImageFont.truetype("arial.ttf", 16)  # Legend text
         font_stats_big = ImageFont.truetype("arial.ttf", 24)  # Stats numbers
         font_stats_small = ImageFont.truetype("arial.ttf", 14)  # Stats labels
-    except:
+    except Exception:
         font_date = ImageFont.load_default()
         font_subtitle = ImageFont.load_default()
         font_button = ImageFont.load_default()

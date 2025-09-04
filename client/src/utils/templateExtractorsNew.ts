@@ -24,7 +24,7 @@ export const applyCurrentWeeklyTemplate = (
   weekStart: Date,
   weekEnd: Date
 ): void => {
-  console.log('📄 Applying EXACT Current Weekly Export template...');
+// console.log('📄 Applying EXACT Current Weekly Export template...');
   
   // Normalize dates exactly like the original
   const normalizedWeekStart = new Date(weekStart);
@@ -40,7 +40,7 @@ export const applyCurrentWeeklyTemplate = (
   drawCurrentWeeklyHeader(pdf, normalizedWeekStart, normalizedWeekEnd);
   drawCurrentWeeklyGrid(pdf, events, normalizedWeekStart);
   
-  console.log('✅ Applied EXACT Current Weekly Export template');
+// console.log('✅ Applied EXACT Current Weekly Export template');
 };
 
 /**
@@ -54,17 +54,17 @@ export const applyHTMLDailyTemplate = (
   pageNumber: number,
   dayOfWeek: number
 ): void => {
-  console.log('📄 Applying scaled daily template for unified export...');
+// console.log('📄 Applying scaled daily template for unified export...');
   
   // Get current page dimensions
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
-  console.log(`📐 Current page dimensions: ${pageWidth}x${pageHeight}`);
+// console.log(`📐 Current page dimensions: ${pageWidth}x${pageHeight}`);
   
   // Use the scaled template that's designed for standard US Letter (612x792)
   drawScaledDailyTemplate(pdf, selectedDate, events, pageNumber, dayOfWeek);
   
-  console.log('✅ Applied scaled daily template');
+// console.log('✅ Applied scaled daily template');
 };
 
 /**
@@ -625,7 +625,7 @@ export const applyBrowserReplicaTemplate = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('📄 Applying EXACT Browser Replica PDF template logic...');
+// console.log('📄 Applying EXACT Browser Replica PDF template logic...');
   
   try {
     // Generate canvas using the browser replica HTML
@@ -657,11 +657,11 @@ export const applyBrowserReplicaTemplate = async (
     // Add the image to the current PDF page
     pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
     
-    console.log('✅ Applied EXACT Browser Replica PDF template logic');
+// console.log('✅ Applied EXACT Browser Replica PDF template logic');
   } catch (error) {
     console.error('❌ Error applying browser replica template:', error);
     // Fallback to simplified drawing if HTML approach fails
-    console.log('⚠️ Falling back to simplified drawing...');
+// console.log('⚠️ Falling back to simplified drawing...');
     
     // Draw a simple message indicating the page
     pdf.setFont('helvetica', 'bold');

@@ -83,7 +83,7 @@ function filterRealAppointments(events: CalendarEvent[]): CalendarEvent[] {
                        title.trim() === '';
     
     if (isTestEvent) {
-      console.log(`🚫 Filtering out test appointment: "${event.title}"`);
+// console.log(`🚫 Filtering out test appointment: "${event.title}"`);
     }
     
     return !isTestEvent;
@@ -96,20 +96,20 @@ function filterRealAppointments(events: CalendarEvent[]): CalendarEvent[] {
 function cleanAppointmentTitle(title: string): string {
   if (!title) return '';
   
-  console.log(`📝 Processing title: "${title}"`);
+// console.log(`📝 Processing title: "${title}"`);
   
   // Step 1: Remove emoji and special characters
   let cleaned = title.replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '');
-  console.log(`   After emoji removal: "${cleaned}"`);
+// console.log(`   After emoji removal: "${cleaned}"`);
   
   // Step 2: Remove " Appointment" suffix
   cleaned = cleaned.replace(/\s+Appointment\s*$/i, '');
-  console.log(`   After suffix removal: "${cleaned}"`);
+// console.log(`   After suffix removal: "${cleaned}"`);
   
   // Step 3: Truncate to max length (matching reference formatting)
   if (cleaned.length > PIXEL_PERFECT_CONFIG.appointments.maxTitleLength) {
     cleaned = cleaned.substring(0, PIXEL_PERFECT_CONFIG.appointments.maxTitleLength);
-    console.log(`   After truncation: "${cleaned}"`);
+// console.log(`   After truncation: "${cleaned}"`);
   }
   
   return cleaned.trim();
@@ -161,7 +161,7 @@ function drawPixelPerfectHeader(pdf: jsPDF, selectedDate: Date, appointmentCount
   pdf.setTextColor(colors.textSecondary);
   pdf.text(`${appointmentCount} appointments scheduled`, pageWidth / 2, margin + 75, { align: 'center' });
   
-  console.log(`📋 Header drawn: ${fullDateStr}, ${shortDateStr}, ${appointmentCount} appointments`);
+// console.log(`📋 Header drawn: ${fullDateStr}, ${shortDateStr}, ${appointmentCount} appointments`);
   
   return margin + headerHeight;
 }
@@ -216,7 +216,7 @@ function drawPixelPerfectStatsBar(pdf: jsPDF, events: CalendarEvent[], yPosition
     pdf.text(stat.label, statX, yPosition + 45, { align: 'center' });
   });
   
-  console.log(`📊 Stats drawn: ${totalAppointments} appointments, ${scheduledHours.toFixed(1)}h scheduled, ${freeTimePercent}% free`);
+// console.log(`📊 Stats drawn: ${totalAppointments} appointments, ${scheduledHours.toFixed(1)}h scheduled, ${freeTimePercent}% free`);
   
   return yPosition + statsBarHeight;
 }
@@ -259,7 +259,7 @@ function drawPixelPerfectLegend(pdf: jsPDF, yPosition: number): number {
     currentX += 150;
   });
   
-  console.log(`🏷️ Legend drawn with 3 items`);
+// console.log(`🏷️ Legend drawn with 3 items`);
   
   return yPosition + legendHeight;
 }
@@ -299,7 +299,7 @@ function drawPixelPerfectTimeGrid(pdf: jsPDF, yPosition: number): { gridStartY: 
   pdf.setDrawColor(colors.borderDark);
   pdf.line(margin + timeColumnWidth, yPosition, margin + timeColumnWidth, currentY);
   
-  console.log(`🕐 Time grid drawn: ${REFERENCE_TIME_SLOTS.length} slots from ${REFERENCE_TIME_SLOTS[0]} to ${REFERENCE_TIME_SLOTS[REFERENCE_TIME_SLOTS.length - 1]}`);
+// console.log(`🕐 Time grid drawn: ${REFERENCE_TIME_SLOTS.length} slots from ${REFERENCE_TIME_SLOTS[0]} to ${REFERENCE_TIME_SLOTS[REFERENCE_TIME_SLOTS.length - 1]}`);
   
   return { gridStartY: yPosition, gridEndY: currentY };
 }
@@ -317,7 +317,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
     return eventDate.toISOString().split('T')[0] === selectedDateString;
   });
   
-  console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
+// console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
   
   // Group appointments by time slot to handle overlaps
   const timeSlots = new Map<string, CalendarEvent[]>();
@@ -353,7 +353,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
       const durationMinutes = Math.round(durationMs / (1000 * 60));
       const timeSlots = Math.max(1, Math.ceil(durationMinutes / 30)); // Minimum 1 slot, round up for partial slots
       
-      console.log(`📅 Pixel Perfect Event: ${event.title}, Duration: ${durationMinutes} minutes, Time slots: ${timeSlots}`);
+// console.log(`📅 Pixel Perfect Event: ${event.title}, Duration: ${durationMinutes} minutes, Time slots: ${timeSlots}`);
       
       const eventHeight = (timeSlots * timeSlotHeight) - appointments.topOffset - appointments.bottomOffset;
       
@@ -494,7 +494,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
         pdf.text(sourceText, textX, textY);
       }
       
-      console.log(`✅ Drew appointment: ${cleanedTitle} at ${timeStr}${showBadge ? ` (${badgeText})` : ''}`);
+// console.log(`✅ Drew appointment: ${cleanedTitle} at ${timeStr}${showBadge ? ` (${badgeText})` : ''}`);
     });
   });
 }
@@ -530,7 +530,7 @@ function drawPixelPerfectFooter(pdf: jsPDF, selectedDate: Date, yPosition: numbe
   // Next day
   pdf.text('Next Day >', pageWidth - margin - 20, btnY, { align: 'right' });
   
-  console.log(`🔗 Footer navigation drawn`);
+// console.log(`🔗 Footer navigation drawn`);
 }
 
 /**
@@ -541,13 +541,13 @@ export async function exportPixelPerfectTemplate(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🎯 Starting Pixel-Perfect Template Export');
-    console.log(`📅 Date: ${selectedDate.toDateString()}`);
-    console.log(`📊 Total events: ${events.length}`);
+// console.log('🎯 Starting Pixel-Perfect Template Export');
+// console.log(`📅 Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
     
     // Run audit first
     const auditResult = await templateAuditSystem.runCompleteAudit(PIXEL_PERFECT_CONFIG, events, selectedDate);
-    console.log('📋 Audit Results:', auditResult.summary);
+// console.log('📋 Audit Results:', auditResult.summary);
     
     // Create PDF with exact dimensions
     const pdf = new jsPDF({
@@ -558,7 +558,7 @@ export async function exportPixelPerfectTemplate(
     
     // Filter real appointments
     const realEvents = filterRealAppointments(events);
-    console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
+// console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
     
     // Draw sections in exact order with pixel-perfect positioning
     let currentY = PIXEL_PERFECT_CONFIG.margin;
@@ -588,7 +588,7 @@ export async function exportPixelPerfectTemplate(
     await new Promise<void>((resolve, reject) => {
       try {
         pdf.save(filename);
-        console.log(`✅ Pixel-Perfect Template PDF exported: ${filename}`);
+// console.log(`✅ Pixel-Perfect Template PDF exported: ${filename}`);
         resolve();
       } catch (error) {
         console.error('❌ Error saving PDF:', error);
@@ -598,10 +598,10 @@ export async function exportPixelPerfectTemplate(
     
     // Log final audit summary
     if (auditResult.summary.total > 0) {
-      console.log('🔧 Audit Issues Found:', auditResult.issues.length);
-      console.log('💡 Recommendations:', auditResult.recommendations);
+// console.log('🔧 Audit Issues Found:', auditResult.issues.length);
+// console.log('💡 Recommendations:', auditResult.recommendations);
     } else {
-      console.log('✅ Template passes all audit checks');
+// console.log('✅ Template passes all audit checks');
     }
     
   } catch (error) {

@@ -16,7 +16,7 @@ export function log(message: string, source = "express") {
     hour12: true,
   });
 
-  console.log(`${formattedTime} [${source}] ${message}`);
+// console.log(`${formattedTime} [${source}] ${message}`);
 }
 
 export async function setupVite(app: Express, server: Server) {
@@ -76,7 +76,7 @@ export const serveStatic = (app: Express) => {
   let distPath = path.resolve(import.meta.dirname, "public");
 
   if (!fs.existsSync(distPath)) {
-    console.log(`Build directory not found at ${distPath}, trying alternative locations...`);
+// console.log(`Build directory not found at ${distPath}, trying alternative locations...`);
 
     // Try alternative build locations
     const alternativePaths = [
@@ -89,7 +89,7 @@ export const serveStatic = (app: Express) => {
     for (const altPath of alternativePaths) {
       if (fs.existsSync(altPath) && fs.existsSync(path.join(altPath, "index.html"))) {
         foundPath = altPath;
-        console.log(`Found build files at: ${foundPath}`);
+// console.log(`Found build files at: ${foundPath}`);
         break;
       }
     }
@@ -122,6 +122,6 @@ export const serveStatic = (app: Express) => {
     distPath = foundPath;
   }
 
-  console.log(`✅ Serving static files from: ${distPath}`);
+// console.log(`✅ Serving static files from: ${distPath}`);
   app.use(express.static(distPath));
 };

@@ -21,9 +21,9 @@ export const generateCompleteExportData = (
   events: CalendarEvent[],
   dailyNotes: string = ''
 ): ExportData => {
-  console.log('Generating complete export data...');
-  console.log('Selected date:', selectedDate);
-  console.log('Total events passed:', events.length);
+// console.log('Generating complete export data...');
+// console.log('Selected date:', selectedDate);
+// console.log('Total events passed:', events.length);
   
   // Filter events for the selected day
   const dayEvents = events.filter(event => {
@@ -33,13 +33,13 @@ export const generateCompleteExportData = (
     const matches = eventDateStr === selectedDateStr;
     
     if (matches) {
-      console.log(`Event matches date: ${event.title} at ${event.startTime}`);
+// console.log(`Event matches date: ${event.title} at ${event.startTime}`);
     }
     
     return matches;
   });
 
-  console.log(`Found ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`Found ${dayEvents.length} events for ${selectedDate.toDateString()}`);
 
   // Sort events by start time
   dayEvents.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
@@ -176,16 +176,16 @@ export const exportToCSV = (data: ExportData): string => {
 // Test function to verify data
 export const testExportData = (events: CalendarEvent[], selectedDate: Date): void => {
   try {
-    console.log('=== EXPORT DATA TEST ===');
-    console.log('Input events:', events.length);
-    console.log('Selected date:', selectedDate);
+// console.log('=== EXPORT DATA TEST ===');
+// console.log('Input events:', events.length);
+// console.log('Selected date:', selectedDate);
     
     const data = generateCompleteExportData(selectedDate, events);
-    console.log('Generated data:', data);
+// console.log('Generated data:', data);
     
     const textOutput = exportToText(data);
-    console.log('Text output length:', textOutput.length);
-    console.log('Text output preview:', textOutput.substring(0, 500));
+// console.log('Text output length:', textOutput.length);
+// console.log('Text output preview:', textOutput.substring(0, 500));
     
     // Download the text file for testing
     const blob = new Blob([textOutput], { type: 'text/plain' });

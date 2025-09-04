@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { CalendarEvent } from '../types/calendar';
 
 interface AuditTestButtonProps {
   events: CalendarEvent[];
   selectedDate: Date;
-  onTestComplete: (results: any) => void;
+  onTestComplete: (results: unknown) => void;
 }
 
 export default function AuditTestButton({ events, selectedDate, onTestComplete }: AuditTestButtonProps) {

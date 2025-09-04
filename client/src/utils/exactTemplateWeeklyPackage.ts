@@ -32,20 +32,20 @@ export class ExactTemplateWeeklyPackageExporter {
    */
   async export(): Promise<string> {
     try {
-      console.log('📦 EXACT TEMPLATE WEEKLY PACKAGE EXPORT STARTING...');
-      console.log('📊 Using EXACT existing templates without ANY modifications');
+// console.log('📦 EXACT TEMPLATE WEEKLY PACKAGE EXPORT STARTING...');
+// console.log('📊 Using EXACT existing templates without ANY modifications');
       
       // Step 1: Call EXACT exportCurrentWeeklyView function
-      console.log('📄 Step 1: Calling EXACT exportCurrentWeeklyView function...');
+// console.log('📄 Step 1: Calling EXACT exportCurrentWeeklyView function...');
       exportCurrentWeeklyView(this.events, this.weekStart, this.weekEnd);
       
       // Step 2: Call EXACT exportBrowserReplicaPDF for each day
-      console.log('📄 Step 2: Calling EXACT exportBrowserReplicaPDF for each day...');
+// console.log('📄 Step 2: Calling EXACT exportBrowserReplicaPDF for each day...');
       
       const currentDate = new Date(this.weekStart);
       for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
         const dayName = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
-        console.log(`📄 Creating ${dayName} using EXACT exportBrowserReplicaPDF...`);
+// console.log(`📄 Creating ${dayName} using EXACT exportBrowserReplicaPDF...`);
         
         // Call the EXACT existing function
         await exportBrowserReplicaPDF(this.events, new Date(currentDate));
@@ -54,8 +54,8 @@ export class ExactTemplateWeeklyPackageExporter {
         currentDate.setDate(currentDate.getDate() + 1);
       }
       
-      console.log('✅ EXACT TEMPLATE WEEKLY PACKAGE EXPORT COMPLETED');
-      console.log('📄 Generated 8 separate PDF files using EXACT existing templates');
+// console.log('✅ EXACT TEMPLATE WEEKLY PACKAGE EXPORT COMPLETED');
+// console.log('📄 Generated 8 separate PDF files using EXACT existing templates');
       
       return 'exact-template-weekly-package-completed';
     } catch (error) {

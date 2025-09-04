@@ -14,9 +14,9 @@ export const exportExactWeeklyPackage = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 EXACT WEEKLY PACKAGE EXPORT STARTING');
-    console.log(`📅 Week: ${weekStartDate.toDateString()} - ${weekEndDate.toDateString()}`);
-    console.log(`📊 Events: ${events.length}`);
+// console.log('🎯 EXACT WEEKLY PACKAGE EXPORT STARTING');
+// console.log(`📅 Week: ${weekStartDate.toDateString()} - ${weekEndDate.toDateString()}`);
+// console.log(`📊 Events: ${events.length}`);
 
     // Filter and validate events for the week
     const weekEvents = events.filter(event => {
@@ -25,7 +25,7 @@ export const exportExactWeeklyPackage = async (
              event.title && event.startTime && event.endTime;
     });
 
-    console.log(`✅ Valid week events: ${weekEvents.length}`);
+// console.log(`✅ Valid week events: ${weekEvents.length}`);
 
     // Count daily events for logging
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -38,11 +38,11 @@ export const exportExactWeeklyPackage = async (
         return eventDate.toDateString() === currentDay.toDateString();
       });
       
-      console.log(`📅 ${days[i]} ${currentDay.toDateString()}: ${dayEvents.length} events`);
+// console.log(`📅 ${days[i]} ${currentDay.toDateString()}: ${dayEvents.length} events`);
     }
 
     // Page 1: Export Weekly Current Weekly Layout
-    console.log('📄 Page 1: Generating Weekly Current Weekly Layout...');
+// console.log('📄 Page 1: Generating Weekly Current Weekly Layout...');
     exportCurrentWeeklyView(weekEvents, weekStartDate, weekEndDate);
 
     // Wait a moment to ensure the first export completes
@@ -53,7 +53,7 @@ export const exportExactWeeklyPackage = async (
       const currentDate = new Date(weekStartDate);
       currentDate.setDate(weekStartDate.getDate() + dayIndex);
       
-      console.log(`📄 Page ${dayIndex + 2}: Generating ${days[dayIndex]} EXACT Browser HTML Replica...`);
+// console.log(`📄 Page ${dayIndex + 2}: Generating ${days[dayIndex]} EXACT Browser HTML Replica...`);
       
       // Use existing EXACT Browser HTML Replica template for each day
       await exportBrowserReplicaPDF(events, currentDate);
@@ -62,9 +62,9 @@ export const exportExactWeeklyPackage = async (
       await new Promise(resolve => setTimeout(resolve, 500));
     }
 
-    console.log('✅ EXACT WEEKLY PACKAGE EXPORT COMPLETE');
-    console.log('📄 Total pages: 8 (1 weekly + 7 daily)');
-    console.log('📁 Files generated using existing exact templates');
+// console.log('✅ EXACT WEEKLY PACKAGE EXPORT COMPLETE');
+// console.log('📄 Total pages: 8 (1 weekly + 7 daily)');
+// console.log('📁 Files generated using existing exact templates');
 
   } catch (error) {
     console.error('❌ EXACT WEEKLY PACKAGE EXPORT ERROR:', error);

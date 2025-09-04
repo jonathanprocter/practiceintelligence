@@ -1,8 +1,9 @@
 // Fix spacing and text hierarchy optimizations for pixel-perfect PDF export
 import fs from 'fs';
+import { promisify } from 'util';
 
 const filePath = 'client/src/utils/isolatedCalendarPDF.ts';
-let content = fs.readFileSync(filePath, 'utf8');
+let content = fs.readFile(filePath, 'utf8');
 
 // Fix all spacing improvements for better text hierarchy
 const replacements = [
@@ -79,12 +80,12 @@ let updatedContent = content;
 replacements.forEach((replacement, index) => {
   if (updatedContent.includes(replacement.from)) {
     updatedContent = updatedContent.replace(replacement.from, replacement.to);
-    console.log(`✅ Applied spacing fix ${index + 1}`);
+// console.log(`✅ Applied spacing fix ${index + 1}`);
   } else {
-    console.log(`⚠️ Spacing fix ${index + 1} not found - pattern may have changed`);
+// console.log(`⚠️ Spacing fix ${index + 1} not found - pattern may have changed`);
   }
 });
 
 // Write back to file
-fs.writeFileSync(filePath, updatedContent);
-console.log('📄 Spacing optimizations applied to isolatedCalendarPDF.ts');
+fs.writeFile(filePath, updatedContent);
+// console.log('📄 Spacing optimizations applied to isolatedCalendarPDF.ts');

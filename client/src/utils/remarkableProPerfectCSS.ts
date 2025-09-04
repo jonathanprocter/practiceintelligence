@@ -92,8 +92,8 @@ export const exportRemarkableProPerfect = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 Creating EXACT CSS Grid PDF matching HTML template');
-    console.log(`📊 Processing ${events.length} events for exact CSS Grid layout`);
+// console.log('🎯 Creating EXACT CSS Grid PDF matching HTML template');
+// console.log(`📊 Processing ${events.length} events for exact CSS Grid layout`);
     
     // Create PDF with exact reMarkable Pro dimensions
     const pdf = new jsPDF({
@@ -111,7 +111,7 @@ export const exportRemarkableProPerfect = async (
     // Save with descriptive filename
     const filename = `remarkable-pro-perfect-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
-    console.log('✅ EXACT CSS Grid PDF generated matching HTML template');
+// console.log('✅ EXACT CSS Grid PDF generated matching HTML template');
   } catch (error) {
     console.error('❌ PDF Generation Error:', error);
     throw error;

@@ -29,18 +29,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  console.log('🔧 Force Environment Tokens endpoint called');
+// // console.log('🔧 Force Environment Tokens endpoint called');
 
   try {
     // Get environment tokens
     const accessToken = process.env.GOOGLE_ACCESS_TOKEN?.trim();
     const refreshToken = process.env.GOOGLE_REFRESH_TOKEN?.trim();
 
-    console.log('🔍 Environment token status:');
-    console.log('- Access token exists:', !!accessToken);
-    console.log('- Refresh token exists:', !!refreshToken);
-    console.log('- Access token valid:', !!accessToken && !accessToken.startsWith('dev-'));
-    console.log('- Refresh token valid:', !!refreshToken && !refreshToken.startsWith('dev-'));
+// // console.log('🔍 Environment token status:');
+// // console.log('- Access token exists:', !!accessToken);
+// // console.log('- Refresh token exists:', !!refreshToken);
+// // console.log('- Access token valid:', !!accessToken && !accessToken.startsWith('dev-'));
+// // console.log('- Refresh token valid:', !!refreshToken && !refreshToken.startsWith('dev-'));
 
     if (!accessToken || !refreshToken) {
       return res.status(400).json({
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     }
 
     // Test the tokens by creating OAuth client and making a test call
-    console.log('🧪 Testing environment tokens...');
+// // console.log('🧪 Testing environment tokens...');
     
     const oauth2Client = createOAuth2Client();
     oauth2Client.setCredentials({
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
       const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
       const response = await calendar.calendarList.list({ maxResults: 1 });
       
-      console.log('✅ Environment tokens are valid');
+// // console.log('✅ Environment tokens are valid');
       
       // Create user object with environment tokens
       const user = {
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
       if (req.session) {
         req.session.passport = { user };
         req.user = user;
-        console.log('✅ Environment tokens applied to session');
+// // console.log('✅ Environment tokens applied to session');
       }
 
       // Return success response
@@ -116,17 +116,17 @@ export default async function handler(req, res) {
       });
 
     } catch (tokenError) {
-      console.log('❌ Environment tokens failed validation:', tokenError.message);
+// // console.log('❌ Environment tokens failed validation:', tokenError.message);
       
       // If access token expired, try to refresh
       if (tokenError.message.includes('invalid_grant') || tokenError.message.includes('unauthorized')) {
-        console.log('🔄 Attempting token refresh...');
+// // console.log('🔄 Attempting token refresh...');
         
         try {
           const { credentials } = await oauth2Client.refreshAccessToken();
           
           if (credentials.access_token) {
-            console.log('✅ Token refresh successful');
+// // console.log('✅ Token refresh successful');
             
             // Create user with refreshed tokens
             const user = {
@@ -164,7 +164,7 @@ export default async function handler(req, res) {
             });
           }
         } catch (refreshError) {
-          console.log('❌ Token refresh failed:', refreshError.message);
+// // console.log('❌ Token refresh failed:', refreshError.message);
           
           return res.status(401).json({
             success: false,

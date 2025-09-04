@@ -76,8 +76,8 @@ export const exportHTMLTemplatePDF = async (
   
   try {
     pdf.save(filename);
-    console.log(`✅ HTML Template PDF exported: ${filename}`);
-    console.log('✅ PDF download should have started automatically');
+// console.log(`✅ HTML Template PDF exported: ${filename}`);
+// console.log('✅ PDF download should have started automatically');
   } catch (error) {
     console.error('❌ Error saving PDF:', error);
     throw error;

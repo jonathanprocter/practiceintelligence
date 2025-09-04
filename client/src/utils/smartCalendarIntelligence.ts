@@ -8,7 +8,7 @@ export interface ConflictDetection {
   severity: 'low' | 'medium' | 'high' | 'critical';
   message: string;
   suggestedResolution: string;
-  conflictingEvents: any[];
+  conflictingEvents: unknown[];
 }
 
 export interface TravelTimeCalculation {
@@ -37,7 +37,7 @@ export class SmartCalendarIntelligence {
       location?: string;
       id?: string;
     },
-    existingEvents: any[]
+    existingEvents: unknown[]
   ): Promise<ConflictDetection[]> {
     const conflicts: ConflictDetection[] = [];
 
@@ -142,7 +142,7 @@ export class SmartCalendarIntelligence {
   static suggestOptimalTimes(
     date: Date,
     duration: number, // in minutes
-    existingEvents: any[],
+    existingEvents: unknown[],
     preferences: {
       preferredStartTime?: string; // "09:00"
       preferredEndTime?: string;   // "17:00"
@@ -208,7 +208,7 @@ export class SmartCalendarIntelligence {
       frequency: 'weekly' | 'biweekly' | 'monthly';
       count: number;
     },
-    existingEvents: any[]
+    existingEvents: unknown[]
   ): Array<{ date: Date; conflicts: ConflictDetection[] }> {
     const schedule: Array<{ date: Date; conflicts: ConflictDetection[] }> = [];
     let currentDate = new Date(baseAppointment.startTime);
@@ -258,8 +258,8 @@ export class SmartCalendarIntelligence {
 
   private static findAdjacentEvents(
     newEvent: { startTime: Date; endTime: Date },
-    existingEvents: any[]
-  ): any[] {
+    existingEvents: unknown[]
+  ): unknown[] {
     return existingEvents.filter(event => {
       const eventStart = new Date(event.startTime);
       const eventEnd = new Date(event.endTime);

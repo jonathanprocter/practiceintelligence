@@ -71,7 +71,7 @@ export class ComprehensiveAuditSystem {
    * Run complete audit of PDF export system
    */
   async runFullAudit(events: CalendarEvent[]): Promise<AuditResults> {
-    console.log('🚀 Starting comprehensive PDF export audit');
+// console.log('🚀 Starting comprehensive PDF export audit');
     this.events = events;
     
     try {
@@ -103,9 +103,9 @@ export class ComprehensiveAuditSystem {
         timestamp: new Date()
       };
       
-      console.log('✅ Comprehensive audit completed');
-      console.log(`📊 Pixel Perfect Score: ${pixelPerfectScore}%`);
-      console.log(`🔍 Found ${inconsistencies.length} inconsistencies`);
+// console.log('✅ Comprehensive audit completed');
+// console.log(`📊 Pixel Perfect Score: ${pixelPerfectScore}%`);
+// console.log(`🔍 Found ${inconsistencies.length} inconsistencies`);
       
       return auditResults;
       
@@ -119,7 +119,7 @@ export class ComprehensiveAuditSystem {
    * Extract dashboard metrics from DOM
    */
   private async extractDashboardMetrics(): Promise<DashboardMetrics> {
-    console.log('🔍 Extracting dashboard metrics...');
+// console.log('🔍 Extracting dashboard metrics...');
     
     // Find the weekly calendar grid
     const weeklyGrid = document.querySelector('.weekly-calendar-grid, [data-testid="weekly-grid"]');
@@ -136,19 +136,19 @@ export class ComprehensiveAuditSystem {
     if (timeColumn) {
       const rect = timeColumn.getBoundingClientRect();
       timeColumnWidth = rect.width;
-      console.log(`📏 Time column width: ${timeColumnWidth}px`);
+// console.log(`📏 Time column width: ${timeColumnWidth}px`);
     }
     
     if (dayColumns.length > 0) {
       const rect = dayColumns[0].getBoundingClientRect();
       dayColumnWidth = rect.width;
-      console.log(`📏 Day column width: ${dayColumnWidth}px`);
+// console.log(`📏 Day column width: ${dayColumnWidth}px`);
     }
     
     if (timeSlots.length > 0) {
       const rect = timeSlots[0].getBoundingClientRect();
       timeSlotHeight = rect.height;
-      console.log(`📏 Time slot height: ${timeSlotHeight}px`);
+// console.log(`📏 Time slot height: ${timeSlotHeight}px`);
     }
     
     // Extract font sizes
@@ -200,7 +200,7 @@ export class ComprehensiveAuditSystem {
    * Extract PDF metrics (simulated)
    */
   private async extractPDFMetrics(): Promise<PDFMetrics> {
-    console.log('🔍 Extracting PDF metrics...');
+// console.log('🔍 Extracting PDF metrics...');
     
     // These should match the exact dashboard measurements now
     return {
@@ -230,7 +230,7 @@ export class ComprehensiveAuditSystem {
    * Compare metrics and identify inconsistencies
    */
   private async compareMetrics(dashboardMetrics: DashboardMetrics, pdfMetrics: PDFMetrics): Promise<AuditInconsistency[]> {
-    console.log('🔍 Comparing metrics...');
+// console.log('🔍 Comparing metrics...');
     
     const inconsistencies: AuditInconsistency[] = [];
     
@@ -323,7 +323,7 @@ export class ComprehensiveAuditSystem {
       }
     }
     
-    console.log(`🔍 Found ${inconsistencies.length} inconsistencies`);
+// console.log(`🔍 Found ${inconsistencies.length} inconsistencies`);
     return inconsistencies;
   }
   
@@ -409,7 +409,7 @@ export class ComprehensiveAuditSystem {
     };
     
     localStorage.setItem('pixelPerfectAuditResults', JSON.stringify(exportData, null, 2));
-    console.log('📤 Audit results exported to localStorage');
+// console.log('📤 Audit results exported to localStorage');
   }
 }
 

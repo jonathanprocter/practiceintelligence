@@ -1,7 +1,7 @@
 
 // Browser console script to find and delete Ava Moskowitz appointment on Thursday 13:00-14:00
 (async function deleteAvaAppointment() {
-  console.log('🔍 Searching for Ava Moskowitz appointment...');
+// console.log('🔍 Searching for Ava Moskowitz appointment...');
   
   try {
     // Fetch all events
@@ -11,7 +11,7 @@
     }
     
     const events = await response.json();
-    console.log(`📊 Total events loaded: ${events.length}`);
+// console.log(`📊 Total events loaded: ${events.length}`);
     
     // Search for Ava Moskowitz appointment on Thursday 13:00-14:00
     const avaAppointment = events.find(event => {
@@ -24,7 +24,7 @@
         const isThursday = startTime.getDay() === 4; // Thursday = 4
         const is13to14 = startTime.getHours() === 13 && endTime.getHours() === 14;
         
-        console.log(`🎯 Found Ava appointment:`, {
+// console.log(`🎯 Found Ava appointment:`, {
           title: event.title,
           startTime: startTime.toISOString(),
           endTime: endTime.toISOString(),
@@ -39,16 +39,16 @@
     });
     
     if (!avaAppointment) {
-      console.log('❌ Ava Moskowitz appointment not found for Thursday 13:00-14:00');
-      console.log('Available Ava appointments:');
+// console.log('❌ Ava Moskowitz appointment not found for Thursday 13:00-14:00');
+// console.log('Available Ava appointments:');
       events.filter(e => e.title.toLowerCase().includes('ava')).forEach(event => {
         const start = new Date(event.startTime);
-        console.log(`  - ${event.title}: ${start.toDateString()} ${start.toTimeString()}`);
+// console.log(`  - ${event.title}: ${start.toDateString()} ${start.toTimeString()}`);
       });
       return;
     }
     
-    console.log(`✅ Found Ava Moskowitz appointment to delete:`, avaAppointment);
+// console.log(`✅ Found Ava Moskowitz appointment to delete:`, avaAppointment);
     
     // Delete the appointment
     const deleteResponse = await fetch(`/api/events/${avaAppointment.id}`, {
@@ -61,7 +61,7 @@
     
     if (deleteResponse.ok) {
       const result = await deleteResponse.json();
-      console.log('✅ Successfully deleted Ava Moskowitz appointment:', result);
+// console.log('✅ Successfully deleted Ava Moskowitz appointment:', result);
       
       // Refresh the page to update the calendar
       setTimeout(() => {

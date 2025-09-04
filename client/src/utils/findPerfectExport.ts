@@ -49,11 +49,11 @@ const PYTHON_SPECS = {
 };
 
 export async function auditAllExportFunctions(): Promise<ExportFunctionAudit[]> {
-  console.log('🔍 COMPREHENSIVE EXPORT FUNCTION AUDIT STARTING');
-  console.log('='.repeat(80));
-  console.log('🎯 SEARCHING FOR PYTHON-BASED PERFECT WEEKLY EXPORT');
-  console.log(`📋 Target Specs: ${PYTHON_SPECS.canvasWidth}×${PYTHON_SPECS.canvasHeight}px, ${PYTHON_SPECS.dpi} DPI`);
-  console.log('='.repeat(80));
+// console.log('🔍 COMPREHENSIVE EXPORT FUNCTION AUDIT STARTING');
+// console.log('='.repeat(80));
+// console.log('🎯 SEARCHING FOR PYTHON-BASED PERFECT WEEKLY EXPORT');
+// console.log(`📋 Target Specs: ${PYTHON_SPECS.canvasWidth}×${PYTHON_SPECS.canvasHeight}px, ${PYTHON_SPECS.dpi} DPI`);
+// console.log('='.repeat(80));
 
   const results: ExportFunctionAudit[] = [];
 
@@ -73,30 +73,30 @@ export async function auditAllExportFunctions(): Promise<ExportFunctionAudit[]> 
 
   for (const fileName of exportFunctions) {
     try {
-      console.log(`\n📁 AUDITING: ${fileName}`);
-      console.log('-'.repeat(50));
+// console.log(`\n📁 AUDITING: ${fileName}`);
+// console.log('-'.repeat(50));
 
       // Try to dynamically import and analyze the function
       const audit = await auditExportFunction(fileName);
       results.push(audit);
 
       // Log immediate findings
-      console.log(`✅ Function Name: ${audit.functionName}`);
-      console.log(`📏 Dimensions: ${audit.dimensions}`);
-      console.log(`🎯 Matches Python Specs: ${audit.matchesPythonSpecs ? 'YES' : 'NO'}`);
-      console.log(`📊 Score: ${audit.score}/100`);
+// console.log(`✅ Function Name: ${audit.functionName}`);
+// console.log(`📏 Dimensions: ${audit.dimensions}`);
+// console.log(`🎯 Matches Python Specs: ${audit.matchesPythonSpecs ? 'YES' : 'NO'}`);
+// console.log(`📊 Score: ${audit.score}/100`);
       
       if (audit.issues.length > 0) {
-        console.log(`⚠️ Issues:`);
-        audit.issues.forEach(issue => console.log(`   - ${issue}`));
+// console.log(`⚠️ Issues:`);
+// audit.issues.forEach(issue => console.log(`   - ${issue}`));
       }
 
       if (audit.matchesPythonSpecs) {
-        console.log('🎉 PERFECT MATCH FOUND! This is likely your Python-based export!');
+// console.log('🎉 PERFECT MATCH FOUND! This is likely your Python-based export!');
       }
 
     } catch (error) {
-      console.log(`❌ Error auditing ${fileName}:`, error);
+// console.log(`❌ Error auditing ${fileName}:`, error);
       results.push({
         functionName: 'Unknown',
         filePath: fileName,
@@ -111,37 +111,37 @@ export async function auditAllExportFunctions(): Promise<ExportFunctionAudit[]> 
   // Sort by score and display final results
   results.sort((a, b) => b.score - a.score);
 
-  console.log('\n🏆 FINAL AUDIT RESULTS (Ranked by Score)');
-  console.log('='.repeat(80));
+// console.log('\n🏆 FINAL AUDIT RESULTS (Ranked by Score)');
+// console.log('='.repeat(80));
 
   results.forEach((result, index) => {
-    console.log(`${index + 1}. ${result.functionName} (${result.filePath})`);
-    console.log(`   📊 Score: ${result.score}/100`);
-    console.log(`   📏 Dimensions: ${result.dimensions}`);
-    console.log(`   🎯 Python Match: ${result.matchesPythonSpecs ? 'YES' : 'NO'}`);
+// console.log(`${index + 1}. ${result.functionName} (${result.filePath})`);
+// console.log(`   📊 Score: ${result.score}/100`);
+// console.log(`   📏 Dimensions: ${result.dimensions}`);
+// console.log(`   🎯 Python Match: ${result.matchesPythonSpecs ? 'YES' : 'NO'}`);
     
     if (result.matchesPythonSpecs) {
-      console.log('   🏅 *** THIS IS YOUR PERFECT EXPORT FUNCTION! ***');
+// console.log('   🏅 *** THIS IS YOUR PERFECT EXPORT FUNCTION! ***');
     }
-    console.log('');
+// console.log('');
   });
 
   // Find and highlight the perfect match
   const perfectMatch = results.find(r => r.matchesPythonSpecs);
   if (perfectMatch) {
-    console.log('🎉 PERFECT WEEKLY EXPORT FOUND!');
-    console.log('='.repeat(80));
-    console.log(`📁 File: ${perfectMatch.filePath}`);
-    console.log(`🔧 Function: ${perfectMatch.functionName}`);
-    console.log(`📏 Dimensions: ${perfectMatch.dimensions}`);
-    console.log(`📊 Perfect Score: ${perfectMatch.score}/100`);
-    console.log('');
-    console.log('✅ This function was built from your Python specifications!');
-    console.log('✅ Use this export function for your perfect weekly planner!');
+// console.log('🎉 PERFECT WEEKLY EXPORT FOUND!');
+// console.log('='.repeat(80));
+// console.log(`📁 File: ${perfectMatch.filePath}`);
+// console.log(`🔧 Function: ${perfectMatch.functionName}`);
+// console.log(`📏 Dimensions: ${perfectMatch.dimensions}`);
+// console.log(`📊 Perfect Score: ${perfectMatch.score}/100`);
+// console.log('');
+// console.log('✅ This function was built from your Python specifications!');
+// console.log('✅ Use this export function for your perfect weekly planner!');
   } else {
-    console.log('⚠️ No perfect match found. The closest matches are:');
+// console.log('⚠️ No perfect match found. The closest matches are:');
     results.slice(0, 3).forEach((result, index) => {
-      console.log(`${index + 1}. ${result.functionName} - Score: ${result.score}/100`);
+// console.log(`${index + 1}. ${result.functionName} - Score: ${result.score}/100`);
     });
   }
 
@@ -269,8 +269,8 @@ function analyzeExportFunctionContent(content: string, audit: ExportFunctionAudi
  * Test the audit system by running it
  */
 export async function testAuditSystem() {
-  console.log('🚀 TESTING EXPORT FUNCTION AUDIT SYSTEM');
-  console.log('This will find your Python-based perfect weekly export!');
+// console.log('🚀 TESTING EXPORT FUNCTION AUDIT SYSTEM');
+// console.log('This will find your Python-based perfect weekly export!');
   
   try {
     const results = await auditAllExportFunctions();
@@ -278,7 +278,7 @@ export async function testAuditSystem() {
     // Store results for inspection
     (window as any).exportAuditResults = results;
     
-    console.log('\n📋 Audit complete! Results stored in window.exportAuditResults');
+// console.log('\n📋 Audit complete! Results stored in window.exportAuditResults');
     return results;
     
   } catch (error) {
@@ -290,5 +290,5 @@ export async function testAuditSystem() {
 // Auto-run the audit when this module loads
 if (typeof window !== 'undefined') {
   (window as any).testExportAudit = testAuditSystem;
-  console.log('🔍 Export audit system loaded. Run window.testExportAudit() to find your perfect export!');
+// console.log('🔍 Export audit system loaded. Run window.testExportAudit() to find your perfect export!');
 }

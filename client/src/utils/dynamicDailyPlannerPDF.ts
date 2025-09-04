@@ -14,12 +14,12 @@ export async function exportDynamicDailyPlannerPDF(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🚀 Starting Dynamic Daily Planner PDF Export');
-    console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
-    console.log('📋 Events:', events.length);
+// console.log('🚀 Starting Dynamic Daily Planner PDF Export');
+// console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
+// console.log('📋 Events:', events.length);
 
     // Run comprehensive audit first
-    console.log('🔍 Running pre-export audit...');
+// console.log('🔍 Running pre-export audit...');
     try {
       const { runDynamicDailyAudit } = await import('./dynamicDailyAudit');
       const auditResult = await runDynamicDailyAudit(date, events);
@@ -28,7 +28,7 @@ export async function exportDynamicDailyPlannerPDF(
         console.warn('⚠️  AUDIT WARNING: Score below 70% (' + auditResult.overallScore + '%)');
         console.warn('⚠️  Critical issues found:', auditResult.issues.filter(i => i.severity === 'critical').length);
       } else {
-        console.log('✅ AUDIT PASSED: Score ' + auditResult.overallScore + '%');
+// console.log('✅ AUDIT PASSED: Score ' + auditResult.overallScore + '%');
       }
     } catch (auditError) {
       console.warn('⚠️  Audit system not available, continuing with export...');
@@ -39,7 +39,7 @@ export async function exportDynamicDailyPlannerPDF(
 
     // Generate the complete HTML
     const html = generator.generateCompleteDailyPlannerHTML(date, events);
-    console.log('✅ HTML generated, length:', html.length);
+// console.log('✅ HTML generated, length:', html.length);
 
     // Create a new window/popup to render the HTML cleanly with proper height for full timeline
     const popupWindow = window.open('', '_blank', 'width=816,height=1740,scrollbars=no');
@@ -48,14 +48,14 @@ export async function exportDynamicDailyPlannerPDF(
       throw new Error('Failed to open popup window for PDF generation. Please allow popups for this site.');
     }
 
-    console.log('✅ Popup window opened successfully');
+// console.log('✅ Popup window opened successfully');
 
     try {
       // Write the HTML to the popup window
       popupWindow.document.write(html);
       popupWindow.document.close();
 
-      console.log('✅ HTML written to popup window');
+// console.log('✅ HTML written to popup window');
 
       // Wait for the popup to load completely with better error handling
       await new Promise((resolve, reject) => {
@@ -85,7 +85,7 @@ export async function exportDynamicDailyPlannerPDF(
 
     // Find the content in the popup
     const content = popupWindow.document.body;
-    console.log('✅ Content element found in popup:', content.tagName);
+// console.log('✅ Content element found in popup:', content.tagName);
 
     // Calculate proper height for 36 time slots (06:00 to 23:30)
     const headerHeight = 200; // Header section height
@@ -93,11 +93,11 @@ export async function exportDynamicDailyPlannerPDF(
     const totalTimeSlots = 36; // 06:00 to 23:30
     const calculatedHeight = headerHeight + (totalTimeSlots * timeSlotHeight) + 100; // Extra padding
 
-    console.log('🔧 PDF SCALING CALCULATION:');
-    console.log('🔧 Header height:', headerHeight);
-    console.log('🔧 Time slot height:', timeSlotHeight);
-    console.log('🔧 Total time slots:', totalTimeSlots);
-    console.log('🔧 Calculated height:', calculatedHeight);
+// console.log('🔧 PDF SCALING CALCULATION:');
+// console.log('🔧 Header height:', headerHeight);
+// console.log('🔧 Time slot height:', timeSlotHeight);
+// console.log('🔧 Total time slots:', totalTimeSlots);
+// console.log('🔧 Calculated height:', calculatedHeight);
 
     // Capture canvas with US Letter proportions for perfect fit
     const canvas = await html2canvas(content, {
@@ -147,14 +147,14 @@ export async function exportDynamicDailyPlannerPDF(
             }
           `;
           clonedDoc.head.appendChild(style);
-          console.log('✅ US Letter styles applied to cloned document');
+// console.log('✅ US Letter styles applied to cloned document');
         } catch (styleError) {
           console.warn('⚠️ Could not apply custom styles to cloned document:', styleError);
         }
       }
     });
 
-    console.log('✅ Canvas created:', canvas.width, 'x', canvas.height);
+// console.log('✅ Canvas created:', canvas.width, 'x', canvas.height);
 
     // Verify canvas has content before closing popup
     if (canvas.width === 0 || canvas.height === 0) {
@@ -162,7 +162,7 @@ export async function exportDynamicDailyPlannerPDF(
       throw new Error('Canvas has no content - check HTML rendering');
     }
 
-    console.log('✅ Canvas verified with content:', canvas.width, 'x', canvas.height);
+// console.log('✅ Canvas verified with content:', canvas.width, 'x', canvas.height);
 
     // Close the popup window
     try {
@@ -180,7 +180,7 @@ export async function exportDynamicDailyPlannerPDF(
       precision: 2
     });
 
-    console.log('✅ PDF document created');
+// console.log('✅ PDF document created');
 
     // Calculate dimensions to perfectly fit US Letter portrait
     const pageWidth = 612; // 8.5 inches * 72 pts/inch
@@ -197,11 +197,11 @@ export async function exportDynamicDailyPlannerPDF(
     const x = margins;
     const y = margins;
 
-    console.log('✅ Calculated dimensions:', { targetWidth, targetHeight, x, y });
+// console.log('✅ Calculated dimensions:', { targetWidth, targetHeight, x, y });
 
     // Convert canvas to image data
     const imgData = canvas.toDataURL('image/png', 0.95); // Slightly reduced quality for smaller file
-    console.log('✅ Canvas converted to image data, length:', imgData.length);
+// console.log('✅ Canvas converted to image data, length:', imgData.length);
 
     if (imgData.length < 1000) {
       throw new Error('Canvas image data is too small - likely empty canvas');
@@ -210,7 +210,7 @@ export async function exportDynamicDailyPlannerPDF(
     try {
       // Add the canvas image to PDF - stretch to fill available space
       pdf.addImage(imgData, 'PNG', x, y, targetWidth, targetHeight, '', 'FAST');
-      console.log('✅ Image added to PDF');
+// console.log('✅ Image added to PDF');
     } catch (imageError) {
       throw new Error(`Failed to add image to PDF: ${imageError.message}`);
     }
@@ -221,7 +221,7 @@ export async function exportDynamicDailyPlannerPDF(
     // Save the PDF
     pdf.save(filename);
 
-    console.log('✅ Dynamic Daily Planner PDF exported successfully:', filename);
+// console.log('✅ Dynamic Daily Planner PDF exported successfully:', filename);
 
   } catch (error) {
     console.error('❌ Dynamic Daily Planner PDF export failed:', error);
@@ -247,7 +247,7 @@ export async function exportDynamicDailyPlannerHTML(
   events: CalendarEvent[]
 ): Promise<string> {
   try {
-    console.log('🚀 Starting Dynamic Daily Planner HTML Export');
+// console.log('🚀 Starting Dynamic Daily Planner HTML Export');
 
     // Create the planner generator
     const generator = new DynamicDailyPlannerGenerator();
@@ -270,7 +270,7 @@ export async function exportDynamicDailyPlannerHTML(
     // Clean up
     URL.revokeObjectURL(url);
 
-    console.log('✅ Dynamic Daily Planner HTML exported successfully');
+// console.log('✅ Dynamic Daily Planner HTML exported successfully');
 
     return html;
 
@@ -285,7 +285,7 @@ export async function previewDynamicDailyPlanner(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🚀 Starting Dynamic Daily Planner Preview');
+// console.log('🚀 Starting Dynamic Daily Planner Preview');
 
     // Create the planner generator
     const generator = new DynamicDailyPlannerGenerator();
@@ -300,7 +300,7 @@ export async function previewDynamicDailyPlanner(
       newWindow.document.close();
     }
 
-    console.log('✅ Dynamic Daily Planner preview opened');
+// console.log('✅ Dynamic Daily Planner preview opened');
 
   } catch (error) {
     console.error('❌ Dynamic Daily Planner preview failed:', error);

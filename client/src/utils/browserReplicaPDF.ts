@@ -4,9 +4,9 @@ import { CalendarEvent } from '../types/calendar';
 
 export async function exportBrowserReplicaPDF(events: CalendarEvent[], selectedDate: Date): Promise<void> {
   try {
-    console.log('🚀 Starting TRULY Fixed Calendar Export');
-    console.log('📅 Selected date:', selectedDate.toDateString());
-    console.log('📊 Total events:', events.length);
+// console.log('🚀 Starting TRULY Fixed Calendar Export');
+// console.log('📅 Selected date:', selectedDate.toDateString());
+// console.log('📊 Total events:', events.length);
 
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
     const dateString = selectedDate.toLocaleDateString('en-US', { 
@@ -28,7 +28,7 @@ export async function exportBrowserReplicaPDF(events: CalendarEvent[], selectedD
       }
     });
 
-    console.log(`✅ Filtered events: ${filteredEvents.length} found`);
+// console.log(`✅ Filtered events: ${filteredEvents.length} found`);
 
     // Calculate real statistics
     const totalAppointments = filteredEvents.length;
@@ -522,7 +522,7 @@ export async function exportBrowserReplicaPDF(events: CalendarEvent[], selectedD
       // Wait for rendering
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      console.log('🎨 Creating canvas with proper dimensions...');
+// console.log('🎨 Creating canvas with proper dimensions...');
 
       const canvas = await html2canvas(container, {
         width: 1200,
@@ -534,7 +534,7 @@ export async function exportBrowserReplicaPDF(events: CalendarEvent[], selectedD
         logging: false
       });
 
-      console.log('✅ Canvas created:', canvas.width, 'x', canvas.height);
+// console.log('✅ Canvas created:', canvas.width, 'x', canvas.height);
 
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -548,7 +548,7 @@ export async function exportBrowserReplicaPDF(events: CalendarEvent[], selectedD
       const filename = `daily-calendar-truly-fixed-${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}.pdf`;
       pdf.save(filename);
 
-      console.log(`✅ PDF exported successfully: ${filename}`);
+// console.log(`✅ PDF exported successfully: ${filename}`);
     } finally {
       document.body.removeChild(container);
     }
@@ -686,7 +686,7 @@ function generateAppointments(events: CalendarEvent[], selectedDate: Date): stri
     const height = Math.max(38, (gridRowEnd - gridRowStart) * 40 - 2); // Full height minus border space
 
     // Debug log for all appointments to verify positioning (EXACT match to DailyView.tsx)
-    console.log(`📍 PDF Event: ${event.title} | Time: ${startHour}:${startMinute.toString().padStart(2, '0')} | Grid: ${gridRowStart} / ${gridRowEnd} | Duration: ${durationMinutes}min | Overlaps: ${overlapCount} | Position: ${eventPosition} | Width: ${baseWidth} | Left: ${leftPosition}`);
+// console.log(`📍 PDF Event: ${event.title} | Time: ${startHour}:${startMinute.toString().padStart(2, '0')} | Grid: ${gridRowStart} / ${gridRowEnd} | Duration: ${durationMinutes}min | Overlaps: ${overlapCount} | Position: ${eventPosition} | Width: ${baseWidth} | Left: ${leftPosition}`);
 
     // Extract notes and action items - check multiple sources
     let eventNotes = '';

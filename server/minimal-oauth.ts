@@ -5,20 +5,20 @@ import { getBaseUrl } from './utils/getBaseUrl';
 
 // Initialize OAuth with minimal configuration
 export function initializeMinimalOAuth() {
-  console.log('🚀 Initializing minimal OAuth...');
+// console.log('🚀 Initializing minimal OAuth...');
 
   // Clear any invalid tokens on startup
   if (process.env.GOOGLE_ACCESS_TOKEN) {
-    console.log('🧹 Clearing potentially invalid tokens from environment');
+// console.log('🧹 Clearing potentially invalid tokens from environment');
     delete process.env.GOOGLE_ACCESS_TOKEN;
     delete process.env.GOOGLE_REFRESH_TOKEN;
   }
 
   const redirectUri = `${getBaseUrl()}/api/auth/callback`;
 
-  console.log('🔗 Redirect URI:', redirectUri);
-  console.log('🔑 Has Client ID:', !!process.env.GOOGLE_CLIENT_ID);
-  console.log('🔐 Has Client Secret:', !!process.env.GOOGLE_CLIENT_SECRET);
+// console.log('🔗 Redirect URI:', redirectUri);
+// console.log('🔑 Has Client ID:', !!process.env.GOOGLE_CLIENT_ID);
+// console.log('🔐 Has Client Secret:', !!process.env.GOOGLE_CLIENT_SECRET);
 
   // Clear existing strategies but preserve session support
   if (passport._strategy('google')) {
@@ -35,9 +35,9 @@ export function initializeMinimalOAuth() {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     callbackURL: redirectUri,
     scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar']
-  }, async (accessToken: string, refreshToken: string, profile: any, done: any) => {
+  }, async (accessToken: string, refreshToken: string, profile: unknown, done: unknown) => {
     try {
-      console.log('✅ OAuth success for:', profile.emails?.[0]?.value);
+// console.log('✅ OAuth success for:', profile.emails?.[0]?.value);
 
       // Store tokens in environment
       process.env.GOOGLE_ACCESS_TOKEN = accessToken;
@@ -60,14 +60,14 @@ export function initializeMinimalOAuth() {
         if (existingUser) {
           // Update existing user with Google ID
           user = existingUser;
-          console.log('🔗 Linking existing user with Google ID');
+// console.log('🔗 Linking existing user with Google ID');
         } else {
           // Create new user
           user = await storage.createGoogleUser(googleId, email, name);
-          console.log('👤 Created new Google user with ID:', user.id);
+// console.log('👤 Created new Google user with ID:', user.id);
         }
       } else {
-        console.log('👤 Found existing Google user with ID:', user.id);
+// console.log('👤 Found existing Google user with ID:', user.id);
       }
 
       const userObject = {
@@ -78,7 +78,7 @@ export function initializeMinimalOAuth() {
         refreshToken: refreshToken
       };
 
-      console.log('🎯 Created user object:', { id: userObject.id, email: userObject.email, name: userObject.name, hasTokens: !!accessToken });
+// console.log('🎯 Created user object:', { id: userObject.id, email: userObject.email, name: userObject.name, hasTokens: !!accessToken });
       return done(null, userObject);
     } catch (error) {
       console.error('❌ OAuth user creation/retrieval error:', error);
@@ -87,25 +87,25 @@ export function initializeMinimalOAuth() {
   }));
 
   // Enhanced serialization for better session persistence
-  passport.serializeUser((user: any, done) => {
-    console.log('📝 Serializing user for session storage:', { id: user.id, email: user.email });
+  passport.serializeUser((user: unknown, done) => {
+// console.log('📝 Serializing user for session storage:', { id: user.id, email: user.email });
     // Store only the user ID in the session for security and efficiency
     done(null, user.id);
   });
 
   passport.deserializeUser(async (userId: number, done) => {
     try {
-      console.log('🔍 Deserializing user ID from session:', userId);
+// console.log('🔍 Deserializing user ID from session:', userId);
       
       // Retrieve full user data from database using stored ID
       const { storage } = await import('./storage');
       const user = await storage.getUserById(userId);
       
       if (user) {
-        console.log('✅ User found in database:', { id: user.id, email: user.email });
+// console.log('✅ User found in database:', { id: user.id, email: user.email });
         done(null, user);
       } else {
-        console.log('❌ User not found in database for ID:', userId);
+// console.log('❌ User not found in database for ID:', userId);
         done(null, false);
       }
     } catch (error) {
@@ -114,21 +114,21 @@ export function initializeMinimalOAuth() {
     }
   });
 
-  console.log('✅ Minimal OAuth configured');
+// console.log('✅ Minimal OAuth configured');
 }
 
 // Add minimal OAuth routes
 export function addMinimalOAuthRoutes(app: Express) {
-  console.log('🛣️ Adding minimal OAuth routes...');
+// console.log('🛣️ Adding minimal OAuth routes...');
 
   // Session restoration endpoint (for fixing broken sessions)
   app.post('/api/auth/restore-session', async (req: Request, res: Response) => {
     try {
-      console.log('🔧 Attempting session restoration...');
+// console.log('🔧 Attempting session restoration...');
       
       // Try to find user by stored tokens
       if (process.env.GOOGLE_ACCESS_TOKEN) {
-        console.log('📡 Found stored access token, attempting user lookup...');
+// console.log('📡 Found stored access token, attempting user lookup...');
         
         // Use storage to find user - this will need to be implemented
         const { storage } = await import('./storage');
@@ -136,7 +136,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         
         if (users && users.length > 0) {
           const user = users[0]; // For now, take the first user
-          console.log('👤 Found user for session restoration:', user.id);
+// console.log('👤 Found user for session restoration:', user.id);
           
           // Manually restore session
           req.session.user = user;
@@ -150,7 +150,7 @@ export function addMinimalOAuthRoutes(app: Express) {
               return res.json({ success: false, error: 'Session save failed' });
             }
             
-            console.log('✅ Session restored successfully');
+// console.log('✅ Session restored successfully');
             res.json({ 
               success: true, 
               message: 'Session restored',
@@ -174,8 +174,8 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   // OAuth callback with enhanced error handling
   app.get('/api/auth/callback', (req: Request, res: Response, next) => {
-    console.log('🔄 OAuth callback triggered');
-    console.log('Query params:', req.query);
+// console.log('🔄 OAuth callback triggered');
+// console.log('Query params:', req.query);
 
     // Check for OAuth error in query params
     if (req.query.error) {
@@ -193,7 +193,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         return res.redirect('/?error=auth_failed&details=' + encodeURIComponent(err.message));
       }
 
-      console.log('✅ OAuth callback successful for user:', req.user);
+// console.log('✅ OAuth callback successful for user:', req.user);
       
       // Store user in session manually to ensure persistence
       req.session.user = req.user;
@@ -206,8 +206,8 @@ export function addMinimalOAuthRoutes(app: Express) {
           console.error('Session save error:', saveErr);
           return res.redirect('/?error=session_save_failed');
         }
-        console.log('✅ Session saved with user data, redirecting to success page');
-        console.log('✅ User ID stored in session:', req.user?.id);
+// console.log('✅ Session saved with user data, redirecting to success page');
+// console.log('✅ User ID stored in session:', req.user?.id);
         res.redirect('/?auth=success');
       });
     });
@@ -230,15 +230,15 @@ export function addMinimalOAuthRoutes(app: Express) {
         const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client });
         await oauth2.userinfo.get();
         hasValidTokens = true;
-        console.log('✅ Google tokens validated successfully');
+// console.log('✅ Google tokens validated successfully');
       } catch (error) {
-        console.log('❌ Google tokens invalid or expired:', error.message);
+// console.log('❌ Google tokens invalid or expired:', error.message);
         hasValidTokens = false;
         
         // Try to refresh if we have a refresh token
         if (process.env.GOOGLE_REFRESH_TOKEN) {
           try {
-            console.log('🔄 Attempting token refresh...');
+// console.log('🔄 Attempting token refresh...');
             const { google } = await import('googleapis');
             const oauth2Client = new google.auth.OAuth2(
               process.env.GOOGLE_CLIENT_ID,
@@ -252,16 +252,16 @@ export function addMinimalOAuthRoutes(app: Express) {
             if (credentials.access_token) {
               process.env.GOOGLE_ACCESS_TOKEN = credentials.access_token;
               hasValidTokens = true;
-              console.log('✅ Token refresh successful');
+// console.log('✅ Token refresh successful');
             }
           } catch (refreshError) {
-            console.log('❌ Token refresh failed:', refreshError.message);
+// console.log('❌ Token refresh failed:', refreshError.message);
           }
         }
       }
     }
 
-    console.log('🔍 Auth status check:', {
+// console.log('🔍 Auth status check:', {
       hasUserData,
       hasValidTokens,
       hasSessionUser,
@@ -313,7 +313,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   // Test callback endpoint to verify redirect URI is working
   app.get('/api/auth/test-callback', (req: Request, res: Response) => {
-    console.log('🧪 Test callback hit - redirect URI is reachable');
+// console.log('🧪 Test callback hit - redirect URI is reachable');
     res.json({
       success: true,
       message: 'Redirect URI is reachable',
@@ -324,7 +324,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   // Logout endpoint
   app.get('/api/auth/logout', (req: Request, res: Response) => {
-    console.log('🚪 Logout requested');
+// console.log('🚪 Logout requested');
     
     // Clear session
     req.session.destroy((err) => {
@@ -344,14 +344,14 @@ export function addMinimalOAuthRoutes(app: Express) {
     delete process.env.GOOGLE_ACCESS_TOKEN;
     delete process.env.GOOGLE_REFRESH_TOKEN;
     
-    console.log('✅ Logout successful');
+// console.log('✅ Logout successful');
     res.redirect('/?auth=logout');
   });
 
   // Comprehensive authentication fix endpoint
   app.post('/api/auth/fix-session', async (req: Request, res: Response) => {
     try {
-      console.log('🔧 Running comprehensive authentication fix...');
+// console.log('🔧 Running comprehensive authentication fix...');
       
       const currentUser = req.user || req.session?.user;
       
@@ -366,9 +366,9 @@ export function addMinimalOAuthRoutes(app: Express) {
           const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client });
           await oauth2.userinfo.get();
           hasValidTokens = true;
-          console.log('✅ Tokens validated during fix');
+// console.log('✅ Tokens validated during fix');
         } catch (error) {
-          console.log('❌ Tokens invalid, attempting refresh...');
+// console.log('❌ Tokens invalid, attempting refresh...');
           
           if (process.env.GOOGLE_REFRESH_TOKEN) {
             try {
@@ -385,16 +385,16 @@ export function addMinimalOAuthRoutes(app: Express) {
               if (credentials.access_token) {
                 process.env.GOOGLE_ACCESS_TOKEN = credentials.access_token;
                 hasValidTokens = true;
-                console.log('✅ Token refresh successful during fix');
+// console.log('✅ Token refresh successful during fix');
               }
             } catch (refreshError) {
-              console.log('❌ Token refresh failed during fix:', refreshError.message);
+// console.log('❌ Token refresh failed during fix:', refreshError.message);
             }
           }
         }
       }
       
-      console.log('Current state:', {
+// console.log('Current state:', {
         hasCurrentUser: !!currentUser,
         hasValidTokens,
         sessionId: req.sessionID,
@@ -403,7 +403,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
       // If we have valid tokens but no user session, try to restore
       if (hasValidTokens && !currentUser) {
-        console.log('📡 Valid tokens exist but no user session, attempting restoration...');
+// console.log('📡 Valid tokens exist but no user session, attempting restoration...');
         
         const { storage } = await import('./storage');
         const users = await storage.getAllUsers();
@@ -411,7 +411,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         if (users && users.length > 0) {
           // Find the most recently created user (likely the Google user)
           const user = users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
-          console.log('👤 Restoring session for user:', user.email);
+// console.log('👤 Restoring session for user:', user.email);
           
           // Manually restore session
           req.session.user = user;
@@ -432,7 +432,7 @@ export function addMinimalOAuthRoutes(app: Express) {
               });
             }
             
-            console.log('✅ Session restored successfully');
+// console.log('✅ Session restored successfully');
             res.json({ 
               success: true, 
               message: 'Authentication restored',
@@ -446,7 +446,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
       // If we have a user but authentication is still failing
       if (currentUser) {
-        console.log('✅ User exists, ensuring session consistency...');
+// console.log('✅ User exists, ensuring session consistency...');
         req.session.user = currentUser;
         req.session.userId = currentUser.id;
         req.session.isAuthenticated = true;
@@ -467,7 +467,7 @@ export function addMinimalOAuthRoutes(app: Express) {
       }
 
       // No user and no tokens - need fresh authentication
-      console.log('❌ No user session and no valid tokens found');
+// console.log('❌ No user session and no valid tokens found');
       res.json({ 
         success: false, 
         error: 'No authentication data found - need fresh OAuth',
@@ -664,7 +664,7 @@ export function addMinimalOAuthRoutes(app: Express) {
   // Session management endpoints
   app.post('/api/auth/restore-session', async (req: Request, res: Response) => {
     try {
-      console.log('🔄 Attempting session restoration...');
+// console.log('🔄 Attempting session restoration...');
       
       // Try to restore session from environment tokens
       if (process.env.GOOGLE_ACCESS_TOKEN && process.env.GOOGLE_REFRESH_TOKEN) {
@@ -683,7 +683,7 @@ export function addMinimalOAuthRoutes(app: Express) {
           req.session.passport = { user: mockUser.id };
         }
         
-        console.log('✅ Session restored from environment tokens');
+// console.log('✅ Session restored from environment tokens');
         res.json({ 
           success: true, 
           message: 'Session restored from environment tokens',
@@ -703,7 +703,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   app.post('/api/auth/fix-session', async (req: Request, res: Response) => {
     try {
-      console.log('🔧 Attempting comprehensive session fix...');
+// console.log('🔧 Attempting comprehensive session fix...');
       
       // Check current session state
       const sessionState = {
@@ -713,7 +713,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         sessionId: req.sessionID
       };
       
-      console.log('📊 Current session state:', sessionState);
+// console.log('📊 Current session state:', sessionState);
       
       // If we have tokens but no user session, restore it
       if (sessionState.hasTokens && !sessionState.hasUser && req.session) {
@@ -737,7 +737,7 @@ export function addMinimalOAuthRoutes(app: Express) {
         });
         
         sessionState.hasUser = true;
-        console.log('✅ Session user restored');
+// console.log('✅ Session user restored');
       }
       
       res.json({ 
@@ -753,7 +753,7 @@ export function addMinimalOAuthRoutes(app: Express) {
 
   // Quick authentication diagnostics endpoint
   app.get('/api/auth/quick-diag', async (req: Request, res: Response) => {
-    console.log('🚨 QUICK AUTHENTICATION DIAGNOSTICS');
+// console.log('🚨 QUICK AUTHENTICATION DIAGNOSTICS');
     
     const diagnostics = {
       session: {
@@ -784,15 +784,15 @@ export function addMinimalOAuthRoutes(app: Express) {
       diagnostics.recommendations.push('No access token found - fresh OAuth required');
     }
 
-    console.log('📊 Diagnostics result:', diagnostics);
+// console.log('📊 Diagnostics result:', diagnostics);
     res.json(diagnostics);
   });
 
   // Test session endpoint for debugging authentication
   app.post('/api/auth/test-session', (req: Request, res: Response) => {
-    console.log('🧪 Test session endpoint called');
+// console.log('🧪 Test session endpoint called');
     const isAuthenticated = !!(req.user || req.session?.user);
-    console.log('Session data:', {
+// console.log('Session data:', {
       sessionId: req.sessionID,
       isAuthenticated,
       user: req.user,
@@ -811,5 +811,5 @@ export function addMinimalOAuthRoutes(app: Express) {
     });
   });
 
-  console.log('✅ Minimal OAuth routes added');
+// console.log('✅ Minimal OAuth routes added');
 }

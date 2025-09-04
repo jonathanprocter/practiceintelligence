@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog';
+import { Label } from '@/components/ui/Label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { 
@@ -77,11 +77,11 @@ interface SessionMaterial {
 interface AICaseConceptualization {
   id: number;
   clientId: number;
-  conceptualizationData: any;
+  conceptualizationData: unknown;
   presentingProblems: string[];
   treatmentGoals: string[];
   interventionsUsed: string[];
-  progressIndicators: any;
+  progressIndicators: unknown;
   riskFactors: string[];
   strengths: string[];
   recommendations: string[];
@@ -387,7 +387,7 @@ export function ComprehensiveClientDatabase() {
 }
 
 // Component sub-components would be defined here
-function NewClientForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+function NewClientForm({ onSubmit }: { onSubmit: (data: unknown) => void }) {
   // Implementation for new client form
   return <div>New Client Form Implementation</div>;
 }
@@ -397,27 +397,27 @@ function ClientOverview({ client }: { client: Client }) {
   return <div>Client Overview Implementation</div>;
 }
 
-function SessionHistory({ client, sessionNotes, onAddNote }: any) {
+function SessionHistory({ client, sessionNotes, onAddNote }: unknown) {
   // Implementation for session history
   return <div>Session History Implementation</div>;
 }
 
-function SessionMaterials({ client, materials, onFileSelect, onUpload, selectedFiles, isUploading }: any) {
+function SessionMaterials({ client, materials, onFileSelect, onUpload, selectedFiles, isUploading }: unknown) {
   // Implementation for session materials
   return <div>Session Materials Implementation</div>;
 }
 
-function AICaseInsights({ client, conceptualization, onGenerateInsights, isGenerating }: any) {
+function AICaseInsights({ client, conceptualization, onGenerateInsights, isGenerating }: unknown) {
   // Implementation for AI case insights
   return <div>AI Case Insights Implementation</div>;
 }
 
-function ClientAnalytics({ client, sessionNotes }: any) {
+function ClientAnalytics({ client, sessionNotes }: unknown) {
   // Implementation for client analytics
   return <div>Client Analytics Implementation</div>;
 }
 
-function SessionNoteForm({ clientId, onSubmit }: any) {
+function SessionNoteForm({ clientId, onSubmit }: unknown) {
   // Implementation for session note form
   return <div>Session Note Form Implementation</div>;
 }

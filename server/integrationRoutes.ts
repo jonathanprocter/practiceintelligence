@@ -1,7 +1,7 @@
 import { Express } from 'express';
 
 // Authentication helper function
-function getAuthenticatedUserId(req: any): number | null {
+function getAuthenticatedUserId(req: unknown): number | null {
   const sources = [
     req.user?.id,
     req.session?.user?.id,
@@ -205,7 +205,7 @@ export function addIntegrationRoutes(app: Express) {
         await getNotionDatabases();
         notionConnected = true;
       } catch (error) {
-        console.log('Notion not connected:', error.message);
+// console.log('Notion not connected:', error.message);
       }
 
       // Check Google Drive connection
@@ -215,7 +215,7 @@ export function addIntegrationRoutes(app: Express) {
         await initializeDriveAPI(req);
         driveConnected = true;
       } catch (error) {
-        console.log('Google Drive not connected:', error.message);
+// console.log('Google Drive not connected:', error.message);
       }
 
       // Check Google Calendar connection
@@ -227,7 +227,7 @@ export function addIntegrationRoutes(app: Express) {
           calendarConnected = true;
         }
       } catch (error) {
-        console.log('Google Calendar not connected:', error.message);
+// console.log('Google Calendar not connected:', error.message);
       }
 
       res.json({
@@ -242,5 +242,5 @@ export function addIntegrationRoutes(app: Express) {
     }
   });
 
-  console.log('✅ Integration routes registered successfully');
+// console.log('✅ Integration routes registered successfully');
 }

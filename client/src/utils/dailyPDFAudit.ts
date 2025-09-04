@@ -27,8 +27,8 @@ export class DailyPDFAuditSystem {
   private failed: string[] = [];
 
   async auditDailyPDFExport(selectedDate: Date, events: CalendarEvent[]): Promise<DailyPDFAuditResult> {
-    console.log('🔍 DAILY PDF AUDIT STARTING...');
-    console.log(`📅 Auditing daily export for: ${selectedDate.toDateString()}`);
+// console.log('🔍 DAILY PDF AUDIT STARTING...');
+// console.log(`📅 Auditing daily export for: ${selectedDate.toDateString()}`);
     
     this.issues = [];
     this.passed = [];
@@ -40,7 +40,7 @@ export class DailyPDFAuditSystem {
       return eventDate.toDateString() === selectedDate.toDateString();
     });
 
-    console.log(`📊 Found ${dailyEvents.length} events for audit`);
+// console.log(`📊 Found ${dailyEvents.length} events for audit`);
 
     // Run audit checks
     await this.auditDataTransformation(dailyEvents);
@@ -61,17 +61,17 @@ export class DailyPDFAuditSystem {
       failed: this.failed
     };
 
-    console.log('🎯 DAILY PDF AUDIT COMPLETE');
-    console.log(`📊 Score: ${score}%`);
-    console.log(`✅ Passed: ${this.passed.length}`);
-    console.log(`❌ Failed: ${this.failed.length}`);
-    console.log(`🔧 Issues: ${this.issues.length}`);
+// console.log('🎯 DAILY PDF AUDIT COMPLETE');
+// console.log(`📊 Score: ${score}%`);
+// console.log(`✅ Passed: ${this.passed.length}`);
+// console.log(`❌ Failed: ${this.failed.length}`);
+// console.log(`🔧 Issues: ${this.issues.length}`);
 
     return result;
   }
 
   private async auditDataTransformation(events: CalendarEvent[]): Promise<void> {
-    console.log('🔍 Auditing data transformation...');
+// console.log('🔍 Auditing data transformation...');
 
     // Check if events have proper time format
     for (const event of events) {
@@ -111,7 +111,7 @@ export class DailyPDFAuditSystem {
   }
 
   private async auditComponentStructure(): Promise<void> {
-    console.log('🔍 Auditing component structure...');
+// console.log('🔍 Auditing component structure...');
 
     // Check if component exists
     try {
@@ -146,7 +146,7 @@ export class DailyPDFAuditSystem {
   }
 
   private async auditStyling(): Promise<void> {
-    console.log('🔍 Auditing styling...');
+// console.log('🔍 Auditing styling...');
 
     // Check for critical styling issues that commonly occur
     const commonIssues = [
@@ -184,7 +184,7 @@ export class DailyPDFAuditSystem {
   }
 
   private async auditAppointmentRendering(events: CalendarEvent[]): Promise<void> {
-    console.log('🔍 Auditing appointment rendering...');
+// console.log('🔍 Auditing appointment rendering...');
 
     // Check for overlapping appointments
     const timeSlotMap = new Map<string, CalendarEvent[]>();
@@ -226,7 +226,7 @@ export class DailyPDFAuditSystem {
   }
 
   private async auditTimeSlots(): Promise<void> {
-    console.log('🔍 Auditing time slots...');
+// console.log('🔍 Auditing time slots...');
 
     // Expected time slots (7 AM to 7 PM in 30-minute intervals)
     const expectedSlots = [];
@@ -260,7 +260,7 @@ export class DailyPDFAuditSystem {
   }
 
   private async auditSourceStyling(events: CalendarEvent[]): Promise<void> {
-    console.log('🔍 Auditing source-based styling...');
+// console.log('🔍 Auditing source-based styling...');
 
     const sources = new Set(events.map(e => e.source).filter(Boolean));
     

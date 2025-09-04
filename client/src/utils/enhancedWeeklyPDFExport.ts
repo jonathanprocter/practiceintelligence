@@ -53,8 +53,8 @@ export const exportEnhancedWeeklyPDF = (
     format: [ENHANCED_WEEKLY_CONFIG.pageWidth, ENHANCED_WEEKLY_CONFIG.pageHeight]
   });
 
-  console.log('🔄 Starting Enhanced Weekly PDF Export with Event Notes & Action Items...');
-  console.log('📊 Events:', events.length);
+// console.log('🔄 Starting Enhanced Weekly PDF Export with Event Notes & Action Items...');
+// console.log('📊 Events:', events.length);
 
   // Draw header
   drawEnhancedWeeklyHeader(pdf, weekStart, weekEnd);
@@ -71,7 +71,7 @@ export const exportEnhancedWeeklyPDF = (
   // Download PDF
   const filename = `enhanced-weekly-planner-${format(weekStart, 'yyyy-MM-dd')}-to-${format(weekEnd, 'yyyy-MM-dd')}.pdf`;
   pdf.save(filename);
-  console.log('✅ Enhanced Weekly PDF Export completed:', filename);
+// console.log('✅ Enhanced Weekly PDF Export completed:', filename);
 };
 
 const drawEnhancedWeeklyHeader = (pdf: jsPDF, weekStart: Date, weekEnd: Date): void => {

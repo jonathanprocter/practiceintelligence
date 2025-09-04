@@ -40,7 +40,7 @@ export const exportWeeklyRemarkableExact = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🎯 Generating exact HTML template match PDF for reMarkable Pro');
+// console.log('🎯 Generating exact HTML template match PDF for reMarkable Pro');
   
   // Create PDF with landscape A4 dimensions for better scaling
   const pdf = new jsPDF({
@@ -60,7 +60,7 @@ export const exportWeeklyRemarkableExact = async (
   const filename = `weekly-planner-remarkable-${weekRange.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}.pdf`;
   pdf.save(filename);
   
-  console.log('✅ reMarkable Pro PDF generated successfully');
+// console.log('✅ reMarkable Pro PDF generated successfully');
 };
 
 async function generateWeeklyLayout(
@@ -75,7 +75,7 @@ async function generateWeeklyLayout(
     return eventDate >= weekStartDate && eventDate <= weekEndDate;
   });
 
-  console.log(`📊 Processing ${weekEvents.length} events for week layout`);
+// console.log(`📊 Processing ${weekEvents.length} events for week layout`);
 
   // 1. HEADER SECTION - "Weekly Planner" + week info
   generateHeader(pdf, weekStartDate, weekEndDate);

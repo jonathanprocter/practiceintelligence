@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 // Helper function to get authenticated user ID
-function getAuthenticatedUserId(req: any): number | null {
+function getAuthenticatedUserId(req: unknown): number | null {
   const sources = [
     req.user?.id,
     req.session?.user?.id,
@@ -31,7 +31,7 @@ async function getUserById(userId: number) {
 }
 
 // Initialize Google Drive API
-export async function initializeDriveAPI(req: any) {
+export async function initializeDriveAPI(req: unknown) {
   const userId = getAuthenticatedUserId(req);
   if (!userId) {
     throw new Error('User not authenticated');
@@ -57,7 +57,7 @@ export async function initializeDriveAPI(req: any) {
 }
 
 // Create or find "reMarkable Calendars" folder
-export async function getOrCreateCalendarFolder(drive: any) {
+export async function getOrCreateCalendarFolder(drive: unknown) {
   try {
     // Search for existing folder
     const folderSearch = await drive.files.list({
@@ -88,7 +88,7 @@ export async function getOrCreateCalendarFolder(drive: any) {
 }
 
 // Upload PDF to Google Drive
-export async function uploadPDFToGoogleDrive(drive: any, folderId: string, filename: string, pdfBuffer: Buffer) {
+export async function uploadPDFToGoogleDrive(drive: unknown, folderId: string, filename: string, pdfBuffer: Buffer) {
   try {
     const fileMetadata = {
       name: filename,
@@ -118,7 +118,7 @@ export async function uploadPDFToGoogleDrive(drive: any, folderId: string, filen
 }
 
 // List files in calendar folder
-export async function listCalendarFiles(drive: any, folderId: string) {
+export async function listCalendarFiles(drive: unknown, folderId: string) {
   try {
     const response = await drive.files.list({
       q: `'${folderId}' in parents`,
@@ -134,7 +134,7 @@ export async function listCalendarFiles(drive: any, folderId: string) {
 }
 
 // Get Google Drive storage usage
-export async function getDriveStorageInfo(drive: any) {
+export async function getDriveStorageInfo(drive: unknown) {
   try {
     const response = await drive.about.get({
       fields: 'storageQuota'
