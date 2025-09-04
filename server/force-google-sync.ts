@@ -12,7 +12,7 @@ function createOAuth2Client() {
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
   const redirectUri = getRedirectURI();
   
-  console.log('🔧 Creating OAuth2 client with:', {
+// console.log('🔧 Creating OAuth2 client with:', {
     hasClientId: !!clientId,
     hasClientSecret: !!clientSecret,
     redirectUri
@@ -33,8 +33,8 @@ function getRedirectURI() {
   return `${baseURL}/api/auth/google/callback`;
 }
 
-export async function forceGoogleCalendarSync(req: any, res: any) {
-  console.log("🔄 Starting force Google Calendar sync...");
+export async function forceGoogleCalendarSync(req: unknown, res: unknown) {
+// console.log("🔄 Starting force Google Calendar sync...");
 
   try {
     // Check for valid tokens first
@@ -44,7 +44,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     
     // Validate that we have proper tokens
     if (!sessionUser?.accessToken && !envAccessToken) {
-      console.log("❌ No access tokens available");
+// console.log("❌ No access tokens available");
       return res.status(401).json({
         error: "Not authenticated",
         message: "Please authenticate with Google first",
@@ -54,7 +54,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     }
 
     if (!sessionUser?.refreshToken && !envRefreshToken) {
-      console.log("❌ No refresh tokens available");
+// console.log("❌ No refresh tokens available");
       return res.status(401).json({
         error: "No refresh token available",
         message: "Please re-authenticate with Google to get a new refresh token",
@@ -67,7 +67,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     let refreshToken = sessionUser?.refreshToken || envRefreshToken;
     let userEmail = sessionUser?.email || "jonathan.procter@gmail.com";
 
-    console.log("✅ Using tokens:", {
+// console.log("✅ Using tokens:", {
       source: sessionUser?.accessToken ? 'session' : 'environment',
       email: userEmail,
       hasAccessToken: !!accessToken,
@@ -89,16 +89,16 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
       
       // Try to list calendars as a token test
       await testCalendar.calendarList.list({ maxResults: 1 });
-      console.log("✅ Tokens are valid, proceeding with sync");
+// console.log("✅ Tokens are valid, proceeding with sync");
       
     } catch (tokenError) {
-      console.log("⚠️ Token validation failed:", tokenError.message);
+// console.log("⚠️ Token validation failed:", tokenError.message);
       
       // Check for specific authentication errors
       if (tokenError.message?.includes('invalid_client') || 
           tokenError.message?.includes('invalid_grant') || 
           tokenError.code === 401) {
-        console.log("🔄 Attempting token refresh...");
+// console.log("🔄 Attempting token refresh...");
         
         try {
           // Ensure we have the necessary credentials for refresh
@@ -114,7 +114,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
             refreshToken = credentials.refresh_token;
           }
           
-          console.log("✅ Token refresh successful - new access token obtained");
+// console.log("✅ Token refresh successful - new access token obtained");
           
           // Update session if using session tokens
           if (sessionUser) {
@@ -138,7 +138,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
           
           const testCalendar = google.calendar({ version: "v3", auth: oauth2Client });
           await testCalendar.calendarList.list({ maxResults: 1 });
-          console.log("✅ Refreshed tokens validated successfully");
+// console.log("✅ Refreshed tokens validated successfully");
           
         } catch (refreshError) {
           console.error("❌ Token refresh failed:", refreshError.message);
@@ -150,7 +150,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
           if (envAccessToken && envRefreshToken && 
               !envAccessToken.startsWith('dev-') && 
               !envRefreshToken.startsWith('dev-')) {
-            console.log("🔄 Falling back to environment tokens...");
+// console.log("🔄 Falling back to environment tokens...");
             
             try {
               // Test environment tokens
@@ -163,7 +163,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
               const testCalendar = google.calendar({ version: "v3", auth: fallbackClient });
               await testCalendar.calendarList.list({ maxResults: 1 });
               
-              console.log("✅ Environment tokens working, proceeding with sync");
+// console.log("✅ Environment tokens working, proceeding with sync");
               oauth2Client = fallbackClient;
               accessToken = envAccessToken;
               refreshToken = envRefreshToken;
@@ -197,14 +197,14 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     }
 
     // Step 1: Get all calendars including subcalendars
-    console.log("📅 Fetching all calendars...");
+// console.log("📅 Fetching all calendars...");
     const calendar = google.calendar({ version: "v3", auth: oauth2Client });
     const calendarListResponse = await calendar.calendarList.list();
     const calendars = calendarListResponse.data.items || [];
 
-    console.log(`✅ Found ${calendars.length} calendars:`);
+// console.log(`✅ Found ${calendars.length} calendars:`);
     calendars.forEach(cal => {
-      console.log(`  - ${cal.summary} (${cal.id})`);
+// console.log(`  - ${cal.summary} (${cal.id})`);
     });
 
     // Step 2: Define sync date range (comprehensive sync)
@@ -212,7 +212,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     const startDate = new Date(2025, 0, 1); // January 1, 2025
     const endDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate()); // 3 months ahead
 
-    console.log(`📅 Syncing events from ${startDate.toISOString()} to ${endDate.toISOString()}`);
+// console.log(`📅 Syncing events from ${startDate.toISOString()} to ${endDate.toISOString()}`);
 
     // Step 3: Fetch events from all calendars
     let totalEvents = 0;
@@ -220,7 +220,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
     const calendarResults = [];
 
     for (const cal of calendars) {
-      console.log(`🔄 Syncing calendar: ${cal.summary}`);
+// console.log(`🔄 Syncing calendar: ${cal.summary}`);
 
       try {
         const eventsResponse = await calendar.events.list({
@@ -235,7 +235,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
         const events = eventsResponse.data.items || [];
         totalEvents += events.length;
 
-        console.log(`  📊 Found ${events.length} events in ${cal.summary}`);
+// console.log(`  📊 Found ${events.length} events in ${cal.summary}`);
 
         // Step 4: Process and save events
         let savedCount = 0;
@@ -282,7 +282,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
           primary: cal.primary || false
         });
 
-        console.log(`  ✅ Saved ${savedCount}/${events.length} events from ${cal.summary}`);
+// console.log(`  ✅ Saved ${savedCount}/${events.length} events from ${cal.summary}`);
 
       } catch (calendarError) {
         console.error(`❌ Error syncing calendar ${cal.summary}:`, calendarError.message);
@@ -302,7 +302,7 @@ export async function forceGoogleCalendarSync(req: any, res: any) {
       process.env.GOOGLE_REFRESH_TOKEN = sessionUser.refreshToken;
     }
 
-    console.log(`✅ Sync complete! ${totalSavedEvents}/${totalEvents} events saved across ${calendars.length} calendars`);
+// console.log(`✅ Sync complete! ${totalSavedEvents}/${totalEvents} events saved across ${calendars.length} calendars`);
 
     // Step 6: Return comprehensive results
     return res.json({

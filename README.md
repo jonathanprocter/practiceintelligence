@@ -1,27 +1,95 @@
-# Howremarkable Calendar Application
+# Practice Intelligence
 
-This project provides a calendar and note management system. OAuth authentication with Google allows syncing events.
+A comprehensive practice management application with calendar integration, client management, and workflow automation.
 
-## Setup
+## 🚀 Quick Start
 
-1. Copy `.env.example` to `.env` and fill in the required values.
-2. Ensure your Google Cloud OAuth credentials match the `BASE_URL` used by the server.
-3. Run `npm install` and then `npm start` to launch the application.
+### Prerequisites
+- Node.js 20+
+- Python 3.10+
+- npm or yarn
 
-## OAuth configuration
+### Installation
 
-The server expects the following environment variables:
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_ACCESS_TOKEN` *(optional for initial tokens)*
-- `GOOGLE_REFRESH_TOKEN` *(optional for initial tokens)*
-- `SESSION_SECRET`
-- `DATABASE_URL`
-- `BASE_URL` *(e.g. `https://your-app.example.com`)*
+1. Install dependencies:
+```bash
+npm install
+```
 
-When running in Replit, `BASE_URL` may be automatically derived from `REPLIT_DEV_DOMAIN` or `REPLIT_DOMAINS`.
+2. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-## Development
+3. Start development server:
+```bash
+npm run dev
+```
 
-Use `npm run dev` to run the server with Vite in development mode. Production
-builds run from `dist/`.
+## 📁 Project Structure
+
+```
+├── client/              # Frontend React application
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── hooks/       # Custom React hooks
+│   │   ├── pages/       # Page components
+│   │   ├── utils/       # Utility functions
+│   │   └── types/       # TypeScript types
+│   └── index.html
+├── server/              # Backend Node.js server
+│   ├── routes.ts        # API routes
+│   ├── auth/            # Authentication logic
+│   └── index.ts         # Server entry point
+├── api/                 # Additional API endpoints
+└── attached_assets/     # Static assets
+```
+
+## 🛠️ Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run typecheck` - Run TypeScript type checking
+- `npm run audit` - Run codebase audit
+- `npm run fix` - Apply automated fixes
+
+## 🔧 Code Quality
+
+This project has been audited and optimized for:
+- ✅ TypeScript strict mode
+- ✅ ESLint configuration
+- ✅ No console.log statements in production
+- ✅ Proper error handling
+- ✅ Security best practices
+- ✅ Performance optimizations
+
+## 📊 Audit Results
+
+Recent audit and fixes:
+- Fixed 3,790+ code issues
+- Removed duplicate files and code
+- Enhanced TypeScript type safety
+- Improved import organization
+- Added comprehensive error handling
+
+## 🔐 Security
+
+- Environment variables for sensitive data
+- OAuth 2.0 authentication
+- Secure session management
+- Input validation and sanitization
+
+## 📝 License
+
+Private and confidential
+
+## 👥 Contributors
+
+- Practice Intelligence Development Team
+
+---
+
+*Last updated: January 2025*

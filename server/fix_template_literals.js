@@ -1,13 +1,14 @@
 const fs = require('fs');
+import { promisify } from 'util';
 
 // Read the file
-let content = fs.readFileSync('routes.ts', 'utf8');
+let content = fs.readFile('routes.ts', 'utf8');
 
 // Replace all template literals step by step
 const fixes = [
-  // Replace console.log template literals
-  [/console\.log\(`\[([A-Z]+)\] ([^`]*)\$\{([^}]+)\}([^`]*)`\)/g, 'console.log("[$1] $2" + $3 + "$4")'],
-  [/console\.log\(`\[([A-Z]+)\] ([^`]*)\$\{([^}]+)\}([^`]*)\$\{([^}]+)\}([^`]*)`\)/g, 'console.log("[$1] $2" + $3 + "$4" + $5 + "$6")'],
+// // Replace console.log template literals
+// [/console\.log\(`\[([A-Z]+)\] ([^`]*)\$\{([^}]+)\}([^`]*)`\)/g, 'console.log("[$1] $2" + $3 + "$4")'],
+// [/console\.log\(`\[([A-Z]+)\] ([^`]*)\$\{([^}]+)\}([^`]*)\$\{([^}]+)\}([^`]*)`\)/g, 'console.log("[$1] $2" + $3 + "$4" + $5 + "$6")'],
   
   // Replace simple template literals
   [/`([^`]*)\$\{([^}]+)\}([^`]*)`/g, '"$1" + $2 + "$3"'],
@@ -25,5 +26,5 @@ fixes.forEach(([pattern, replacement]) => {
 });
 
 // Write back
-fs.writeFileSync('routes.ts', content);
-console.log('Fixed template literals');
+fs.writeFile('routes.ts', content);
+// console.log('Fixed template literals');

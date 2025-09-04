@@ -7,11 +7,11 @@ export interface AuthFixResult {
   success: boolean;
   requiresAction?: boolean;
   message: string;
-  details?: any;
+  details?: unknown;
 }
 
 export async function runAuthenticationFix(): Promise<AuthFixResult> {
-  console.log('🔧 Running authentication fix...');
+// console.log('🔧 Running authentication fix...');
 
   try {
     // Step 1: Check current auth status
@@ -30,11 +30,11 @@ export async function runAuthenticationFix(): Promise<AuthFixResult> {
     }
 
     const authStatus = await statusResponse.json();
-    console.log('🔍 Current auth status:', authStatus);
+// console.log('🔍 Current auth status:', authStatus);
 
     // Step 2: If tokens are expired or invalid, redirect to fresh OAuth
     if (!authStatus.hasValidTokens || authStatus.needsAuth) {
-      console.log('🔄 Tokens expired or invalid, need fresh OAuth authentication...');
+// console.log('🔄 Tokens expired or invalid, need fresh OAuth authentication...');
 
       return {
         success: false,
@@ -61,7 +61,7 @@ export async function runAuthenticationFix(): Promise<AuthFixResult> {
       if (forceFixResponse.ok) {
         const forceFixResult = await forceFixResponse.json();
         if (forceFixResult.success) {
-          console.log('✅ Force authentication fix successful');
+// console.log('✅ Force authentication fix successful');
           // Wait for session to propagate
           await new Promise(resolve => setTimeout(resolve, 200));
           return {
@@ -72,7 +72,7 @@ export async function runAuthenticationFix(): Promise<AuthFixResult> {
         }
       }
     } catch (forceFixError) {
-      console.log('❌ Force fix request failed:', forceFixError);
+// console.log('❌ Force fix request failed:', forceFixError);
     }
 
     // Step 4: If not authenticated or tokens failed, return action required

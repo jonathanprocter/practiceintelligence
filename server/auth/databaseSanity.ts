@@ -8,7 +8,7 @@ export class DatabaseSanityManager {
    * Check for duplicate users in the database
    */
   static async findDuplicateUsers(): Promise<{
-    duplicates: any[];
+    duplicates: unknown[];
     total: number;
   }> {
     try {
@@ -22,7 +22,7 @@ export class DatabaseSanityManager {
         .groupBy(storage.schema.users.email)
         .having(sql`count(*) > 1`);
 
-      console.log(`🔍 Found ${duplicateEmails.length} duplicate email groups`);
+// console.log(`🔍 Found ${duplicateEmails.length} duplicate email groups`);
       return {
         duplicates: duplicateEmails,
         total: duplicateEmails.length
@@ -67,12 +67,12 @@ export class DatabaseSanityManager {
 
             if (hasRealData) {
               preservedUsers.push(pattern);
-              console.log(`🛡️ Preserving test user with real data: ${pattern}`);
+// console.log(`🛡️ Preserving test user with real data: ${pattern}`);
             } else {
               // Safe to remove
               await storage.deleteUser(user.id);
               removedCount++;
-              console.log(`🧹 Removed test user: ${pattern}`);
+// console.log(`🧹 Removed test user: ${pattern}`);
             }
           }
         } catch (error) {
@@ -124,7 +124,7 @@ export class DatabaseSanityManager {
       const isIsolated = leakage.length === 0;
       
       if (isIsolated) {
-        console.log(`✅ User ${userId} data isolation verified`);
+// console.log(`✅ User ${userId} data isolation verified`);
       } else {
         console.error(`❌ User ${userId} data isolation violations:`, leakage);
       }
@@ -150,7 +150,7 @@ export class DatabaseSanityManager {
       `);
 
       const removedCount = result.rowCount || 0;
-      console.log(`🧹 Removed ${removedCount} orphaned sessions`);
+// console.log(`🧹 Removed ${removedCount} orphaned sessions`);
       
       return removedCount;
     } catch (error) {
@@ -170,7 +170,7 @@ export class DatabaseSanityManager {
     summary: string;
   }> {
     try {
-      console.log('🔍 Running comprehensive database sanity check...');
+// console.log('🔍 Running comprehensive database sanity check...');
 
       // Check for duplicates
       const duplicateCheck = await this.findDuplicateUsers();
@@ -199,7 +199,7 @@ export class DatabaseSanityManager {
         - Orphaned sessions cleaned: ${orphanedSessions}
         - Isolation violations: ${isolationViolations}`;
 
-      console.log(summary);
+// console.log(summary);
 
       return {
         duplicateUsers: duplicateCheck.total,
@@ -222,7 +222,7 @@ export class DatabaseSanityManager {
 }
 
 // SQL helper for complex queries
-const sql = (strings: TemplateStringsArray, ...values: any[]) => {
+const sql = (strings: TemplateStringsArray, ...values: unknown[]) => {
   return strings.reduce((query, string, index) => {
     return query + string + (values[index] || '');
   }, '');

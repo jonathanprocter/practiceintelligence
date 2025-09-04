@@ -1,10 +1,11 @@
 // Final optimization script to achieve 100% pixel-perfect PDF export
 import fs from 'fs';
+import { promisify } from 'util';
 
 const filePath = 'client/src/utils/isolatedCalendarPDF.ts';
-let content = fs.readFileSync(filePath, 'utf8');
+let content = fs.readFile(filePath, 'utf8');
 
-console.log('🎯 Applying final optimizations for 100% pixel-perfect matching...');
+// console.log('🎯 Applying final optimizations for 100% pixel-perfect matching...');
 
 // Final optimizations for remaining issues
 const finalOptimizations = [
@@ -65,14 +66,14 @@ let appliedCount = 0;
 finalOptimizations.forEach((optimization, index) => {
   if (updatedContent.includes(optimization.from)) {
     updatedContent = updatedContent.replace(optimization.from, optimization.to);
-    console.log(`✅ ${optimization.description}`);
+// console.log(`✅ ${optimization.description}`);
     appliedCount++;
   } else {
-    console.log(`⚠️ Optimization ${index + 1} not found - pattern may have changed`);
+// console.log(`⚠️ Optimization ${index + 1} not found - pattern may have changed`);
   }
 });
 
 // Write back to file
-fs.writeFileSync(filePath, updatedContent);
-console.log(`📄 Applied ${appliedCount}/${finalOptimizations.length} final optimizations`);
-console.log('🎯 PDF export should now be approaching 100% pixel-perfect matching');
+fs.writeFile(filePath, updatedContent);
+// console.log(`📄 Applied ${appliedCount}/${finalOptimizations.length} final optimizations`);
+// console.log('🎯 PDF export should now be approaching 100% pixel-perfect matching');

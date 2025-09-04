@@ -53,7 +53,7 @@ export const exportExactGridPDF = async (
   events: CalendarEvent[] = []
 ): Promise<void> => {
   try {
-    console.log('Creating PDF with exact grid layout...');
+// console.log('Creating PDF with exact grid layout...');
 
     // Filter events for the week
     const weekEvents = (events || []).filter(event => {
@@ -228,7 +228,7 @@ export const exportExactGridPDF = async (
       isHour: slot.minute === 0
     }));
 
-    console.log(`Generated ${timeSlots.length} time slots from ${timeSlots[0]?.time} to ${timeSlots[timeSlots.length - 1]?.time}`);
+// console.log(`Generated ${timeSlots.length} time slots from ${timeSlots[0]?.time} to ${timeSlots[timeSlots.length - 1]?.time}`);
 
     timeSlots.forEach((slot, index) => {
       const y = gridStartY + 25 + (index * GRID_CONFIG.slotHeight);
@@ -279,7 +279,7 @@ export const exportExactGridPDF = async (
     });
 
     // EVENTS - place them exactly like dashboard with NO overlapping using absolute positioning
-    console.log(`📅 Rendering ${weekEvents.length} events for weekly PDF export`);
+// console.log(`📅 Rendering ${weekEvents.length} events for weekly PDF export`);
 
     // Group events by day to handle overlaps properly
     const eventsByDay: { [key: number]: CalendarEvent[] } = {};
@@ -302,7 +302,7 @@ export const exportExactGridPDF = async (
         new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
       );
 
-      console.log(`📅 Day ${dayIndex}: ${dayEvents.length} events`);
+// console.log(`📅 Day ${dayIndex}: ${dayEvents.length} events`);
 
       // Track used time slots for overlap detection
       const usedSlots: Set<number> = new Set();
@@ -359,7 +359,7 @@ export const exportExactGridPDF = async (
           const eventX = centerX + GRID_CONFIG.timeColumnWidth + (dayIndex * GRID_CONFIG.dayColumnWidth) + 1 + (horizontalOffset * (eventWidth * 0.3));
           const eventY = gridStartY + 25 + (startSlot * GRID_CONFIG.slotHeight) + 1;
 
-          console.log(`  📍 Event ${eventIndex + 1}: "${event.title}" at slot ${startSlot}-${endSlot}, offset ${horizontalOffset}`);
+// console.log(`  📍 Event ${eventIndex + 1}: "${event.title}" at slot ${startSlot}-${endSlot}, offset ${horizontalOffset}`);
 
           // Event styling based on type - exact dashboard matching
           const isSimplePractice = event.source === 'simplepractice' || event.title.includes('Appointment');
@@ -528,7 +528,7 @@ export const exportExactGridPDF = async (
     const filename = `Weekly_Calendar_${weekStartDate.toLocaleDateString('en-US').replace(/\//g, '-')}.pdf`;
     pdf.save(filename);
 
-    console.log('PDF exported successfully!');
+// console.log('PDF exported successfully!');
   } catch (error) {
     console.error('PDF export error:', error);
     console.error('Error details:', {

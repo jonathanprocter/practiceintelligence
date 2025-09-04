@@ -24,7 +24,7 @@ def create_weekly_planner_final():
         font_smaller = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24)
         # Larger header font for both title and week info
         font_header_large = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 60)
-    except:
+    except Exception:
         # Fallback to default font
         font_normal = ImageFont.load_default()
         font_smaller = ImageFont.load_default()

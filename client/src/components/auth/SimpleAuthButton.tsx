@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { LogIn, LogOut, RefreshCw, AlertCircle, CheckCircle, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface AuthStatus {
   authenticated: boolean;
   hasValidTokens: boolean;
-  user: any;
+  user: unknown;
 }
 
 interface AuthConfig {
@@ -32,7 +32,7 @@ export function SimpleAuthButton() {
       const response = await fetch('/api/auth/status');
       const status = await response.json();
       setAuthStatus(status);
-      console.log('Auth status:', status);
+// console.log('Auth status:', status);
     } catch (error) {
       console.error('Failed to check auth status:', error);
       toast({
@@ -50,14 +50,14 @@ export function SimpleAuthButton() {
       const response = await fetch('/api/auth/config');
       const config = await response.json();
       setAuthConfig(config);
-      console.log('Auth config:', config);
+// console.log('Auth config:', config);
     } catch (error) {
       console.error('Failed to get auth config:', error);
     }
   };
 
   const startAuthentication = () => {
-    console.log('Starting Google OAuth flow...');
+// console.log('Starting Google OAuth flow...');
     toast({
       title: "Redirecting to Google",
       description: "You'll be redirected to Google for authentication",

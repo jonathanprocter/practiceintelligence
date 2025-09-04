@@ -2,7 +2,7 @@
 // Authentication Recovery System
 class AuthRecovery {
   static async attemptRecovery(): Promise<boolean> {
-    console.log('🔄 Attempting authentication recovery...');
+// console.log('🔄 Attempting authentication recovery...');
     
     try {
       // Step 1: Check session status
@@ -10,7 +10,7 @@ class AuthRecovery {
       const status = await statusResponse.json();
       
       if (status.authenticated) {
-        console.log('✅ Already authenticated');
+// console.log('✅ Already authenticated');
         return true;
       }
       
@@ -19,7 +19,7 @@ class AuthRecovery {
       const restoreResult = await restoreResponse.json();
       
       if (restoreResult.success) {
-        console.log('✅ Session restored successfully');
+// console.log('✅ Session restored successfully');
         return true;
       }
       
@@ -28,11 +28,11 @@ class AuthRecovery {
       const fixResult = await fixResponse.json();
       
       if (fixResult.success) {
-        console.log('✅ Session fixed successfully');
+// console.log('✅ Session fixed successfully');
         return true;
       }
       
-      console.log('⚠️ Manual authentication required');
+// console.log('⚠️ Manual authentication required');
       return false;
       
     } catch (error) {

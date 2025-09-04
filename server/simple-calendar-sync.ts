@@ -4,8 +4,8 @@
 
 import { google } from "googleapis";
 
-export async function simpleCalendarSync(req: any, res: any) {
-  console.log("🔄 Starting simple calendar sync with environment tokens...");
+export async function simpleCalendarSync(req: unknown, res: unknown) {
+// console.log("🔄 Starting simple calendar sync with environment tokens...");
 
   try {
     // Use environment tokens directly without complex validation
@@ -15,7 +15,7 @@ export async function simpleCalendarSync(req: any, res: any) {
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
     if (!accessToken || !clientId || !clientSecret) {
-      console.log("❌ Missing required environment variables");
+// console.log("❌ Missing required environment variables");
       return res.status(401).json({
         error: "Authentication configuration missing",
         message: "Google API credentials not configured",
@@ -31,14 +31,14 @@ export async function simpleCalendarSync(req: any, res: any) {
       refresh_token: refreshToken,
     });
 
-    console.log("✅ OAuth client configured with environment tokens");
+// console.log("✅ OAuth client configured with environment tokens");
 
     // Test with a simple calendar list call
     const calendar = google.calendar({ version: "v3", auth: oauth2Client });
     
     try {
       const testResponse = await calendar.calendarList.list({ maxResults: 5 });
-      console.log(`✅ Calendar access verified - found ${testResponse.data.items?.length || 0} calendars`);
+// console.log(`✅ Calendar access verified - found ${testResponse.data.items?.length || 0} calendars`);
       
       res.json({
         success: true,
@@ -57,12 +57,12 @@ export async function simpleCalendarSync(req: any, res: any) {
       
       // Try to refresh the token if we get an authentication error
       if (calendarError.code === 401 || calendarError.message?.includes('unauthorized') || calendarError.message?.includes('invalid_grant')) {
-        console.log("🔄 Attempting token refresh due to authentication error...");
+// console.log("🔄 Attempting token refresh due to authentication error...");
         
         try {
           // Use refresh token to get new access token
           const { credentials } = await oauth2Client.refreshAccessToken();
-          console.log("✅ Token refresh successful");
+// console.log("✅ Token refresh successful");
           
           // Update the client with new credentials
           oauth2Client.setCredentials({
@@ -72,7 +72,7 @@ export async function simpleCalendarSync(req: any, res: any) {
           
           // Retry the calendar call with refreshed token
           const retryResponse = await calendar.calendarList.list({ maxResults: 5 });
-          console.log(`✅ Calendar access verified after token refresh - found ${retryResponse.data.items?.length || 0} calendars`);
+// console.log(`✅ Calendar access verified after token refresh - found ${retryResponse.data.items?.length || 0} calendars`);
           
           return res.json({
             success: true,

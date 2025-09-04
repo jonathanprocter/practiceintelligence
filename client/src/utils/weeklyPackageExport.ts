@@ -30,9 +30,9 @@ export const exportWeeklyPackage = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🎯 STARTING COMPREHENSIVE WEEKLY PACKAGE EXPORT');
-  console.log(`📅 Week Range: ${weekStartDate.toLocaleDateString()} - ${weekEndDate.toLocaleDateString()}`);
-  console.log(`📊 Total Events: ${events.length}`);
+// console.log('🎯 STARTING COMPREHENSIVE WEEKLY PACKAGE EXPORT');
+// console.log(`📅 Week Range: ${weekStartDate.toLocaleDateString()} - ${weekEndDate.toLocaleDateString()}`);
+// console.log(`📊 Total Events: ${events.length}`);
 
   // Audit validation before export
   const auditResults = {
@@ -60,7 +60,7 @@ export const exportWeeklyPackage = async (
       }
     });
 
-    console.log(`✅ Event Validation: ${auditResults.validEvents} valid, ${auditResults.invalidEvents} invalid`);
+// console.log(`✅ Event Validation: ${auditResults.validEvents} valid, ${auditResults.invalidEvents} invalid`);
 
     // Generate weekly overview page
     drawWeeklyOverviewPage(pdf, weekStartDate, weekEndDate, events);
@@ -75,9 +75,9 @@ export const exportWeeklyPackage = async (
 
     auditResults.exportSuccess = true;
     
-    console.log(`✅ WEEKLY PACKAGE EXPORT COMPLETE`);
-    console.log(`📊 Audit Results:`, auditResults);
-    console.log(`📁 Filename: ${filename}`);
+// console.log(`✅ WEEKLY PACKAGE EXPORT COMPLETE`);
+// console.log(`📊 Audit Results:`, auditResults);
+// console.log(`📁 Filename: ${filename}`);
 
     // Store audit results for testing
     localStorage.setItem('weeklyPackageAuditResults', JSON.stringify(auditResults));

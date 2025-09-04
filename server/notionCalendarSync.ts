@@ -46,9 +46,9 @@ export async function ensureCalendarEventsDatabase() {
 }
 
 // Sync calendar events from database to Notion
-export async function syncCalendarEventsToNotion(events: any[]) {
+export async function syncCalendarEventsToNotion(events: unknown[]) {
   try {
-    console.log(`🔄 Syncing ${events.length} calendar events to Notion...`);
+// console.log(`🔄 Syncing ${events.length} calendar events to Notion...`);
     
     // Ensure calendar database exists
     const calendarDb = await ensureCalendarEventsDatabase();
@@ -129,7 +129,7 @@ export async function syncCalendarEventsToNotion(events: any[]) {
         });
 
         syncedCount++;
-        console.log(`✅ Synced: ${clientName} (${startDate.toLocaleDateString()})`);
+// console.log(`✅ Synced: ${clientName} (${startDate.toLocaleDateString()})`);
 
       } catch (eventError) {
         errorCount++;
@@ -137,7 +137,7 @@ export async function syncCalendarEventsToNotion(events: any[]) {
       }
     }
 
-    console.log(`🎉 Sync complete: ${syncedCount} events synced, ${errorCount} errors`);
+// console.log(`🎉 Sync complete: ${syncedCount} events synced, ${errorCount} errors`);
     return { syncedCount, errorCount, databaseId: calendarDb.id };
 
   } catch (error) {
@@ -164,7 +164,7 @@ export async function getCalendarEventsFromNotion() {
       ]
     });
 
-    return response.results.map((page: any) => {
+    return response.results.map((page: unknown) => {
       const props = page.properties;
       return {
         id: page.id,
@@ -193,13 +193,13 @@ export async function linkEventToClientDatabase(eventTitle: string, clientName: 
   try {
     // Find client's progress notes database
     const databases = await getNotionDatabases();
-    const clientDb = databases.find((db: any) => {
+    const clientDb = databases.find((db: unknown) => {
       const title = db.title?.[0]?.plain_text || '';
       return title.toLowerCase().includes(clientName.toLowerCase());
     });
 
     if (!clientDb) {
-      console.log(`📝 No progress notes database found for client: ${clientName}`);
+// console.log(`📝 No progress notes database found for client: ${clientName}`);
       return null;
     }
 
@@ -222,7 +222,7 @@ export async function linkEventToClientDatabase(eventTitle: string, clientName: 
       }
     });
 
-    console.log(`🔗 Linked event to ${clientName}'s progress notes`);
+// console.log(`🔗 Linked event to ${clientName}'s progress notes`);
     return clientDb.id;
 
   } catch (error) {

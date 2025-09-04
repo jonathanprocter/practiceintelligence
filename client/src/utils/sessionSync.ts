@@ -5,7 +5,7 @@
 
 export class SessionSync {
   static async forceSessionSync(): Promise<boolean> {
-    console.log('🔄 FORCE SESSION SYNC: Starting...');
+// console.log('🔄 FORCE SESSION SYNC: Starting...');
     
     try {
       // Step 1: Clear all session cookies
@@ -15,10 +15,10 @@ export class SessionSync {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
       });
       
-      console.log('🔄 Cleared all session cookies');
+// console.log('🔄 Cleared all session cookies');
       
       // Step 2: Force page reload to get fresh session
-      console.log('🔄 Forcing page reload to establish fresh session...');
+// console.log('🔄 Forcing page reload to establish fresh session...');
       window.location.reload();
       
       return true;
@@ -30,7 +30,7 @@ export class SessionSync {
   }
   
   static async startGoogleOAuth(): Promise<boolean> {
-    console.log('🔄 GOOGLE OAUTH: Starting fresh OAuth flow...');
+// console.log('🔄 GOOGLE OAUTH: Starting fresh OAuth flow...');
     
     try {
       // Direct redirect to Google OAuth
@@ -44,7 +44,7 @@ export class SessionSync {
   }
   
   static async testAllSessions(): Promise<void> {
-    console.log('🔍 TESTING ALL SESSIONS: Starting comprehensive test...');
+// console.log('🔍 TESTING ALL SESSIONS: Starting comprehensive test...');
     
     try {
       // Test current session
@@ -56,12 +56,12 @@ export class SessionSync {
       });
       
       const data = await response.json();
-      console.log('🔍 Current session test:', data);
+// console.log('🔍 Current session test:', data);
       
       // If not authenticated, recommend OAuth
       if (!data.isAuthenticated) {
-        console.log('🔍 Recommendation: Start fresh Google OAuth flow');
-        console.log('🔍 You can click "Force Google Reconnect" or run SessionSync.startGoogleOAuth()');
+// console.log('🔍 Recommendation: Start fresh Google OAuth flow');
+// console.log('🔍 You can click "Force Google Reconnect" or run SessionSync.startGoogleOAuth()');
       }
       
     } catch (error) {

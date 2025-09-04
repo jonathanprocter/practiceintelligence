@@ -9,7 +9,7 @@ export class SessionFixer {
    * Force the frontend to use the authenticated backend session
    */
   static forceUseAuthenticatedSession(): void {
-    console.log('🔧 FORCING USE OF AUTHENTICATED SESSION');
+// console.log('🔧 FORCING USE OF AUTHENTICATED SESSION');
     
     // Clear all existing session cookies
     document.cookie.split(";").forEach(cookie => {
@@ -18,14 +18,14 @@ export class SessionFixer {
       document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
     });
     
-    console.log('🧹 Cleared all session cookies');
+// console.log('🧹 Cleared all session cookies');
     
     // Use the authenticated session ID directly 
     const sessionValue = `s%3A${this.AUTHENTICATED_SESSION}.4GDBmZtU6BzV0jBKRj1PNKgdyBHfJE8kOCsFjBEhqeI`;
     document.cookie = `remarkable.sid=${sessionValue}; path=/; max-age=${30*24*60*60}; SameSite=Lax`;
     
-    console.log('✅ Set authenticated session cookie:', sessionValue);
-    console.log('🔄 Reloading page to use authenticated session...');
+// console.log('✅ Set authenticated session cookie:', sessionValue);
+// console.log('🔄 Reloading page to use authenticated session...');
     
     // Force immediate page reload
     window.location.reload();
@@ -57,7 +57,7 @@ export class SessionFixer {
       
       if (response.ok) {
         const data = await response.json();
-        console.log('🔍 Current session auth check:', data);
+// console.log('🔍 Current session auth check:', data);
         return data.isAuthenticated === true;
       }
     } catch (error) {

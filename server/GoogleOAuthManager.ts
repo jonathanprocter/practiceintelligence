@@ -35,8 +35,8 @@ export class GoogleOAuthManager {
     const baseUrl = getBaseUrl();
     const redirectUri = `${baseUrl}/api/auth/google/callback`;
 
-    console.log('🔧 OAuth Manager initialized with base URL:', baseUrl);
-    console.log('🔗 Redirect URI:', redirectUri);
+// console.log('🔧 OAuth Manager initialized with base URL:', baseUrl);
+// console.log('🔗 Redirect URI:', redirectUri);
 
     // NEVER use dev tokens in production - only real OAuth credentials
     this.oauth2Client = new google.auth.OAuth2(
@@ -73,7 +73,7 @@ export class GoogleOAuthManager {
         throw new Error('No access token received from Google OAuth.');
       }
 
-      console.log('✅ Successfully obtained OAuth tokens:', {
+// console.log('✅ Successfully obtained OAuth tokens:', {
         has_refresh_token: !!tokens.refresh_token,
         has_access_token: !!tokens.access_token,
         expires_in: tokens.expiry_date,
@@ -109,7 +109,7 @@ export class GoogleOAuthManager {
         savedAt: new Date().toISOString()
       }, null, 2));
 
-      console.log(`✅ Tokens saved for user ${userId}`);
+// console.log(`✅ Tokens saved for user ${userId}`);
     } catch (error) {
       console.error(`❌ Failed to save tokens for user ${userId}:`, error);
       throw error;
@@ -126,7 +126,7 @@ export class GoogleOAuthManager {
       const { tokens } = JSON.parse(data);
       return tokens;
     } catch (error) {
-      console.log(`No tokens found for user ${userId}`);
+// console.log(`No tokens found for user ${userId}`);
       return null;
     }
   }
@@ -144,7 +144,7 @@ export class GoogleOAuthManager {
     try {
       // Check if access token is expired and refresh if needed
       if (tokens.expiry_date && Date.now() >= tokens.expiry_date) {
-        console.log('🔄 Access token expired, refreshing...');
+// console.log('🔄 Access token expired, refreshing...');
         
         const { credentials } = await this.oauth2Client.refreshAccessToken();
         
@@ -152,7 +152,7 @@ export class GoogleOAuthManager {
         const updatedTokens = { ...tokens, ...credentials };
         await this.saveUserTokens(userId, updatedTokens);
         
-        console.log('✅ Tokens refreshed successfully');
+// console.log('✅ Tokens refreshed successfully');
       }
 
       return this.oauth2Client;
@@ -161,7 +161,7 @@ export class GoogleOAuthManager {
       
       // If refresh fails with invalid_grant, tokens are completely invalid
       if (error.message.includes('invalid_grant')) {
-        console.log('🔑 Refresh token invalid, requiring re-authentication');
+// console.log('🔑 Refresh token invalid, requiring re-authentication');
         
         // Delete invalid tokens
         await this.clearUserTokens(userId);
@@ -179,7 +179,7 @@ export class GoogleOAuthManager {
       const dataDir = path.join(process.cwd(), 'data');
       const tokenPath = path.join(dataDir, `user_tokens_${userId}.json`);
       await fs.unlink(tokenPath);
-      console.log(`🗑️ Cleared invalid tokens for user ${userId}`);
+// console.log(`🗑️ Cleared invalid tokens for user ${userId}`);
     } catch (error) {
       // File might not exist, that's fine
     }
@@ -204,7 +204,7 @@ export class GoogleOAuthManager {
         maxResults: 100
       });
 
-      console.log(`✅ Successfully synced ${response.data.items?.length || 0} calendar events`);
+// console.log(`✅ Successfully synced ${response.data.items?.length || 0} calendar events`);
       return response.data.items || [];
 
     } catch (error) {

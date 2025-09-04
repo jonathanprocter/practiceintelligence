@@ -13,7 +13,7 @@ interface PDFPage {
   title: string;
   date?: Date;
   pageNumber: number;
-  content: any;
+  content: unknown;
 }
 
 export class BidirectionalPDFManager {
@@ -125,7 +125,7 @@ export class BidirectionalPDFManager {
    * Create weekly overview page with enhanced navigation
    */
   private async createWeeklyPage(events: CalendarEvent[], weekStart: Date, weekEnd: Date): Promise<void> {
-    console.log('📄 Creating enhanced weekly overview page...');
+// console.log('📄 Creating enhanced weekly overview page...');
     
     // Create temporary container for weekly content
     const weeklyContainer = document.createElement('div');
@@ -160,7 +160,7 @@ export class BidirectionalPDFManager {
       // Add navigation
       this.addNavigationLinks(1, 'weekly');
       
-      console.log('✅ Weekly overview page created');
+// console.log('✅ Weekly overview page created');
       
     } finally {
       document.body.removeChild(weeklyContainer);
@@ -172,7 +172,7 @@ export class BidirectionalPDFManager {
    */
   private async createDailyPage(events: CalendarEvent[], date: Date, pageNumber: number): Promise<void> {
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-    console.log(`📄 Creating enhanced ${dayName} page...`);
+// console.log(`📄 Creating enhanced ${dayName} page...`);
     
     // Filter events for this date
     const dailyEvents = events.filter(event => {
@@ -219,7 +219,7 @@ export class BidirectionalPDFManager {
       // Add navigation
       this.addNavigationLinks(pageNumber, 'daily', date);
       
-      console.log(`✅ ${dayName} page created`);
+// console.log(`✅ ${dayName} page created`);
       
     } finally {
       document.body.removeChild(dailyContainer);
@@ -485,7 +485,7 @@ export class BidirectionalPDFManager {
     weekStart: Date
   ): Promise<string> {
     try {
-      console.log('🔗 Starting Bidirectional Weekly Package Export...');
+// console.log('🔗 Starting Bidirectional Weekly Package Export...');
       
       // Calculate week end
       const weekEnd = new Date(weekStart);
@@ -522,9 +522,9 @@ export class BidirectionalPDFManager {
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-            console.log(`📁 Alternative download method used for: ${filename}`);
+// console.log(`📁 Alternative download method used for: ${filename}`);
           } catch (altError) {
-            console.log('📁 Standard jsPDF save method used');
+// console.log('📁 Standard jsPDF save method used');
           }
         }, 500);
         
@@ -540,11 +540,11 @@ export class BidirectionalPDFManager {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        console.log(`📁 Fallback blob download used for: ${filename}`);
+// console.log(`📁 Fallback blob download used for: ${filename}`);
       }
       
-      console.log(`✅ Bidirectional Weekly Package exported: ${filename}`);
-      console.log('🔗 PDF includes clickable navigation between all pages');
+// console.log(`✅ Bidirectional Weekly Package exported: ${filename}`);
+// console.log('🔗 PDF includes clickable navigation between all pages');
       
       return filename;
       

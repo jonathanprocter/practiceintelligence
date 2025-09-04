@@ -1,7 +1,7 @@
 
 // Run this in browser console to audit PDF export
 async function auditPDFExport() {
-  console.log('=== PDF EXPORT AUDIT STARTING ===');
+// console.log('=== PDF EXPORT AUDIT STARTING ===');
   
   try {
     // Fetch events for July 20, 2025
@@ -17,14 +17,14 @@ async function auditPDFExport() {
              eventDate.getDate() === testDate.getDate();
     });
     
-    console.log('📊 Total events for July 20:', filteredEvents.length);
+// console.log('📊 Total events for July 20:', filteredEvents.length);
     
     // Check for critical appointments
     const amberlyExists = filteredEvents.find(e => e.title.includes('Amberly'));
     const davidExists = filteredEvents.find(e => e.title.includes('David') && e.title.includes('Grossman'));
     
-    console.log('✅ Amberly found:', !!amberlyExists);
-    console.log('✅ David Grossman found:', !!davidExists);
+// console.log('✅ Amberly found:', !!amberlyExists);
+// console.log('✅ David Grossman found:', !!davidExists);
     
     // Calculate statistics
     let totalMinutes = 0;
@@ -36,10 +36,10 @@ async function auditPDFExport() {
     const scheduledHours = totalMinutes / 60;
     const freeTimePercent = ((18 - scheduledHours) / 18) * 100;
     
-    console.log('📊 Statistics:');
-    console.log('- Appointments:', filteredEvents.length);
-    console.log('- Scheduled hours:', scheduledHours.toFixed(1));
-    console.log('- Free time:', Math.round(freeTimePercent) + '%');
+// console.log('📊 Statistics:');
+// console.log('- Appointments:', filteredEvents.length);
+// console.log('- Scheduled hours:', scheduledHours.toFixed(1));
+// console.log('- Free time:', Math.round(freeTimePercent) + '%');
     
     return {
       appointments: filteredEvents.length,

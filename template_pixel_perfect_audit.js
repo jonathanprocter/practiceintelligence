@@ -26,7 +26,7 @@ class TemplatePixelPerfectAuditor {
 
   // Audit Current Weekly View Template
   async auditCurrentWeeklyView() {
-    console.log('🔍 AUDITING CURRENT WEEKLY VIEW TEMPLATE...');
+// console.log('🔍 AUDITING CURRENT WEEKLY VIEW TEMPLATE...');
     
     const audit = this.auditResults.currentWeeklyView;
     let score = 100; // Start with perfect score and deduct for issues
@@ -34,7 +34,7 @@ class TemplatePixelPerfectAuditor {
     // Check page dimensions and layout
     try {
       // Simulate loading the current weekly export module
-      console.log('📏 Checking page dimensions...');
+// console.log('📏 Checking page dimensions...');
       
       // Expected: A3 landscape (1190x842 points) or similar professional format
       const expectedDimensions = { width: 1190, height: 842 };
@@ -49,7 +49,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check header structure
-      console.log('📋 Analyzing header structure...');
+// console.log('📋 Analyzing header structure...');
       
       // Expected: Title, date range, statistics
       const headerElements = ['title', 'dateRange', 'statistics'];
@@ -63,7 +63,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check grid structure
-      console.log('📊 Evaluating grid layout...');
+// console.log('📊 Evaluating grid layout...');
       
       // Expected: 7-day grid with proper time slots
       const timeSlots = 36; // 6:00-23:30 in 30-min increments
@@ -78,7 +78,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check appointment rendering
-      console.log('📅 Checking appointment rendering...');
+// console.log('📅 Checking appointment rendering...');
       
       // Expected: Proper positioning, colors, borders
       const appointmentFeatures = {
@@ -97,7 +97,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check typography and styling
-      console.log('🔤 Analyzing typography...');
+// console.log('🔤 Analyzing typography...');
       
       // Expected: Professional fonts, proper hierarchy
       const typographyScore = 95; // Estimated based on template quality
@@ -109,7 +109,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check visual consistency
-      console.log('🎨 Checking visual consistency...');
+// console.log('🎨 Checking visual consistency...');
       
       // Expected: Consistent spacing, borders, colors
       const visualConsistency = 92; // Estimated
@@ -127,21 +127,21 @@ class TemplatePixelPerfectAuditor {
     }
 
     audit.score = Math.max(0, score);
-    console.log(`📊 Current Weekly View Score: ${audit.score}/100`);
+// console.log(`📊 Current Weekly View Score: ${audit.score}/100`);
     
     return audit;
   }
 
   // Audit EXACT HTML Daily Export Template
   async auditExactHtmlDaily() {
-    console.log('🔍 AUDITING EXACT HTML DAILY EXPORT TEMPLATE...');
+// console.log('🔍 AUDITING EXACT HTML DAILY EXPORT TEMPLATE...');
     
     const audit = this.auditResults.exactHtmlDaily;
     let score = 100; // Start with perfect score
 
     try {
       // Check page format
-      console.log('📄 Checking page format...');
+// console.log('📄 Checking page format...');
       
       // Expected: Portrait format, proper dimensions
       const isPortrait = true; // Based on browserReplicaPDF.ts
@@ -155,7 +155,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check header and title section
-      console.log('📝 Analyzing header section...');
+// console.log('📝 Analyzing header section...');
       
       // Expected: "Daily Planner" title, formatted date, appointment count
       const headerStructure = {
@@ -172,7 +172,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check time grid accuracy
-      console.log('⏰ Evaluating time grid...');
+// console.log('⏰ Evaluating time grid...');
       
       // Expected: 6:00-23:30, proper slot heights, clear time labels
       const timeGridFeatures = {
@@ -191,7 +191,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check appointment blocks
-      console.log('📋 Checking appointment blocks...');
+// console.log('📋 Checking appointment blocks...');
       
       // Expected: Proper sizing, positioning, 3-column layout
       const appointmentFeatures = {
@@ -211,7 +211,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check text and content quality
-      console.log('📖 Analyzing text quality...');
+// console.log('📖 Analyzing text quality...');
       
       // Expected: Clean titles, proper notes/actions, readable fonts
       const textQuality = {
@@ -230,7 +230,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check visual hierarchy
-      console.log('🎨 Checking visual hierarchy...');
+// console.log('🎨 Checking visual hierarchy...');
       
       // Expected: Clear distinction between sections, proper spacing
       const visualHierarchy = 88; // Estimated based on template quality
@@ -242,7 +242,7 @@ class TemplatePixelPerfectAuditor {
       }
 
       // Check browser replica accuracy
-      console.log('🖥️ Checking browser replica accuracy...');
+// console.log('🖥️ Checking browser replica accuracy...');
       
       // Expected: Matches actual browser daily view exactly
       const replicaAccuracy = 92; // High accuracy based on template name
@@ -260,14 +260,14 @@ class TemplatePixelPerfectAuditor {
     }
 
     audit.score = Math.max(0, score);
-    console.log(`📊 EXACT HTML Daily Score: ${audit.score}/100`);
+// console.log(`📊 EXACT HTML Daily Score: ${audit.score}/100`);
     
     return audit;
   }
 
   // Calculate overall assessment
   calculateOverallAssessment() {
-    console.log('📊 CALCULATING OVERALL PIXEL-PERFECT ASSESSMENT...');
+// console.log('📊 CALCULATING OVERALL PIXEL-PERFECT ASSESSMENT...');
     
     const weeklyScore = this.auditResults.currentWeeklyView.score;
     const dailyScore = this.auditResults.exactHtmlDaily.score;
@@ -303,42 +303,42 @@ class TemplatePixelPerfectAuditor {
 
   // Generate comprehensive report
   generateReport() {
-    console.log('\n🎯 PIXEL-PERFECT TEMPLATE AUDIT REPORT');
-    console.log('=====================================');
+// console.log('\n🎯 PIXEL-PERFECT TEMPLATE AUDIT REPORT');
+// console.log('=====================================');
     
     const weekly = this.auditResults.currentWeeklyView;
     const daily = this.auditResults.exactHtmlDaily;
     const overall = this.auditResults.overall;
 
-    console.log('\n📊 SCORES:');
-    console.log(`Current Weekly View: ${weekly.score}/100`);
-    console.log(`EXACT HTML Daily: ${daily.score}/100`);
-    console.log(`Overall Combined: ${overall.combinedScore}/100`);
+// console.log('\n📊 SCORES:');
+// console.log(`Current Weekly View: ${weekly.score}/100`);
+// console.log(`EXACT HTML Daily: ${daily.score}/100`);
+// console.log(`Overall Combined: ${overall.combinedScore}/100`);
 
-    console.log('\n✅ WEEKLY VIEW STRENGTHS:');
-    weekly.strengths.forEach(strength => console.log(`  ${strength}`));
+// console.log('\n✅ WEEKLY VIEW STRENGTHS:');
+// weekly.strengths.forEach(strength => console.log(`  ${strength}`));
     
-    console.log('\n❌ WEEKLY VIEW ISSUES:');
-    weekly.issues.forEach(issue => console.log(`  ${issue}`));
+// console.log('\n❌ WEEKLY VIEW ISSUES:');
+// weekly.issues.forEach(issue => console.log(`  ${issue}`));
 
-    console.log('\n✅ DAILY VIEW STRENGTHS:');
-    daily.strengths.forEach(strength => console.log(`  ${strength}`));
+// console.log('\n✅ DAILY VIEW STRENGTHS:');
+// daily.strengths.forEach(strength => console.log(`  ${strength}`));
     
-    console.log('\n❌ DAILY VIEW ISSUES:');
-    daily.issues.forEach(issue => console.log(`  ${issue}`));
+// console.log('\n❌ DAILY VIEW ISSUES:');
+// daily.issues.forEach(issue => console.log(`  ${issue}`));
 
-    console.log('\n📋 RECOMMENDATIONS:');
-    overall.recommendations.forEach(rec => console.log(`  ${rec}`));
+// console.log('\n📋 RECOMMENDATIONS:');
+// overall.recommendations.forEach(rec => console.log(`  ${rec}`));
 
-    console.log('\n🎯 PIXEL-PERFECT ASSESSMENT:');
+// console.log('\n🎯 PIXEL-PERFECT ASSESSMENT:');
     if (overall.combinedScore >= 95) {
-      console.log('  🌟 EXCELLENT - Templates are 95%+ pixel-perfect');
+// console.log('  🌟 EXCELLENT - Templates are 95%+ pixel-perfect');
     } else if (overall.combinedScore >= 85) {
-      console.log('  ✅ VERY GOOD - Templates are 85%+ pixel-perfect');
+// console.log('  ✅ VERY GOOD - Templates are 85%+ pixel-perfect');
     } else if (overall.combinedScore >= 70) {
-      console.log('  ⚠️ GOOD - Templates are 70%+ pixel-perfect with room for improvement');
+// console.log('  ⚠️ GOOD - Templates are 70%+ pixel-perfect with room for improvement');
     } else {
-      console.log('  🔧 NEEDS WORK - Templates below 70% pixel-perfect accuracy');
+// console.log('  🔧 NEEDS WORK - Templates below 70% pixel-perfect accuracy');
     }
 
     return this.auditResults;
@@ -346,7 +346,7 @@ class TemplatePixelPerfectAuditor {
 
   // Run complete audit
   async runCompleteAudit() {
-    console.log('🚀 STARTING COMPREHENSIVE PIXEL-PERFECT AUDIT...');
+// console.log('🚀 STARTING COMPREHENSIVE PIXEL-PERFECT AUDIT...');
     
     await this.auditCurrentWeeklyView();
     await this.auditExactHtmlDaily();
@@ -359,6 +359,6 @@ class TemplatePixelPerfectAuditor {
 // Auto-run the audit
 const auditor = new TemplatePixelPerfectAuditor();
 auditor.runCompleteAudit().then(results => {
-  console.log('\n✅ PIXEL-PERFECT AUDIT COMPLETED');
-  console.log(`📊 Final Score: ${results.overall.combinedScore}% pixel-perfect`);
+// console.log('\n✅ PIXEL-PERFECT AUDIT COMPLETED');
+// console.log(`📊 Final Score: ${results.overall.combinedScore}% pixel-perfect`);
 });

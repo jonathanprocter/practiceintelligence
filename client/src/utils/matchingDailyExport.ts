@@ -452,21 +452,21 @@ export const exportMatchingDailyPDF = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('=== MATCHING DAILY PDF EXPORT ===');
-  console.log('Selected date:', selectedDate.toDateString());
-  console.log('Total events:', events.length);
+// console.log('=== MATCHING DAILY PDF EXPORT ===');
+// console.log('Selected date:', selectedDate.toDateString());
+// console.log('Total events:', events.length);
   
   // Filter events for selected date
   const dayEvents = events.filter(event => {
     const eventDate = new Date(event.startTime);
     const matches = eventDate.toDateString() === selectedDate.toDateString();
     if (matches) {
-      console.log(`✓ Event included: ${event.title}`);
+// console.log(`✓ Event included: ${event.title}`);
     }
     return matches;
   });
   
-  console.log('Day events:', dayEvents.length);
+// console.log('Day events:', dayEvents.length);
   
   // Create PDF
   const pdf = new jsPDF({
@@ -489,6 +489,6 @@ export const exportMatchingDailyPDF = async (
   const fileName = `daily-planner-matching-${selectedDate.toISOString().split('T')[0]}.pdf`;
   pdf.save(fileName);
   
-  console.log(`PDF saved as: ${fileName}`);
-  console.log('=== MATCHING DAILY PDF EXPORT COMPLETE ===');
+// console.log(`PDF saved as: ${fileName}`);
+// console.log('=== MATCHING DAILY PDF EXPORT COMPLETE ===');
 };

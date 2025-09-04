@@ -3,7 +3,7 @@
 export class SessionPersistenceFix {
   static async fixSessionNow() {
     try {
-      console.log('🔧 Fixing authentication session...');
+// console.log('🔧 Fixing authentication session...');
       
       const response = await fetch('/api/auth/force-fix', {
         method: 'POST',
@@ -14,7 +14,7 @@ export class SessionPersistenceFix {
       });
       
       const result = await response.json();
-      console.log('✅ Session fix result:', result);
+// console.log('✅ Session fix result:', result);
       
       // Refresh the page to apply the fix
       window.location.reload();
@@ -26,14 +26,14 @@ export class SessionPersistenceFix {
   
   static async testAuthenticatedSession() {
     try {
-      console.log('🧪 Testing authenticated session...');
+// console.log('🧪 Testing authenticated session...');
       
       const authResponse = await fetch('/api/auth/status', {
         credentials: 'include'
       });
       
       const authData = await authResponse.json();
-      console.log('🔍 Auth status:', authData);
+// console.log('🔍 Auth status:', authData);
       
       const eventsResponse = await fetch('/api/events', {
         credentials: 'include'
@@ -41,9 +41,9 @@ export class SessionPersistenceFix {
       
       if (eventsResponse.ok) {
         const eventsData = await eventsResponse.json();
-        console.log('✅ Events loaded successfully:', eventsData.length);
+// console.log('✅ Events loaded successfully:', eventsData.length);
       } else {
-        console.log('❌ Events failed to load:', eventsResponse.status);
+// console.log('❌ Events failed to load:', eventsResponse.status);
       }
       
     } catch (error) {
@@ -53,7 +53,7 @@ export class SessionPersistenceFix {
   
   static async clearAuthenticationData() {
     try {
-      console.log('🧹 Clearing authentication data...');
+// console.log('🧹 Clearing authentication data...');
       
       await fetch('/api/auth/logout', {
         method: 'POST',
@@ -64,7 +64,7 @@ export class SessionPersistenceFix {
       localStorage.clear();
       sessionStorage.clear();
       
-      console.log('✅ Authentication data cleared');
+// console.log('✅ Authentication data cleared');
       window.location.reload();
       
     } catch (error) {
@@ -74,7 +74,7 @@ export class SessionPersistenceFix {
   
   static async forceGoogleOAuth() {
     try {
-      console.log('🔐 Forcing fresh Google OAuth...');
+// console.log('🔐 Forcing fresh Google OAuth...');
       window.location.href = '/api/auth/google';
     } catch (error) {
       console.error('❌ OAuth redirect error:', error);
@@ -90,8 +90,8 @@ if (typeof window !== 'undefined') {
   (window as any).forceGoogleOAuth = SessionPersistenceFix.forceGoogleOAuth;
   
   (window as any).runDiagnostics = async () => {
-    console.log('🔧 Running comprehensive diagnostics...');
+// console.log('🔧 Running comprehensive diagnostics...');
     await SessionPersistenceFix.testAuthenticatedSession();
-    console.log('📊 Diagnostics complete');
+// console.log('📊 Diagnostics complete');
   };
 }

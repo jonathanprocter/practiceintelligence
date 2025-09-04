@@ -58,7 +58,7 @@ export const useGoogleAuth = () => {
       // Save authentication timestamp for session persistence
       if (data.authenticated) {
         localStorage.setItem('google_auth_recent', Date.now().toString());
-        console.log('✅ Authentication verified:', {
+// console.log('✅ Authentication verified:', {
           user: data.user?.email,
           hasTokens: data.hasValidTokens,
           envTokens: data.environment
@@ -85,7 +85,7 @@ export const useGoogleAuth = () => {
     // Check for connection success in URL params
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('auth') === 'success' || urlParams.get('connected') === 'true' || urlParams.get('google_auth') === 'complete') {
-      console.log('✅ OAuth authentication completed successfully');
+// console.log('✅ OAuth authentication completed successfully');
       // Remove the parameters from URL
       window.history.replaceState({}, document.title, '/');
       // Force authentication status to true since we know the user just authenticated
@@ -106,7 +106,7 @@ export const useGoogleAuth = () => {
   }, []);
 
   const connectGoogle = () => {
-    console.log('🔗 Initiating Google OAuth connection...');
+// console.log('🔗 Initiating Google OAuth connection...');
     // Clear any existing auth state
     localStorage.removeItem('google_auth_recent');
     // Use the fresh OAuth endpoint for better reliability

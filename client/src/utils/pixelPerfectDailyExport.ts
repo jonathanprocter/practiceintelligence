@@ -428,7 +428,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
     return eventDate.toDateString() === selectedDate.toDateString();
   });
 
-  console.log(`Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
+// console.log(`Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
 
   dayEvents.forEach((event, index) => {
     const eventDate = new Date(event.startTime);
@@ -445,7 +445,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
     });
 
     if (slotIndex === -1) {
-      console.log(`Event ${event.title} at ${eventDate.toLocaleTimeString()} is outside time range`);
+// console.log(`Event ${event.title} at ${eventDate.toLocaleTimeString()} is outside time range`);
       return;
     }
 
@@ -459,7 +459,7 @@ function drawPixelPerfectAppointments(pdf: jsPDF, selectedDate: Date, events: Ca
     const eventX = config.grid.timeColumnWidth + 2; // 2px margin from vertical divider
     const eventWidth = config.grid.mainAreaWidth - 4; // 4px total margin (2px left + 2px right)
 
-    console.log(`Event ${event.title}: slot ${slotIndex}, duration ${durationSlots} slots, height ${eventHeight}px`);
+// console.log(`Event ${event.title}: slot ${slotIndex}, duration ${durationSlots} slots, height ${eventHeight}px`);
 
     // Get event type
     const { isSimplePractice, isGoogle, isHoliday } = getEventTypeInfoExtended(event);
@@ -630,11 +630,11 @@ export const exportPixelPerfectDailyPlanner = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log(`=== PIXEL PERFECT DAILY PLANNER EXPORT ===`);
-  console.log(`Date: ${selectedDate.toDateString()}`);
-  console.log(`Canvas: ${PIXEL_PERFECT_CONFIG.pageWidth} × ${PIXEL_PERFECT_CONFIG.pageHeight} pixels`);
-  console.log(`DPI: ${PIXEL_PERFECT_CONFIG.dpi}`);
-  console.log(`Total events: ${events.length}`);
+// console.log(`=== PIXEL PERFECT DAILY PLANNER EXPORT ===`);
+// console.log(`Date: ${selectedDate.toDateString()}`);
+// console.log(`Canvas: ${PIXEL_PERFECT_CONFIG.pageWidth} × ${PIXEL_PERFECT_CONFIG.pageHeight} pixels`);
+// console.log(`DPI: ${PIXEL_PERFECT_CONFIG.dpi}`);
+// console.log(`Total events: ${events.length}`);
 
   // Create PDF with exact specifications
   const pdf = new jsPDF({
@@ -657,10 +657,10 @@ export const exportPixelPerfectDailyPlanner = async (
   const filename = `pixel-perfect-daily-planner-${selectedDate.toISOString().split('T')[0]}.pdf`;
 pdf.save(filename);
 
-  console.log(`Pixel Perfect Daily Planner exported: ${filename}`);
-  console.log(`Canvas dimensions: ${PIXEL_PERFECT_CONFIG.pageWidth} × ${PIXEL_PERFECT_CONFIG.pageHeight} pixels`);
-  console.log(`DPI: ${PIXEL_PERFECT_CONFIG.dpi} (print quality)`);
-  console.log(`Time slots: ${ALL_TIME_SLOTS.length} slots from 06:00 to 23:30`);
+// console.log(`Pixel Perfect Daily Planner exported: ${filename}`);
+// console.log(`Canvas dimensions: ${PIXEL_PERFECT_CONFIG.pageWidth} × ${PIXEL_PERFECT_CONFIG.pageHeight} pixels`);
+// console.log(`DPI: ${PIXEL_PERFECT_CONFIG.dpi} (print quality)`);
+// console.log(`Time slots: ${ALL_TIME_SLOTS.length} slots from 06:00 to 23:30`);
 };
 
 export const generatePixelPerfectDailyExport = async (
@@ -669,11 +669,11 @@ export const generatePixelPerfectDailyExport = async (
   dailyNotes: string = ""
 ): Promise<void> => {
   try {
-    console.log("=== PIXEL PERFECT DAILY PLANNER EXPORT ===");
-    console.log("Date:", selectedDate.toDateString());
-    console.log("Canvas: 2550 × 3300 pixels");
-    console.log("DPI: 300");
-    console.log("Total events:", events.length);
+// console.log("=== PIXEL PERFECT DAILY PLANNER EXPORT ===");
+// console.log("Date:", selectedDate.toDateString());
+// console.log("Canvas: 2550 × 3300 pixels");
+// console.log("DPI: 300");
+// console.log("Total events:", events.length);
 
     // Filter events for the selected date
     const dayEvents = events.filter(event => {
@@ -681,7 +681,7 @@ export const generatePixelPerfectDailyExport = async (
         const eventDate = new Date(event.startTime);
         const selectedDateStr = selectedDate.toDateString();
         const eventDateStr = eventDate.toDateString();
-        console.log(`Checking event: ${event.title} - Event date: ${eventDateStr}, Selected: ${selectedDateStr}`);
+// console.log(`Checking event: ${event.title} - Event date: ${eventDateStr}, Selected: ${selectedDateStr}`);
         return eventDateStr === selectedDateStr;
       } catch (dateError) {
         console.error('Error parsing event date:', event, dateError);
@@ -689,7 +689,7 @@ export const generatePixelPerfectDailyExport = async (
       }
     });
 
-    console.log("Events for selected date:", dayEvents.length);
+// console.log("Events for selected date:", dayEvents.length);
 
     // Validate we have proper canvas support
     if (!document.createElement || typeof document.createElement !== 'function') {
@@ -746,7 +746,7 @@ export const generatePixelPerfectDailyExport = async (
           document.body.removeChild(link);
           URL.revokeObjectURL(url);
 
-          console.log("✅ Pixel perfect daily export completed successfully");
+// console.log("✅ Pixel perfect daily export completed successfully");
         } catch (downloadError) {
           console.error('Error during download:', downloadError);
           throw downloadError;
@@ -870,7 +870,7 @@ const drawPixelPerfectDailyLayout = async (
       }
     });
 
-    console.log(`✅ Successfully drew ${events.length} events`);
+// console.log(`✅ Successfully drew ${events.length} events`);
 
   } catch (error) {
     console.error('Error in drawPixelPerfectDailyLayout:', error);

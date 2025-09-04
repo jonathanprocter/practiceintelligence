@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Badge } from '@/components/ui/Badge';
 import { TaskAutomation } from "../workflow/TaskAutomation";
 import { FocusTimeOptimizer } from "./FocusTimeOptimizer";
 import { CrossPlatformSync } from "../integrations/CrossPlatformSync";
 import { Brain, Calendar, Gauge, Link, Target, TrendingUp, Workflow, Zap } from "lucide-react";
 
 interface ProductivityHubProps {
-  events: any[];
+  events: unknown[];
   selectedDate: Date;
 }
 
@@ -48,7 +48,7 @@ export function ProductivityHub({ events, selectedDate }: ProductivityHubProps) 
     };
   };
 
-  const calculateFocusBlocks = (dayEvents: any[]) => {
+  const calculateFocusBlocks = (dayEvents: unknown[]) => {
     // Sort events by start time
     const sortedEvents = dayEvents.sort((a, b) => 
       new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
@@ -94,7 +94,7 @@ export function ProductivityHub({ events, selectedDate }: ProductivityHubProps) 
     return focusBlocks;
   };
 
-  const calculateUtilizationRate = (dayEvents: any[]) => {
+  const calculateUtilizationRate = (dayEvents: unknown[]) => {
     const totalWorkMinutes = 10 * 60; // 10 hours work day
     const busyMinutes = dayEvents.reduce((sum, event) => {
       const start = new Date(event.startTime);
@@ -105,7 +105,7 @@ export function ProductivityHub({ events, selectedDate }: ProductivityHubProps) 
     return Math.min(100, Math.round((busyMinutes / totalWorkMinutes) * 100));
   };
 
-  const calculateWeeklyProductivity = (weekEvents: any[]) => {
+  const calculateWeeklyProductivity = (weekEvents: unknown[]) => {
     const completedTasks = weekEvents.filter(e => 
       !e.title.toLowerCase().includes('canceled') && 
       new Date(e.endTime) < new Date()
@@ -115,7 +115,7 @@ export function ProductivityHub({ events, selectedDate }: ProductivityHubProps) 
     return totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
   };
 
-  const detectDailyConflicts = (dayEvents: any[]) => {
+  const detectDailyConflicts = (dayEvents: unknown[]) => {
     let conflicts = 0;
     for (let i = 0; i < dayEvents.length - 1; i++) {
       for (let j = i + 1; j < dayEvents.length; j++) {

@@ -5,7 +5,7 @@ export class ConsoleManager {
   private static readonly THROTTLE_TIME = 10000; // 10 seconds
   private static readonly MAX_SAME_LOGS = 1; // Only allow 1 log before suppression
 
-  static throttledLog(message: string, data?: any, type: 'log' | 'warn' | 'error' = 'log') {
+  static throttledLog(message: string, data?: unknown, type: 'log' | 'warn' | 'error' = 'log') {
     const now = Date.now();
     const key = typeof message === 'string' ? message : JSON.stringify(message);
 
@@ -46,19 +46,19 @@ export class ConsoleManager {
     // Show suppression message if we had multiple attempts
     if (logCount > this.MAX_SAME_LOGS) {
       // Safely call console method
-      const consoleMethod = console[type as keyof Console] as (...args: any[]) => void;
+      const consoleMethod = console[type as keyof Console] as (...args: unknown[]) => void;
       if (typeof consoleMethod === 'function') {
         consoleMethod(`${message} (suppressed ${logCount - 1} duplicate logs)`, data);
       } else {
-        console.log(`[${type.toUpperCase()}] ${message} (suppressed ${logCount - 1} duplicate logs)`, data);
+// console.log(`[${type.toUpperCase()}] ${message} (suppressed ${logCount - 1} duplicate logs)`, data);
       }
     } else {
       // Safely call console method
-      const consoleMethod = console[type as keyof Console] as (...args: any[]) => void;
+      const consoleMethod = console[type as keyof Console] as (...args: unknown[]) => void;
       if (typeof consoleMethod === 'function') {
         consoleMethod(message, data);
       } else {
-        console.log(`[${type.toUpperCase()}] ${message}`, data);
+// console.log(`[${type.toUpperCase()}] ${message}`, data);
       }
     }
   }
@@ -86,11 +86,11 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     console.error('Source:', event.filename, 'Line:', event.lineno);
   });
 
-  const originalLog = console.log;
+// const originalLog = console.log;
   const originalWarn = console.warn;
   const originalError = console.error;
 
-  console.log = (message: any, ...args: any[]) => {
+// console.log = (message: unknown, ...args: unknown[]) => {
     // Filter out vite connection messages to reduce noise
     if (typeof message === 'string' && (
       message.includes('[vite] connecting') ||
@@ -103,11 +103,11 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     originalLog(message, ...args);
   };
 
-  console.warn = (message: any, ...args: any[]) => {
+  console.warn = (message: unknown, ...args: unknown[]) => {
     originalWarn(message, ...args);
   };
 
-  console.error = (message: any, ...args: any[]) => {
+  console.error = (message: unknown, ...args: unknown[]) => {
     originalError(message, ...args);
   };
 }
@@ -123,14 +123,14 @@ function shouldLog(level: LogLevel): boolean {
   return level === 'warn' || level === 'error';
 }
 
-export function logWithLevel(level: LogLevel, message: string, data?: any) {
+export function logWithLevel(level: LogLevel, message: string, data?: unknown) {
   if (shouldLog(level)) {
     // Map log levels to valid console methods
     switch (level) {
       case 'log':
       case 'debug':
       case 'info':
-        console.log(`[${level.toUpperCase()}]`, message, data);
+// console.log(`[${level.toUpperCase()}]`, message, data);
         break;
       case 'warn':
         console.warn(message, data);
@@ -139,7 +139,7 @@ export function logWithLevel(level: LogLevel, message: string, data?: any) {
         console.error(message, data);
         break;
       default:
-        console.log(`[${level.toUpperCase()}]`, message, data);
+// console.log(`[${level.toUpperCase()}]`, message, data);
     }
   }
 }
@@ -147,7 +147,7 @@ export function logWithLevel(level: LogLevel, message: string, data?: any) {
 const isProduction = process.env.NODE_ENV === 'production';
 const validLogTypes = ['log', 'info', 'warn', 'error', 'debug', 'trace', 'table', 'group', 'groupEnd', 'time', 'timeEnd'];
 
-export const logMessage = (type: string, ...args: any[]) => {
+export const logMessage = (type: string, ...args: unknown[]) => {
   if (isProduction) return;
 
   try {
@@ -164,9 +164,9 @@ export const logMessage = (type: string, ...args: any[]) => {
     if (validLogTypes.includes(mappedType) && typeof (console as any)[mappedType] === 'function') {
       (console as any)[mappedType](...args);
     } else {
-      console.log(`[${type.toUpperCase()}]`, ...args);
+// console.log(`[${type.toUpperCase()}]`, ...args);
     }
   } catch (error) {
-    console.log('Fallback log:', type, ...args);
+// console.log('Fallback log:', type, ...args);
   }
 };

@@ -30,7 +30,7 @@ def create_daily_planner_final_layout():
         font_time_bold = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
         font_time_regular = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
         font_tiny = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
-    except:
+    except Exception:
         font_large = ImageFont.load_default()
         font_medium = ImageFont.load_default()
         font_normal = ImageFont.load_default()

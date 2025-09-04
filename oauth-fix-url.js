@@ -25,8 +25,8 @@ const authUrl = oauth2Client.generateAuthUrl({
   include_granted_scopes: true
 });
 
-console.log('\n🔗 GOOGLE OAUTH AUTHENTICATION URL:');
-console.log(authUrl);
-console.log('\n✅ Click the link above to authenticate with Google Calendar');
-console.log('✅ After authentication, you will be redirected back to your application');
-console.log('✅ Your Google Calendar events will then be accessible\n');
+// console.log('\n🔗 GOOGLE OAUTH AUTHENTICATION URL:');
+// console.log(authUrl);
+// console.log('\n✅ Click the link above to authenticate with Google Calendar');
+// console.log('✅ After authentication, you will be redirected back to your application');
+// console.log('✅ Your Google Calendar events will then be accessible\n');

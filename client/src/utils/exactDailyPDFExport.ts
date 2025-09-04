@@ -73,7 +73,7 @@ function getEventTypeInfo(event: CalendarEvent) {
   // All other appointments are SimplePractice
   const isSimplePractice = !isHoliday && !isGoogle && event.title.includes('Appointment');
 
-  console.log(`Event type detection for "${event.title}":`, {
+// console.log(`Event type detection for "${event.title}":`, {
     source: event.source,
     calendarId: event.calendarId,
     isSimplePractice,
@@ -279,7 +279,7 @@ function drawDashboardGrid(pdf: jsPDF, selectedDate: Date, events: CalendarEvent
   });
 
   // Draw time slots exactly like dashboard
-  console.log(`📅 Drawing time slots from ${TIME_SLOTS[0]} to ${TIME_SLOTS[TIME_SLOTS.length - 1]} (${TIME_SLOTS.length} slots)`);
+// console.log(`📅 Drawing time slots from ${TIME_SLOTS[0]} to ${TIME_SLOTS[TIME_SLOTS.length - 1]} (${TIME_SLOTS.length} slots)`);
   TIME_SLOTS.forEach((timeSlot, index) => {
     const y = gridStartY + (index * timeSlotHeight);
     const isHour = timeSlot.endsWith(':00');
@@ -337,12 +337,12 @@ function drawDashboardGrid(pdf: jsPDF, selectedDate: Date, events: CalendarEvent
     const bottomPosition = slotEndY - 4; // End 4px before the next grid line
     const exactHeight = Math.max(bottomPosition - topPosition, 16); // Minimum 16px height for smaller format
 
-    console.log(`📅 Event: ${event.title}`);
-    console.log(`  ⏰ Start: ${formatMilitaryTime(eventStart)} (${startHour}:${startMinute.toString().padStart(2, '0')})`);
-    console.log(`  ⏳ Duration: ${durationMinutes} minutes (${durationSlots} slots)`);
-    console.log(`  📍 Slot index: ${slotIndex} (calculated: ${startHour - 6}*2 + ${startMinute >= 30 ? 1 : 0})`);
-    console.log(`  📐 Top position: ${topPosition}px (gridStart: ${gridStartY} + slot: ${slotIndex} * height: ${timeSlotHeight})`);
-    console.log(`  📏 Height: ${exactHeight}px`);
+// console.log(`📅 Event: ${event.title}`);
+// console.log(`  ⏰ Start: ${formatMilitaryTime(eventStart)} (${startHour}:${startMinute.toString().padStart(2, '0')})`);
+// console.log(`  ⏳ Duration: ${durationMinutes} minutes (${durationSlots} slots)`);
+// console.log(`  📍 Slot index: ${slotIndex} (calculated: ${startHour - 6}*2 + ${startMinute >= 30 ? 1 : 0})`);
+// console.log(`  📐 Top position: ${topPosition}px (gridStart: ${gridStartY} + slot: ${slotIndex} * height: ${timeSlotHeight})`);
+// console.log(`  📏 Height: ${exactHeight}px`);
 
     // Event styling based on type
     const eventType = getEventTypeInfo(event);
@@ -389,7 +389,7 @@ function drawDashboardGrid(pdf: jsPDF, selectedDate: Date, events: CalendarEvent
     // Clean title using centralized function
     const cleanTitle = cleanEventTitle(event.title);
 
-    console.log(`Event ${event.id}: "${event.title}" -> "${cleanTitle}"`);
+// console.log(`Event ${event.id}: "${event.title}" -> "${cleanTitle}"`);
 
     // Calculate improved spacing for 30-minute appointments
     const is30MinuteAppt = durationMinutes <= 30;
@@ -546,12 +546,12 @@ export const exportExactDailyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log(`🚀🚀🚀 EXACT DAILY PDF EXPORT START 🚀🚀🚀`);
-    console.log(`📅 Date: ${selectedDate.toDateString()}`);
-    console.log(`📊 Total events: ${events.length}`);
+// console.log(`🚀🚀🚀 EXACT DAILY PDF EXPORT START 🚀🚀🚀`);
+// console.log(`📅 Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
 
     // Add a visible alert to confirm the function is being called
-    console.log('🔥 CREATING PDF OBJECT...');
+// console.log('🔥 CREATING PDF OBJECT...');
 
     const pdf = new jsPDF({
       orientation: 'portrait',
@@ -559,7 +559,7 @@ export const exportExactDailyPDF = async (
       format: [612, 792] // 8.5 x 11 inches
     });
 
-    console.log('✅ PDF OBJECT CREATED SUCCESSFULLY');
+// console.log('✅ PDF OBJECT CREATED SUCCESSFULLY');
 
     // Filter events for selected date
     const dayEvents = events.filter(event => {
@@ -567,24 +567,24 @@ export const exportExactDailyPDF = async (
       return eventDate.toDateString() === selectedDate.toDateString();
     });
 
-    console.log(`Day events: ${dayEvents.length}`);
+// console.log(`Day events: ${dayEvents.length}`);
     dayEvents.forEach((event, i) => {
-      console.log(`Event ${i + 1}: ${event.title} at ${formatMilitaryTime(new Date(event.startTime))}`);
+// console.log(`Event ${i + 1}: ${event.title} at ${formatMilitaryTime(new Date(event.startTime))}`);
     });
 
     // Draw exactly what the dashboard shows
-    console.log('Drawing header...');
+// console.log('Drawing header...');
     drawDashboardHeader(pdf, selectedDate, dayEvents);
 
-    console.log('Drawing grid...');
+// console.log('Drawing grid...');
     drawDashboardGrid(pdf, selectedDate, events);
 
     // Save PDF
     const fileName = `daily-planner-${selectedDate.toISOString().split('T')[0]}.pdf`;
-    console.log(`Saving PDF as: ${fileName}`);
+// console.log(`Saving PDF as: ${fileName}`);
     pdf.save(fileName);
 
-    console.log(`=== EXACT DAILY PDF EXPORT COMPLETE ===`);
+// console.log(`=== EXACT DAILY PDF EXPORT COMPLETE ===`);
 
   } catch (error) {
     console.error('=== EXACT DAILY PDF EXPORT ERROR ===');

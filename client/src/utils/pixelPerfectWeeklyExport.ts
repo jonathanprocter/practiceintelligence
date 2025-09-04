@@ -69,7 +69,7 @@ export const exportPixelPerfectWeeklyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 Creating pixel-perfect weekly PDF...');
+// console.log('🎯 Creating pixel-perfect weekly PDF...');
 
     // Filter events for the week
     const weekEvents = events.filter(event => {
@@ -295,7 +295,7 @@ export const exportPixelPerfectWeeklyPDF = async (
     });
 
     // === EVENTS ===
-    console.log(`📅 Rendering ${weekEvents.length} events for pixel-perfect weekly PDF`);
+// console.log(`📅 Rendering ${weekEvents.length} events for pixel-perfect weekly PDF`);
     
     // Group events by day
     const eventsByDay: { [key: number]: CalendarEvent[] } = {};
@@ -465,7 +465,7 @@ export const exportPixelPerfectWeeklyPDF = async (
     const filename = `Pixel_Perfect_Weekly_${weekStartDate.toLocaleDateString('en-US').replace(/\//g, '-')}.pdf`;
     pdf.save(filename);
     
-    console.log('✅ Pixel-perfect weekly PDF exported successfully!');
+// console.log('✅ Pixel-perfect weekly PDF exported successfully!');
     
   } catch (error) {
     console.error('❌ Pixel-perfect PDF export error:', error);

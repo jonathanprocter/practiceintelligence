@@ -4,15 +4,15 @@
  */
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/Button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+} from '@/components/ui/Card';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { AlertCircle, CheckCircle, RefreshCw } from "lucide-react";
 
 export function GoogleAuthFix() {

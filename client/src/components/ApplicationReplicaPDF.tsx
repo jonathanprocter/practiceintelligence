@@ -316,7 +316,7 @@ const TrueApplicationReplica: React.FC<{ appointments: AppointmentData[] }> = ({
 
 // Enhanced PDF generation using the TRUE application replica
 export const generateApplicationReplicaPDF = async (appointments: AppointmentData[]) => {
-  console.log('Generating TRUE replica PDF...');
+// console.log('Generating TRUE replica PDF...');
   
   try {
     const container = document.createElement('div');
@@ -365,7 +365,7 @@ export const generateApplicationReplicaPDF = async (appointments: AppointmentDat
     pdf.save('true-application-replica.pdf');
 
     document.body.removeChild(container);
-    console.log('TRUE replica PDF generated!');
+// console.log('TRUE replica PDF generated!');
 
   } catch (error) {
     console.error('PDF generation failed:', error);

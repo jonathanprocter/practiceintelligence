@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { runPixelPerfectAudit } from '@/utils/pixelPerfectAudit';
 import { pdfPerfectionTester } from '@/utils/pdfPerfectionTest';
 import { pixelPerfectReviewer } from '@/utils/pixelPerfectReview';
@@ -69,51 +69,51 @@ export const ExportToPDF = ({
   // Add pixel-perfect review function
   (window as any).runPixelPerfectReview = async () => {
     try {
-      console.log('🔍 Running Pixel-Perfect Review');
+// console.log('🔍 Running Pixel-Perfect Review');
 
       // Use current date and get events
       const testDate = new Date();
       const events = (window as any).currentEvents || [];
 
-      console.log('Reviewing for date:', testDate.toDateString());
-      console.log('Events for analysis:', events.length);
+// console.log('Reviewing for date:', testDate.toDateString());
+// console.log('Events for analysis:', events.length);
 
       const results = await pixelPerfectReviewer.runPixelPerfectReview(testDate, events);
 
-      console.log('\n🎯 PIXEL-PERFECT REVIEW RESULTS:');
-      console.log('='.repeat(80));
-      console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
-      console.log(`🔧 Issues Found: ${results.issues.length}`);
-      console.log(`💡 Recommendations: ${results.recommendations.length}`);
+// console.log('\n🎯 PIXEL-PERFECT REVIEW RESULTS:');
+// console.log('='.repeat(80));
+// console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
+// console.log(`🔧 Issues Found: ${results.issues.length}`);
+// console.log(`💡 Recommendations: ${results.recommendations.length}`);
 
       if (results.issues.length > 0) {
-        console.log('\n❌ ISSUES FOUND:');
+// console.log('\n❌ ISSUES FOUND:');
         results.issues.forEach((issue, index) => {
-          console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
-          console.log(`   Expected: ${issue.expected}`);
-          console.log(`   Actual: ${issue.actual}`);
-          console.log(`   Fix: ${issue.fixRecommendation}\n`);
+// console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
+// console.log(`   Expected: ${issue.expected}`);
+// console.log(`   Actual: ${issue.actual}`);
+// console.log(`   Fix: ${issue.fixRecommendation}\n`);
         });
       }
 
       if (results.recommendations.length > 0) {
-        console.log('\n💡 RECOMMENDATIONS:');
+// console.log('\n💡 RECOMMENDATIONS:');
         results.recommendations.forEach((rec, index) => {
-          console.log(`${index + 1}. ${rec}`);
+// console.log(`${index + 1}. ${rec}`);
         });
       }
 
-      console.log('\n📊 OVERLAY ANALYSIS:');
-      console.log(`Grid Alignment: ${results.visualComparison.overlayAnalysis.gridAlignment}%`);
-      console.log(`Text Alignment: ${results.visualComparison.overlayAnalysis.textAlignment}%`);
-      console.log(`Color Accuracy: ${results.visualComparison.overlayAnalysis.colorAccuracy}%`);
-      console.log(`Spacing Consistency: ${results.visualComparison.overlayAnalysis.spacingConsistency}%`);
-      console.log(`Element Positioning: ${results.visualComparison.overlayAnalysis.elementPositioning}%`);
+// console.log('\n📊 OVERLAY ANALYSIS:');
+// console.log(`Grid Alignment: ${results.visualComparison.overlayAnalysis.gridAlignment}%`);
+// console.log(`Text Alignment: ${results.visualComparison.overlayAnalysis.textAlignment}%`);
+// console.log(`Color Accuracy: ${results.visualComparison.overlayAnalysis.colorAccuracy}%`);
+// console.log(`Spacing Consistency: ${results.visualComparison.overlayAnalysis.spacingConsistency}%`);
+// console.log(`Element Positioning: ${results.visualComparison.overlayAnalysis.elementPositioning}%`);
 
       // Save results to localStorage
       localStorage.setItem('pixelPerfectReviewResults', JSON.stringify(results));
 
-      console.log('✅ Pixel-Perfect Review completed successfully');
+// console.log('✅ Pixel-Perfect Review completed successfully');
 
       return results;
 
@@ -125,52 +125,52 @@ export const ExportToPDF = ({
   // Add comprehensive pixel analysis function
   (window as any).runComprehensivePixelAnalysis = async () => {
     try {
-      console.log('🔍 Running Comprehensive Pixel Analysis');
+// console.log('🔍 Running Comprehensive Pixel Analysis');
 
       // Use current date and get events
       const testDate = new Date();
       const events = (window as any).currentEvents || [];
 
-      console.log('Analyzing for date:', testDate.toDateString());
-      console.log('Events for analysis:', events.length);
+// console.log('Analyzing for date:', testDate.toDateString());
+// console.log('Events for analysis:', events.length);
 
       const results = await comprehensivePixelAnalyzer.runComprehensiveAnalysis(testDate, events);
 
-      console.log('\n🎯 COMPREHENSIVE PIXEL ANALYSIS RESULTS:');
-      console.log('='.repeat(100));
-      console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
-      console.log(`🔧 Issues Found: ${results.issues.length}`);
-      console.log(`💡 Recommendations: ${results.recommendations.length}`);
+// console.log('\n🎯 COMPREHENSIVE PIXEL ANALYSIS RESULTS:');
+// console.log('='.repeat(100));
+// console.log(`📊 Overall Score: ${results.overallScore}/${results.maxScore} (${results.percentage}%)`);
+// console.log(`🔧 Issues Found: ${results.issues.length}`);
+// console.log(`💡 Recommendations: ${results.recommendations.length}`);
 
-      console.log('\n📏 DETAILED MEASUREMENTS:');
-      console.log('Dashboard Measurements:', results.measurements.dashboard);
-      console.log('Expected PDF Measurements:', results.measurements.expectedPDF);
-      console.log('Measurement Differences:', results.measurements.differences);
+// console.log('\n📏 DETAILED MEASUREMENTS:');
+// console.log('Dashboard Measurements:', results.measurements.dashboard);
+// console.log('Expected PDF Measurements:', results.measurements.expectedPDF);
+// console.log('Measurement Differences:', results.measurements.differences);
 
       if (results.issues.length > 0) {
-        console.log('\n❌ DETAILED ISSUES:');
+// console.log('\n❌ DETAILED ISSUES:');
         results.issues.forEach((issue, index) => {
-          console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
-          console.log(`   Dashboard: ${issue.dashboardValue}`);
-          console.log(`   Expected PDF: ${issue.expectedPDFValue}`);
-          console.log(`   Difference: ${issue.actualDifference}`);
-          console.log(`   Impact Score: ${issue.impactScore}/100`);
-          console.log(`   Fix: ${issue.fixRecommendation}`);
-          console.log(`   Code Location: ${issue.codeLocation}\n`);
+// console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
+// console.log(`   Dashboard: ${issue.dashboardValue}`);
+// console.log(`   Expected PDF: ${issue.expectedPDFValue}`);
+// console.log(`   Difference: ${issue.actualDifference}`);
+// console.log(`   Impact Score: ${issue.impactScore}/100`);
+// console.log(`   Fix: ${issue.fixRecommendation}`);
+// console.log(`   Code Location: ${issue.codeLocation}\n`);
         });
       }
 
       if (results.recommendations.length > 0) {
-        console.log('\n💡 COMPREHENSIVE RECOMMENDATIONS:');
+// console.log('\n💡 COMPREHENSIVE RECOMMENDATIONS:');
         results.recommendations.forEach((rec, index) => {
-          console.log(`${index + 1}. ${rec}`);
+// console.log(`${index + 1}. ${rec}`);
         });
       }
 
       // Save results to localStorage
       localStorage.setItem('comprehensivePixelAnalysisResults', JSON.stringify(results));
 
-      console.log('✅ Comprehensive Pixel Analysis completed successfully');
+// console.log('✅ Comprehensive Pixel Analysis completed successfully');
 
       return results;
 
@@ -182,7 +182,7 @@ export const ExportToPDF = ({
   // Add pixel-perfect PDF export function
   (window as any).exportPixelPerfectPDF = async () => {
     try {
-      console.log('🎯 Running Pixel-Perfect PDF Export');
+// console.log('🎯 Running Pixel-Perfect PDF Export');
 
       // Use current date and get events
       const testDate = new Date();
@@ -192,12 +192,12 @@ export const ExportToPDF = ({
         return eventDate.toDateString() === testDate.toDateString();
       });
 
-      console.log('Exporting for date:', testDate.toDateString());
-      console.log('Events for export:', todayEvents.length);
+// console.log('Exporting for date:', testDate.toDateString());
+// console.log('Events for export:', todayEvents.length);
 
       await exportPixelPerfectPDF(testDate, todayEvents);
 
-      console.log('✅ Pixel-Perfect PDF Export completed successfully');
+// console.log('✅ Pixel-Perfect PDF Export completed successfully');
 
     } catch (error) {
       console.error('❌ Pixel-Perfect PDF Export failed:', error);
@@ -207,49 +207,49 @@ export const ExportToPDF = ({
   // Add pixel-perfect audit test function
   (window as any).testPixelPerfectAudit = async () => {
     try {
-      console.log('🔍 STARTING PIXEL-PERFECT AUDIT TEST FROM CONSOLE');
-      console.log('='.repeat(80));
+// console.log('🔍 STARTING PIXEL-PERFECT AUDIT TEST FROM CONSOLE');
+// console.log('='.repeat(80));
 
       // Get current date and events from window context
       const selectedDate = new Date(); // Default to today
       const events = (window as any).currentEvents || [];
 
-      console.log(`📅 Auditing date: ${selectedDate.toDateString()}`);
-      console.log(`📊 Total events: ${events.length}`);
+// console.log(`📅 Auditing date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
 
       // Run comprehensive audit
       const auditResults = await runPixelPerfectAudit(selectedDate, events);
 
       // Display results
-      console.log('\n🎯 PIXEL-PERFECT AUDIT RESULTS:');
-      console.log('='.repeat(50));
-      console.log(`📊 Overall Score: ${auditResults.score}/${auditResults.maxScore} (${auditResults.percentage}%)`);
-      console.log(`🔧 Issues Found: ${auditResults.issues.length}`);
-      console.log(`📋 Recommendations: ${auditResults.recommendations.length}`);
+// console.log('\n🎯 PIXEL-PERFECT AUDIT RESULTS:');
+// console.log('='.repeat(50));
+// console.log(`📊 Overall Score: ${auditResults.score}/${auditResults.maxScore} (${auditResults.percentage}%)`);
+// console.log(`🔧 Issues Found: ${auditResults.issues.length}`);
+// console.log(`📋 Recommendations: ${auditResults.recommendations.length}`);
 
       // Log detailed results
       if (auditResults.issues.length > 0) {
-        console.log('\n❌ ISSUES FOUND:');
+// console.log('\n❌ ISSUES FOUND:');
         auditResults.issues.forEach((issue, index) => {
-          console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
-          console.log(`   Expected: ${issue.expected}`);
-          console.log(`   Actual: ${issue.actual}`);
-          console.log(`   Fix: ${issue.fixRecommendation}`);
-          console.log('');
+// console.log(`${index + 1}. [${issue.severity.toUpperCase()}] ${issue.description}`);
+// console.log(`   Expected: ${issue.expected}`);
+// console.log(`   Actual: ${issue.actual}`);
+// console.log(`   Fix: ${issue.fixRecommendation}`);
+// console.log('');
         });
       }
 
       // Log recommendations
       if (auditResults.recommendations.length > 0) {
-        console.log('\n💡 RECOMMENDATIONS:');
+// console.log('\n💡 RECOMMENDATIONS:');
         auditResults.recommendations.forEach((rec, index) => {
-          console.log(`${index + 1}. ${rec}`);
+// console.log(`${index + 1}. ${rec}`);
         });
       }
 
       // Store results in localStorage
       localStorage.setItem('pixelPerfectAuditResults', JSON.stringify(auditResults));
-      console.log('\n✅ Pixel-perfect audit completed! Results saved to localStorage.');
+// console.log('\n✅ Pixel-perfect audit completed! Results saved to localStorage.');
 
     } catch (error) {
       console.error('❌ Pixel-perfect audit failed:', error);
@@ -259,22 +259,22 @@ export const ExportToPDF = ({
   // Add comprehensive PDF perfection test function
   (window as any).testPDFPerfection = async () => {
     try {
-      console.log('🎯 STARTING COMPREHENSIVE PDF PERFECTION TEST');
-      console.log('='.repeat(80));
+// console.log('🎯 STARTING COMPREHENSIVE PDF PERFECTION TEST');
+// console.log('='.repeat(80));
 
       // Get current date and events from window context
       const selectedDate = new Date(); // Default to today
       const events = (window as any).currentEvents || [];
 
-      console.log(`📅 Testing date: ${selectedDate.toDateString()}`);
-      console.log(`📊 Total events: ${events.length}`);
+// console.log(`📅 Testing date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
 
       // Run comprehensive perfection test
       const perfectionResults = await pdfPerfectionTester.runComprehensivePerfectionTest(selectedDate, events);
 
       // Generate and display report
       const report = pdfPerfectionTester.generateTestReport(perfectionResults);
-      console.log(report);
+// console.log(report);
 
       // Save results to localStorage for external access
       localStorage.setItem('pdfPerfectionTestResults', JSON.stringify({
@@ -285,7 +285,7 @@ export const ExportToPDF = ({
         report: report
       }));
 
-      console.log('\n✅ PDF perfection test completed! Results saved to localStorage.');
+// console.log('\n✅ PDF perfection test completed! Results saved to localStorage.');
 
     } catch (error) {
       console.error('❌ PDF perfection test failed:', error);
@@ -428,7 +428,7 @@ export const ExportToPDF = ({
           <Button 
             variant="outline" 
             onClick={() => {
-              console.log('🔄 Force syncing Google Calendar...');
+// console.log('🔄 Force syncing Google Calendar...');
               window.location.href = '/api/auth/google';
             }}
             className="w-full text-xs bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
@@ -440,16 +440,16 @@ export const ExportToPDF = ({
             variant="outline" 
             onClick={async () => {
               try {
-                console.log('🔄 Testing live sync...');
+// console.log('🔄 Testing live sync...');
                 const response = await fetch('/api/live-sync/calendar/events?start=2025-01-01&end=2025-12-31');
                 if (response.ok) {
                   const data = await response.json();
-                  console.log(`✅ Live sync successful: ${data.events.length} events`);
+// console.log(`✅ Live sync successful: ${data.events.length} events`);
                   alert(`Live sync successful: ${data.events.length} events found`);
                   window.location.reload();
                 } else {
                   const error = await response.json();
-                  console.log(`❌ Live sync failed: ${error.error}`);
+// console.log(`❌ Live sync failed: ${error.error}`);
                   alert(`Live sync failed: ${error.error}. Please re-authenticate.`);
                 }
               } catch (error) {
@@ -471,7 +471,7 @@ export const ExportToPDF = ({
         <Button 
           variant="outline" 
           onClick={() => {
-            console.log('🎯 PERFECT WEEKLY EXPORT - OPTIMIZED TYPOGRAPHY!');
+// console.log('🎯 PERFECT WEEKLY EXPORT - OPTIMIZED TYPOGRAPHY!');
             onExportCurrentView('Exact Weekly Spec');
           }}
           className="w-full text-xs mb-2 bg-green-50 border-green-200 text-green-700 hover:bg-green-100"

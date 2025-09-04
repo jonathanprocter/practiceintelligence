@@ -632,7 +632,7 @@ const PerfectDailyReplica: React.FC<PerfectDailyReplicaProps> = ({ selectedDate,
                             .map(item => item.trim().replace(/^[•\s-]+/, '').trim())
                             .filter(item => item.length > 0 && item !== '•' && item !== '-')
                             .map((item, index) => (
-                              <div key={index} className="action-item">{item}</div>
+                              <div key={index} className="action-item" key={item.id || index}>{item}</div>
                             ))}
                         </div>
                       )}
@@ -650,7 +650,7 @@ const PerfectDailyReplica: React.FC<PerfectDailyReplicaProps> = ({ selectedDate,
 
 // Export function
 export const generatePerfectDailyReplicaPDF = async (selectedDate: Date, events: CalendarEvent[]) => {
-  console.log('🎯 PERFECT DAILY REPLICA PDF EXPORT STARTING...');
+// console.log('🎯 PERFECT DAILY REPLICA PDF EXPORT STARTING...');
   
   try {
     const container = document.createElement('div');
@@ -722,7 +722,7 @@ export const generatePerfectDailyReplicaPDF = async (selectedDate: Date, events:
 
     // Cleanup
     document.body.removeChild(container);
-    console.log('✅ Perfect daily replica PDF generated successfully!');
+// console.log('✅ Perfect daily replica PDF generated successfully!');
 
   } catch (error) {
     console.error('❌ Perfect daily replica PDF generation failed:', error);

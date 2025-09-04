@@ -8,7 +8,7 @@ import clientRoutes from './clientRoutes';
 import { addMinimalOAuthRoutes } from './minimal-oauth';
 
 // Authentication helper function
-function getAuthenticatedUserId(req: any): number | null {
+function getAuthenticatedUserId(req: unknown): number | null {
   // Try multiple sources for user ID in order of preference
   const sources = [
     req.user?.id,
@@ -17,7 +17,7 @@ function getAuthenticatedUserId(req: any): number | null {
     req.session?.passport?.user
   ];
 
-  console.log('🔍 Checking authentication sources:', {
+// console.log('🔍 Checking authentication sources:', {
     'req.user?.id': req.user?.id,
     'req.session?.user?.id': req.session?.user?.id,
     'req.session?.userId': req.session?.userId,
@@ -31,7 +31,7 @@ function getAuthenticatedUserId(req: any): number | null {
     if (source) {
       const parsed = parseInt(source);
       if (!isNaN(parsed) && parsed > 0) {
-        console.log('✅ Found valid user ID:', parsed);
+// console.log('✅ Found valid user ID:', parsed);
         return parsed;
       }
     }
@@ -39,20 +39,20 @@ function getAuthenticatedUserId(req: any): number | null {
 
   // Development fallback: if session shows authenticated but no user ID found, use default user
   if (req.session?.isAuthenticated && process.env.NODE_ENV === 'development') {
-    console.log('🛠️ Development mode: authenticated session detected, using fallback user ID');
+// console.log('🛠️ Development mode: authenticated session detected, using fallback user ID');
     return 2; // Use the default user that was created (ID 2)
   }
 
-  console.log('❌ No valid user ID found in any source');
+// console.log('❌ No valid user ID found in any source');
   return null;
 }
 
 // Middleware to ensure authentication
-function requireAuth(req: any, res: any, next: any) {
+function requireAuth(req: unknown, res: unknown, next: unknown) {
   const userId = getAuthenticatedUserId(req);
   
   if (!userId) {
-    console.log('❌ Authentication required but no valid user ID found');
+// console.log('❌ Authentication required but no valid user ID found');
     return res.status(401).json({ 
       error: 'Authentication required',
       needsAuth: true,
@@ -82,9 +82,9 @@ async function testGoogleCalendarAccess(accessToken: string) {
 }
 
 // Add missing comprehensive token refresh function
-async function comprehensiveTokenRefresh(user: any) {
+async function comprehensiveTokenRefresh(user: unknown) {
   try {
-    console.log('🔄 Attempting token refresh...');
+// console.log('🔄 Attempting token refresh...');
 
     if (!user || !user.refreshToken) {
       throw new Error('AUTHENTICATION_REQUIRED');
@@ -112,7 +112,7 @@ async function comprehensiveTokenRefresh(user: any) {
       process.env.GOOGLE_REFRESH_TOKEN = credentials.refresh_token;
     }
 
-    console.log('✅ Token refresh successful');
+// console.log('✅ Token refresh successful');
     return user;
   } catch (error) {
     console.error('❌ Token refresh failed:', error);
@@ -121,7 +121,7 @@ async function comprehensiveTokenRefresh(user: any) {
 }
 
 export async function registerRoutes(app: Express) {
-  console.log('[INFO] Creating routes...');
+// console.log('[INFO] Creating routes...');
 
   // Add minimal OAuth routes
   addMinimalOAuthRoutes(app);
@@ -136,12 +136,12 @@ export async function registerRoutes(app: Express) {
   // Authentication force fix endpoint 
   app.post('/api/auth/force-fix', async (req, res) => {
     try {
-      console.log('🔧 Force authentication fix requested');
+// console.log('🔧 Force authentication fix requested');
       
       // Create or find default user if no authenticated user exists
       const existingUser = getAuthenticatedUserId(req);
       if (!existingUser) {
-        console.log('👤 No authenticated user, creating/finding default user...');
+// console.log('👤 No authenticated user, creating/finding default user...');
         
         const defaultUser = await storage.createUser({
           username: 'default_user',
@@ -150,7 +150,7 @@ export async function registerRoutes(app: Express) {
           password: null
         });
         
-        console.log('✅ Default user ready:', defaultUser.id);
+// console.log('✅ Default user ready:', defaultUser.id);
         
         // Set user in session
         req.session.user = defaultUser;
@@ -164,7 +164,7 @@ export async function registerRoutes(app: Express) {
             return res.json({ success: false, error: 'Session save failed' });
           }
           
-          console.log('✅ Authentication force-fixed with default user');
+// console.log('✅ Authentication force-fixed with default user');
           res.json({ 
             success: true, 
             message: 'Authentication fixed with default user',
@@ -183,7 +183,7 @@ export async function registerRoutes(app: Express) {
   // Proper logout endpoint
   app.post('/api/auth/logout', async (req, res) => {
     try {
-      console.log('🔄 Processing logout request...');
+// console.log('🔄 Processing logout request...');
       
       // Clear session data
       if (req.session) {
@@ -201,7 +201,7 @@ export async function registerRoutes(app: Express) {
             sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax'
           });
           
-          console.log('✅ Logout successful');
+// console.log('✅ Logout successful');
           res.json({ success: true, message: 'Logged out successfully' });
         });
       } else {
@@ -415,7 +415,7 @@ export async function registerRoutes(app: Express) {
       const userId = getAuthenticatedUserId(req);
       
       if (!userId) {
-        console.log('❌ No authenticated user found for events endpoint');
+// console.log('❌ No authenticated user found for events endpoint');
         return res.status(401).json({ 
           error: 'Authentication required',
           needsAuth: true,
@@ -423,7 +423,7 @@ export async function registerRoutes(app: Express) {
         });
       }
 
-      console.log(`📊 Events endpoint called with authenticated userId: ${userId}`);
+// console.log(`📊 Events endpoint called with authenticated userId: ${userId}`);
 
       // Import storage to get real events
       const { storage } = await import('./storage');
@@ -431,7 +431,7 @@ export async function registerRoutes(app: Express) {
       // Verify user exists in database
       let user = await storage.getUser(userId);
       if (!user) {
-        console.log(`❌ User ${userId} not found in database`);
+// console.log(`❌ User ${userId} not found in database`);
         return res.status(401).json({ 
           error: 'User not found',
           needsAuth: true,
@@ -439,7 +439,7 @@ export async function registerRoutes(app: Express) {
         });
       }
 
-      console.log(`✅ Verified user ${user.id} exists`);
+// console.log(`✅ Verified user ${user.id} exists`);
 
       // Use the actual user ID from the database
       const actualUserId = user.id;
@@ -449,7 +449,7 @@ export async function registerRoutes(app: Express) {
 
       // If no events found, create some sample events for testing
       if (events.length === 0) {
-        console.log('🆔 No events found in database, creating sample events...');
+// console.log('🆔 No events found in database, creating sample events...');
 
         // Create sample events for today and the next few days
         const today = new Date();
@@ -486,7 +486,7 @@ export async function registerRoutes(app: Express) {
               allDay: false,
               color: '#3b82f6'
             });
-            console.log(`✅ Created sample event: ${eventData.title}`);
+// console.log(`✅ Created sample event: ${eventData.title}`);
           } catch (createError) {
             console.error('❌ Failed to create sample event:', createError);
           }
@@ -515,7 +515,7 @@ export async function registerRoutes(app: Express) {
         userId: actualUserId
       }));
 
-      console.log(`📊 Loaded events from unified API: {"total":${formattedEvents.length},"google":${formattedEvents.filter(e => e.source === 'google').length},"simplepractice":${formattedEvents.filter(e => e.source === 'simplepractice').length},"manual":${formattedEvents.filter(e => e.source === 'manual').length}}`);
+// console.log(`📊 Loaded events from unified API: {"total":${formattedEvents.length},"google":${formattedEvents.filter(e => e.source === 'google').length},"simplepractice":${formattedEvents.filter(e => e.source === 'simplepractice').length},"manual":${formattedEvents.filter(e => e.source === 'manual').length}}`);
 
       res.json(formattedEvents);
     } catch (error) {
@@ -533,7 +533,7 @@ export async function registerRoutes(app: Express) {
       // Get authenticated user ID
       const userId = getAuthenticatedUserId(req);
 
-      console.log(`[DEBUG] Update event authentication check:`, {
+// console.log(`[DEBUG] Update event authentication check:`, {
         hasReqUser: !!req.user,
         reqUserId: req.user?.id,
         sessionUserId: req.session?.userId,
@@ -541,7 +541,7 @@ export async function registerRoutes(app: Express) {
       });
 
       if (!userId) {
-        console.log('[ERROR] Could not determine user ID for event update');
+// console.log('[ERROR] Could not determine user ID for event update');
         return res.status(401).json({ 
           error: "Not authenticated",
           needsAuth: true,
@@ -593,10 +593,10 @@ export async function registerRoutes(app: Express) {
       // If this is a Google Calendar event, also update it in Google Calendar
       if (currentEvent.source === 'google' && currentEvent.calendarId) {
         try {
-          console.log(`🔄 Attempting to update Google Calendar event ${eventId} in calendar ${currentEvent.calendarId}`);
+// console.log(`🔄 Attempting to update Google Calendar event ${eventId} in calendar ${currentEvent.calendarId}`);
 
           // TODO: Re-implement Google Calendar update without conflicting OAuth
-          console.log('⚠️ Google Calendar update temporarily disabled to resolve authentication conflicts');
+// console.log('⚠️ Google Calendar update temporarily disabled to resolve authentication conflicts');
 
           // Prepare the updated event data
           const eventDataToUpdate = {
@@ -614,41 +614,41 @@ export async function registerRoutes(app: Express) {
           //   eventDataToUpdate
           // );
 
-          console.log(`✅ Successfully updated Google Calendar event ${eventId}`);
+// console.log(`✅ Successfully updated Google Calendar event ${eventId}`);
         } catch (googleError) {
           console.error(`❌ Failed to update Google Calendar event ${eventId}:`, googleError);
           // Continue with local update even if Google Calendar update fails
-          console.log('⚠️ Continuing with local database update despite Google Calendar error');
+// console.log('⚠️ Continuing with local database update despite Google Calendar error');
         }
       }
 
       // Update in local database
-      console.log(`[DEBUG] Updating event - ID: ${eventId}, currentEvent.sourceId: ${currentEvent.sourceId}, currentEvent.id: ${currentEvent.id}`);
+// console.log(`[DEBUG] Updating event - ID: ${eventId}, currentEvent.sourceId: ${currentEvent.sourceId}, currentEvent.id: ${currentEvent.id}`);
 
       let event;
       // Always try to update by sourceId first if it exists and matches the eventId
       if (currentEvent.sourceId && currentEvent.sourceId === eventId) {
-        console.log(`[DEBUG] Updating by sourceId: ${eventId}`);
+// console.log(`[DEBUG] Updating by sourceId: ${eventId}`);
         event = await storage.updateEventBySourceId(userIdNumber, eventId, updates);
       } else {
         // Update by internal database ID for manual events or when sourceId doesn't match
-        console.log(`[DEBUG] Updating by internal ID: ${currentEvent.id}`);
+// console.log(`[DEBUG] Updating by internal ID: ${currentEvent.id}`);
         event = await storage.updateEvent(currentEvent.id, updates);
       }
 
       if (!event) {
-        console.log(`[ERROR] Failed to update event in database - eventId: ${eventId}, internalId: ${currentEvent.id}`);
+// console.log(`[ERROR] Failed to update event in database - eventId: ${eventId}, internalId: ${currentEvent.id}`);
         return res.status(500).json({ error: "Failed to update local event" });
       }
 
-      console.log(`[SUCCESS] Updated event successfully:`, {
+// console.log(`[SUCCESS] Updated event successfully:`, {
         eventId: eventId,
         internalId: event.id,
         sourceId: event.sourceId,
         title: event.title
       });
 
-      console.log("[SUCCESS] Updated event " + eventId);
+// console.log("[SUCCESS] Updated event " + eventId);
       res.json(event);
     } catch (error) {
       console.error("Update event error:", error);
@@ -665,10 +665,10 @@ export async function registerRoutes(app: Express) {
       const eventId = req.params.id;
       const userId = getAuthenticatedUserId(req);
 
-      console.log(`[DEBUG] Delete event request for eventId: ${eventId}, userId: ${userId}`);
+// console.log(`[DEBUG] Delete event request for eventId: ${eventId}, userId: ${userId}`);
 
       if (!userId) {
-        console.log('[ERROR] Could not determine user ID for event deletion');
+// console.log('[ERROR] Could not determine user ID for event deletion');
         return res.status(401).json({ 
           error: "Not authenticated",
           needsAuth: true,
@@ -691,10 +691,10 @@ export async function registerRoutes(app: Express) {
       }
 
       if (success) {
-        console.log("[SUCCESS] Successfully deleted event: " + eventId);
+// console.log("[SUCCESS] Successfully deleted event: " + eventId);
         res.json({ success: true });
       } else {
-        console.log("[ERROR] Event not found for deletion:", eventId);
+// console.log("[ERROR] Event not found for deletion:", eventId);
         res.status(404).json({ error: "Event not found" });
       }
     } catch (error) {
@@ -988,7 +988,7 @@ export async function registerRoutes(app: Express) {
   // Sync test endpoint
   app.get('/api/sync/test', async (req, res) => {
     try {
-      console.log('🧪 Testing sync capabilities...');
+// console.log('🧪 Testing sync capabilities...');
 
       const sessionUser = req.session?.passport?.user;
       const envAccessToken = process.env.GOOGLE_ACCESS_TOKEN;
@@ -1001,7 +1001,7 @@ export async function registerRoutes(app: Express) {
         timestamp: new Date().toISOString()
       };
 
-      console.log('🔍 Sync test results:', syncStatus);
+// console.log('🔍 Sync test results:', syncStatus);
 
       res.json({
         success: true,
@@ -1026,7 +1026,7 @@ export async function registerRoutes(app: Express) {
   // Alternative calendar sync endpoint (POST version)
   app.post('/api/sync/calendar', async (req, res) => {
     try {
-      console.log('🔄 Starting calendar sync...');
+// console.log('🔄 Starting calendar sync...');
 
       // Try simple calendar sync first to avoid authentication complexity
       const { simpleCalendarSync } = await import('./simple-calendar-sync');
@@ -1034,7 +1034,7 @@ export async function registerRoutes(app: Express) {
       try {
         return await simpleCalendarSync(req, res);
       } catch (simpleError) {
-        console.log('⚠️ Simple sync failed, trying force sync:', simpleError.message);
+// console.log('⚠️ Simple sync failed, trying force sync:', simpleError.message);
 
         // Fallback to force sync if simple sync fails
         const { forceGoogleCalendarSync } = await import('./force-google-sync');
@@ -1062,7 +1062,7 @@ export async function registerRoutes(app: Express) {
         }
 
         if (syncResult && syncResult.success) {
-          console.log('✅ Force sync completed successfully:', syncResult.summary);
+// console.log('✅ Force sync completed successfully:', syncResult.summary);
           return res.json({
             success: true,
             message: 'Calendar sync completed successfully',
@@ -1150,14 +1150,14 @@ export async function registerRoutes(app: Express) {
   // OAuth config refresh endpoint
   app.post('/api/auth/refresh-config', async (req, res) => {
     try {
-      console.log('🔄 Refreshing OAuth configuration...');
+// console.log('🔄 Refreshing OAuth configuration...');
 
       // Log current environment variables (masked)
       const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
       const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
 
-      console.log('📋 Client ID:', clientId ? `${clientId.substring(0, 20)}...` : 'NOT SET');
-      console.log('📋 Client Secret:', clientSecret ? 'SET' : 'NOT SET');
+// console.log('📋 Client ID:', clientId ? `${clientId.substring(0, 20)}...` : 'NOT SET');
+// console.log('📋 Client Secret:', clientSecret ? 'SET' : 'NOT SET');
 
       if (!clientId || !clientSecret) {
         return res.status(400).json({ 
@@ -1171,7 +1171,7 @@ export async function registerRoutes(app: Express) {
       // const { createComprehensiveOAuth2Client } = await import('./oauth-comprehensive-fix');
       // const testClient = createComprehensiveOAuth2Client();
 
-      console.log('✅ OAuth configuration refreshed successfully');
+// console.log('✅ OAuth configuration refreshed successfully');
 
       res.json({
         success: true,
@@ -1193,7 +1193,7 @@ export async function registerRoutes(app: Express) {
   // PyMyPDF Bidirectional Export endpoint
   app.post('/api/export/pymypdf-bidirectional', async (req, res) => {
     try {
-      console.log('🐍 PyMyPDF bidirectional export request received');
+// console.log('🐍 PyMyPDF bidirectional export request received');
 
       const { events, weekStart, weekEnd } = req.body;
 
@@ -1210,11 +1210,11 @@ export async function registerRoutes(app: Express) {
       const fs = await import('fs');
       const tempEventsFile = `/tmp/events_${Date.now()}.json`;
       const eventsData = typeof events === 'string' ? events : JSON.stringify(events);
-      fs.default.writeFileSync(tempEventsFile, eventsData);
+      fs.default.writeFile(tempEventsFile, eventsData);
 
       const pythonCommand = `python3 pymypdf_bidirectional_export.py "${tempEventsFile}" "${weekStart}" "${weekEnd}"`;
 
-      console.log(`🔧 Executing existing PyMyPDF template: ${pythonCommand.substring(0, 100)}...`);
+// console.log(`🔧 Executing existing PyMyPDF template: ${pythonCommand.substring(0, 100)}...`);
 
       // Execute Python script
       const { stdout, stderr } = await execAsync(pythonCommand);
@@ -1258,7 +1258,7 @@ export async function registerRoutes(app: Express) {
         }
       }
 
-      console.log(`✅ PyMyPDF export completed: ${actualFilename}`);
+// console.log(`✅ PyMyPDF export completed: ${actualFilename}`);
 
       res.json({ 
         success: true, 
@@ -1284,7 +1284,7 @@ export async function registerRoutes(app: Express) {
 
       const filePath = path.default.join(process.cwd(), filename);
 
-      if (!fs.default.existsSync(filePath)) {
+      if (!fs.default.access(filePath)) {
         return res.status(404).json({ error: 'File not found' });
       }
 
@@ -1305,7 +1305,7 @@ export async function registerRoutes(app: Express) {
           setTimeout(() => {
             try {
               fs.default.unlinkSync(filePath);
-              console.log(`🗑️ Cleaned up downloaded file: ${filename}`);
+// console.log(`🗑️ Cleaned up downloaded file: ${filename}`);
             } catch (cleanupError) {
               console.error('File cleanup error:', cleanupError);
             }

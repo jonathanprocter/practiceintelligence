@@ -4,56 +4,56 @@
  */
 
 async function debugAuthentication() {
-  console.log('🔍 Starting authentication debug...');
+// console.log('🔍 Starting authentication debug...');
   
   // Step 1: Check current authentication status
-  console.log('Step 1: Checking authentication status...');
+// console.log('Step 1: Checking authentication status...');
   try {
     const authResponse = await fetch('/api/auth/status');
     const authData = await authResponse.json();
     
-    console.log('Auth Status:', authData);
+// console.log('Auth Status:', authData);
     
     if (authData.isAuthenticated && authData.hasValidTokens) {
-      console.log('✅ Authentication is working perfectly!');
-      console.log('🔄 Reloading page to ensure calendar data loads...');
+// console.log('✅ Authentication is working perfectly!');
+// console.log('🔄 Reloading page to ensure calendar data loads...');
       setTimeout(() => window.location.reload(), 1000);
       return;
     }
     
     // Step 2: Try force authentication fix
-    console.log('Step 2: Attempting force authentication fix...');
+// console.log('Step 2: Attempting force authentication fix...');
     const forceResponse = await fetch('/api/auth/force-fix', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
     
     const forceData = await forceResponse.json();
-    console.log('Force Fix Result:', forceData);
+// console.log('Force Fix Result:', forceData);
     
     if (forceData.success) {
-      console.log('✅ Authentication fixed successfully!');
-      console.log('🔄 Reloading page...');
+// console.log('✅ Authentication fixed successfully!');
+// console.log('🔄 Reloading page...');
       setTimeout(() => window.location.reload(), 1000);
       return;
     }
     
     // Step 3: If force fix failed, test OAuth URL
-    console.log('Step 3: Testing OAuth URL generation...');
+// console.log('Step 3: Testing OAuth URL generation...');
     const oauthResponse = await fetch('/api/auth/google', {
       method: 'GET',
       redirect: 'manual'
     });
     
-    console.log('OAuth Response Status:', oauthResponse.status);
+// console.log('OAuth Response Status:', oauthResponse.status);
     
     if (oauthResponse.status === 302) {
       const location = oauthResponse.headers.get('Location');
-      console.log('OAuth URL:', location);
+// console.log('OAuth URL:', location);
       
       if (location && location.includes('accounts.google.com')) {
-        console.log('✅ OAuth URL is valid!');
-        console.log('🔗 Redirecting to Google OAuth...');
+// console.log('✅ OAuth URL is valid!');
+// console.log('🔗 Redirecting to Google OAuth...');
         
         // Show user-friendly message
         const authMsg = document.createElement('div');
@@ -86,15 +86,15 @@ async function debugAuthentication() {
         }, 2000);
         
       } else {
-        console.log('❌ Invalid OAuth URL:', location);
+// console.log('❌ Invalid OAuth URL:', location);
       }
     } else {
-      console.log('❌ OAuth URL generation failed');
+// console.log('❌ OAuth URL generation failed');
     }
     
   } catch (error) {
     console.error('❌ Authentication debug failed:', error);
-    console.log('🔗 Fallback: Direct OAuth redirect...');
+// console.log('🔗 Fallback: Direct OAuth redirect...');
     
     // Show error message and redirect
     const errorMsg = document.createElement('div');

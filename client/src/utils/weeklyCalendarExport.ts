@@ -37,7 +37,7 @@ export const exportWeeklyCalendar = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('Starting weekly calendar export...');
+// console.log('Starting weekly calendar export...');
   
   const pdf = new jsPDF({
     orientation: 'landscape',
@@ -57,7 +57,7 @@ export const exportWeeklyCalendar = async (
   const filename = `weekly-calendar-${weekStartDate.toISOString().split('T')[0]}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ Weekly calendar exported: ${filename}`);
+// console.log(`✅ Weekly calendar exported: ${filename}`);
 };
 
 function drawCalendarPage(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, events: CalendarEvent[]): void {

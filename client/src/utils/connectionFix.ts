@@ -5,7 +5,7 @@ export class ConnectionFix {
   private static readonly MAX_RETRIES = 3;
 
   static async forceConnection(): Promise<boolean> {
-    console.log('🔄 FORCING CONNECTION RECOVERY...');
+// console.log('🔄 FORCING CONNECTION RECOVERY...');
     
     try {
       // Step 1: Try deployment fix
@@ -21,7 +21,7 @@ export class ConnectionFix {
       if (deploymentResponse.ok) {
         const result = await deploymentResponse.json();
         if (result.success) {
-          console.log('✅ Connection recovered via deployment fix');
+// console.log('✅ Connection recovered via deployment fix');
           return true;
         }
       }
@@ -36,14 +36,14 @@ export class ConnectionFix {
       });
 
       if (loginResponse.ok) {
-        console.log('✅ Connection recovered via simple login');
+// console.log('✅ Connection recovered via simple login');
         return true;
       }
 
       // Step 3: Force reload if all else fails
       if (this.retryCount < this.MAX_RETRIES) {
         this.retryCount++;
-        console.log(`⚠️ Connection recovery attempt ${this.retryCount}/${this.MAX_RETRIES}`);
+// console.log(`⚠️ Connection recovery attempt ${this.retryCount}/${this.MAX_RETRIES}`);
         setTimeout(() => window.location.reload(), 2000);
         return false;
       }

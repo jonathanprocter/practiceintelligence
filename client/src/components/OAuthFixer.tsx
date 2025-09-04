@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Alert, AlertDescription } from './ui/alert';
+import { Button } from './ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/Card';
+import { Alert, AlertDescription } from './ui/Alert';
 import { CheckCircle, XCircle, RefreshCw, ExternalLink } from 'lucide-react';
 
 interface OAuthStatus {
   success: boolean;
   message?: string;
-  details?: any;
+  details?: unknown;
   authUrl?: string;
 }
 
@@ -26,7 +26,7 @@ export function OAuthFixer() {
       setTestResult(data);
       
       if (data.success) {
-        console.log('✅ OAuth configuration test passed');
+// console.log('✅ OAuth configuration test passed');
       } else {
         console.error('❌ OAuth configuration test failed:', data.error);
       }
@@ -58,7 +58,7 @@ export function OAuthFixer() {
       setOauthStatus(data);
       
       if (data.success && data.authUrl) {
-        console.log('✅ Force authentication URL generated');
+// console.log('✅ Force authentication URL generated');
         // Auto-redirect to Google OAuth
         window.location.href = data.authUrl;
       }
@@ -80,7 +80,7 @@ export function OAuthFixer() {
       const response = await fetch('/api/auth/status');
       const data = await response.json();
       
-      console.log('Current auth status:', data);
+// console.log('Current auth status:', data);
       
       if (data.isAuthenticated) {
         setOauthStatus({
@@ -105,7 +105,7 @@ export function OAuthFixer() {
   };
 
   const directGoogleAuth = () => {
-    console.log('🔗 Redirecting to Google OAuth...');
+// console.log('🔗 Redirecting to Google OAuth...');
     window.location.href = '/api/auth/google';
   };
 
@@ -125,7 +125,7 @@ export function OAuthFixer() {
       setOauthStatus(data);
       
       if (data.success) {
-        console.log('✅ Token refresh test successful');
+// console.log('✅ Token refresh test successful');
       } else {
         console.error('❌ Token refresh test failed:', data.error);
       }
@@ -150,7 +150,7 @@ export function OAuthFixer() {
       setOauthStatus(data);
       
       if (data.success) {
-        console.log('✅ Calendar access test successful:', data.testResults);
+// console.log('✅ Calendar access test successful:', data.testResults);
       } else {
         console.error('❌ Calendar access test failed:', data.error);
       }
@@ -181,7 +181,7 @@ export function OAuthFixer() {
       setOauthStatus(data);
       
       if (data.success) {
-        console.log('✅ Environment tokens applied successfully');
+// console.log('✅ Environment tokens applied successfully');
         // Refresh the page to apply the new tokens
         window.location.reload();
       } else {
@@ -213,7 +213,7 @@ export function OAuthFixer() {
       const data = await response.json();
       
       if (data.success) {
-        console.log('✅ Tokens refreshed successfully');
+// console.log('✅ Tokens refreshed successfully');
         setOauthStatus({
           success: true,
           message: 'Google tokens refreshed successfully! You can now try syncing again.'
@@ -252,7 +252,7 @@ export function OAuthFixer() {
       const data = await response.json();
       
       if (data.success) {
-        console.log('✅ Comprehensive auth fix completed');
+// console.log('✅ Comprehensive auth fix completed');
         setOauthStatus({
           success: true,
           message: 'All expired tokens cleared. Please click the authentication URL to sign in again.',
@@ -291,7 +291,7 @@ export function OAuthFixer() {
       const data = await response.json();
       
       if (data.success) {
-        console.log('✅ Enhanced calendar sync completed successfully');
+// console.log('✅ Enhanced calendar sync completed successfully');
         setOauthStatus({
           success: true,
           message: `Enhanced sync completed! ${data.totalEvents || 0} events synced from ${data.calendars || 0} calendars`
@@ -344,7 +344,7 @@ export function OAuthFixer() {
       const data = await response.json();
       
       if (data.success) {
-        console.log('✅ Google Calendar sync completed successfully');
+// console.log('✅ Google Calendar sync completed successfully');
         setOauthStatus({
           success: true,
           message: `Sync completed! ${data.syncedEvents || data.totalEvents || 0} events synced to database (${data.updatedEvents || 0} updated)`

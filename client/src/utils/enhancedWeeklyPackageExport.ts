@@ -32,10 +32,10 @@ export const exportEnhancedWeeklyPackage = (
 ): void => {
   const finalConfig = { ...DEFAULT_PACKAGE_CONFIG, ...config };
   
-  console.log('🔄 Starting Enhanced Weekly Package Export...');
-  console.log('📅 Week:', format(weekStart, 'yyyy-MM-dd'), 'to', format(weekEnd, 'yyyy-MM-dd'));
-  console.log('📊 Total events:', events.length);
-  console.log('⚙️ Config:', finalConfig);
+// console.log('🔄 Starting Enhanced Weekly Package Export...');
+// console.log('📅 Week:', format(weekStart, 'yyyy-MM-dd'), 'to', format(weekEnd, 'yyyy-MM-dd'));
+// console.log('📊 Total events:', events.length);
+// console.log('⚙️ Config:', finalConfig);
 
   const pdf = new jsPDF({
     orientation: finalConfig.weeklyOrientation,
@@ -59,7 +59,7 @@ export const exportEnhancedWeeklyPackage = (
   // Download the complete package
   const filename = `enhanced-weekly-package-${format(weekStart, 'yyyy-MM-dd')}-to-${format(weekEnd, 'yyyy-MM-dd')}.pdf`;
   pdf.save(filename);
-  console.log('✅ Enhanced Weekly Package Export completed:', filename);
+// console.log('✅ Enhanced Weekly Package Export completed:', filename);
 };
 
 const generateWeeklyOverviewPage = (
@@ -69,7 +69,7 @@ const generateWeeklyOverviewPage = (
   weekEnd: Date,
   config: WeeklyPackageConfig
 ): void => {
-  console.log('📄 Generating Weekly Overview Page...');
+// console.log('📄 Generating Weekly Overview Page...');
   
   // Header
   pdf.setFontSize(20);
@@ -339,7 +339,7 @@ const generateDailyPage = (
   config: WeeklyPackageConfig,
   pageNumber: number
 ): void => {
-  console.log(`📄 Generating Daily Page: ${dayName} (${format(date, 'yyyy-MM-dd')})`);
+// console.log(`📄 Generating Daily Page: ${dayName} (${format(date, 'yyyy-MM-dd')})`);
   
   // Use the enhanced daily export for individual pages
   const pageWidth = 612;

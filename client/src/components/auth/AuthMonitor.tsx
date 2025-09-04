@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { CheckCircle, AlertCircle, RefreshCw, ExternalLink, Settings, Info } from 'lucide-react';
 
 interface AuthDebugInfo {
@@ -38,7 +38,7 @@ interface AuthDebugInfo {
 interface AuthStatus {
   authenticated: boolean;
   hasValidTokens: boolean;
-  user: any;
+  user: unknown;
   needsReauth: boolean;
   environment: {
     hasAccessToken: boolean;
@@ -89,7 +89,7 @@ export function AuthMonitor() {
 
     try {
       // Since authentication is working, just refresh the status
-      console.log('🔄 Authentication is working, refreshing status...');
+// console.log('🔄 Authentication is working, refreshing status...');
 
       await checkAuthStatus();
 
@@ -98,16 +98,16 @@ export function AuthMonitor() {
       });
       const debugData = await debugResponse.json();
 
-      console.log('🔥 GOOGLE AUTH DEBUG CLICKED');
-      console.log('Current user:', authStatus.user);
-      console.log('Has valid tokens:', authStatus.hasValidTokens || false);
-      console.log('Token sources:', authStatus.tokenSources || 'none');
-      console.log('Auth Status Response:', authStatus);
-      console.log('🔍 Full Auth Data:', debugData);
+// console.log('🔥 GOOGLE AUTH DEBUG CLICKED');
+// console.log('Current user:', authStatus.user);
+// console.log('Has valid tokens:', authStatus.hasValidTokens || false);
+// console.log('Token sources:', authStatus.tokenSources || 'none');
+// console.log('Auth Status Response:', authStatus);
+// console.log('🔍 Full Auth Data:', debugData);
       await getDebugInfo();
       setError(null);
 
-      console.log('✅ Authentication status refreshed successfully');
+// console.log('✅ Authentication status refreshed successfully');
 
     } catch (err) {
       setError('Failed to refresh authentication status');

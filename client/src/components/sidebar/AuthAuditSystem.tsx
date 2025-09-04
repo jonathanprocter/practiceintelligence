@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+// import { Badge } from '@/components/ui/Badge';
 import { AlertCircle, CheckCircle, AlertTriangle, RefreshCw, Settings } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
@@ -9,7 +9,7 @@ interface AuditResult {
   component: string;
   status: 'PASS' | 'FAIL' | 'WARNING';
   message: string;
-  details?: any;
+  details?: unknown;
   fix?: string;
 }
 

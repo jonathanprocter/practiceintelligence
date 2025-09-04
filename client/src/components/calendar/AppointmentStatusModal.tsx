@@ -8,17 +8,17 @@ import {
   DialogTitle, 
   DialogDescription,
   DialogFooter 
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/Dialog';
+import { Button } from '@/components/ui/Button';
 import { 
   Select, 
   SelectContent, 
   SelectItem, 
   SelectTrigger, 
   SelectValue 
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+} from '@/components/ui/Select';
+import { Textarea } from '@/components/ui/Textarea';
+import { Label } from '@/components/ui/Label';
 import { useToast } from '@/hooks/use-toast';
 import { CalendarEvent } from '@/types/calendar';
 import { AppointmentStatus } from '../../../../shared/schema';
@@ -62,7 +62,7 @@ export function AppointmentStatusModal({ event, isOpen, onClose }: AppointmentSt
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ eventId, status, reason, location }: { eventId: string; status: string; reason: string; location?: string }) => {
-      console.log('Updating status and location for event:', { eventId, status, reason, location });
+// console.log('Updating status and location for event:', { eventId, status, reason, location });
       
       // Update the event with both status and location
       const response = await apiRequest('PUT', `/api/events/${eventId}`, { 
@@ -88,7 +88,7 @@ export function AppointmentStatusModal({ event, isOpen, onClose }: AppointmentSt
       setSelectedLocation('');
       setReason('');
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       console.error('Status update error:', error);
       console.error('Error details:', {
         message: error?.message,

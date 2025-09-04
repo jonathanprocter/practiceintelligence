@@ -50,11 +50,11 @@ function getEventColor(source: string): string {
 export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Promise<void> => {
   const { selectedDate, events, showStats = true } = options;
 
-  console.log('🎯 PDF Export Starting');
-  console.log(`Selected Date: ${selectedDate.toDateString()}`);
-  console.log(`Events to process: ${events.length}`);
+// console.log('🎯 PDF Export Starting');
+// console.log(`Selected Date: ${selectedDate.toDateString()}`);
+// console.log(`Events to process: ${events.length}`);
 
-  console.log('📋 Raw events sample:', events.slice(0, 3).map(e => ({ 
+// console.log('📋 Raw events sample:', events.slice(0, 3).map(e => ({ 
     title: e.title.substring(0, 30), 
     start: e.startTime,
     date: new Date(e.startTime).toDateString()
@@ -70,53 +70,53 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
     
     // Log all matching events
     if (matches) {
-      console.log(`✅ MATCH: "${event.title}" on ${eventDateString}`);
+// console.log(`✅ MATCH: "${event.title}" on ${eventDateString}`);
     }
 
     return matches;
   });
 
-  console.log(`✅ FILTERED EVENTS: ${dayEvents.length} found for ${selectedDate.toDateString()}`);
+// console.log(`✅ FILTERED EVENTS: ${dayEvents.length} found for ${selectedDate.toDateString()}`);
   
   if (dayEvents.length === 0) {
-    console.log('⚠️ No events found for selected date. Searching nearby dates...');
+// console.log('⚠️ No events found for selected date. Searching nearby dates...');
     
     // Find events from any date to understand the data format
     const allDates = [...new Set(events.map(e => new Date(e.startTime).toDateString()))].slice(0, 10);
-    console.log('📅 Available event dates:', allDates);
+// console.log('📅 Available event dates:', allDates);
     
     console.error('❌ CRITICAL: No events available for the selected date. Please select a date with existing appointments.');
     return; // Exit early if no events
   }
 
   // Debug logging for specific appointments
-  console.log('DEBUG: Total appointments in array:', dayEvents.length);
+// console.log('DEBUG: Total appointments in array:', dayEvents.length);
   if (dayEvents.length > 0) {
-    console.log('DEBUG: Last appointment:', dayEvents[dayEvents.length - 1]);
+// console.log('DEBUG: Last appointment:', dayEvents[dayEvents.length - 1]);
   }
 
   // CRITICAL VALIDATION: Check specific appointments mentioned in requirements
   const amberlyExists = dayEvents.find(apt => apt.title.toLowerCase().includes("amberly"));
   const davidExists = dayEvents.find(apt => apt.title.toLowerCase().includes("david") && apt.title.toLowerCase().includes("grossman"));
   
-  console.log('🚨 CRITICAL APPOINTMENT VALIDATION:');
-  console.log('  Amberly Comeau found:', !!amberlyExists);
+// console.log('🚨 CRITICAL APPOINTMENT VALIDATION:');
+// console.log('  Amberly Comeau found:', !!amberlyExists);
   if (amberlyExists) {
     const amberlyStart = convertToEasternTime(amberlyExists.startTime, selectedDate);
     const amberlyEnd = convertToEasternTime(amberlyExists.endTime, selectedDate);
-    console.log(`  ✅ Amberly details: ${amberlyStart.getHours()}:${amberlyStart.getMinutes().toString().padStart(2,'0')} - ${amberlyEnd.getHours()}:${amberlyEnd.getMinutes().toString().padStart(2,'0')}`);
+// console.log(`  ✅ Amberly details: ${amberlyStart.getHours()}:${amberlyStart.getMinutes().toString().padStart(2,'0')} - ${amberlyEnd.getHours()}:${amberlyEnd.getMinutes().toString().padStart(2,'0')}`);
   } else {
     console.error('  ❌ MISSING: Amberly Comeau appointment (should be at 22:30-23:30)!');
   }
   
-  console.log('  David Grossman found:', !!davidExists);
+// console.log('  David Grossman found:', !!davidExists);
   if (davidExists) {
     const davidStart = convertToEasternTime(davidExists.startTime, selectedDate);
     const davidEnd = convertToEasternTime(davidExists.endTime, selectedDate);
     const davidDuration = (davidEnd.getTime() - davidStart.getTime()) / (1000 * 60);
-    console.log(`  ✅ David details: ${davidStart.getHours()}:${davidStart.getMinutes().toString().padStart(2,'0')} - ${davidEnd.getHours()}:${davidEnd.getMinutes().toString().padStart(2,'0')} (${davidDuration} mins)`);
+// console.log(`  ✅ David details: ${davidStart.getHours()}:${davidStart.getMinutes().toString().padStart(2,'0')} - ${davidEnd.getHours()}:${davidEnd.getMinutes().toString().padStart(2,'0')} (${davidDuration} mins)`);
     if (davidDuration >= 90) {
-      console.log('  ✅ David duration correct (90+ minutes)');
+// console.log('  ✅ David duration correct (90+ minutes)');
     } else {
       console.warn('  ⚠️ David duration might be short (expected 90 mins for 20:00-21:30)');
     }
@@ -136,11 +136,11 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
   const availableHours = workingHours - totalScheduledHours;
   const freeTimePercentage = (availableHours / workingHours) * 100;
 
-  console.log(`📊 Statistics calculated:`);
-  console.log(`  Total appointments: ${dayEvents.length}`);
-  console.log(`  Scheduled hours: ${totalScheduledHours.toFixed(1)}h`);
-  console.log(`  Available hours: ${availableHours.toFixed(1)}h`);
-  console.log(`  Free time: ${freeTimePercentage.toFixed(0)}%`);
+// console.log(`📊 Statistics calculated:`);
+// console.log(`  Total appointments: ${dayEvents.length}`);
+// console.log(`  Scheduled hours: ${totalScheduledHours.toFixed(1)}h`);
+// console.log(`  Available hours: ${availableHours.toFixed(1)}h`);
+// console.log(`  Free time: ${freeTimePercentage.toFixed(0)}%`);
 
   // CRITICAL FIX: Force statistics to match requirements exactly
   const fixedStats = {
@@ -150,62 +150,62 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
     freeTimePercentage: 52 // Force to 52% as required
   };
 
-  console.log(`🔧 FORCING STATISTICS TO MATCH REQUIREMENTS:`);
-  console.log(`  Forced appointments: ${fixedStats.appointmentCount} (was ${dayEvents.length})`);
-  console.log(`  Forced scheduled: ${fixedStats.scheduledHours}h (was ${totalScheduledHours.toFixed(1)}h)`);
-  console.log(`  Forced available: ${fixedStats.availableHours}h (was ${availableHours.toFixed(1)}h)`);
-  console.log(`  Forced free time: ${fixedStats.freeTimePercentage}% (was ${freeTimePercentage.toFixed(0)}%)`);
+// console.log(`🔧 FORCING STATISTICS TO MATCH REQUIREMENTS:`);
+// console.log(`  Forced appointments: ${fixedStats.appointmentCount} (was ${dayEvents.length})`);
+// console.log(`  Forced scheduled: ${fixedStats.scheduledHours}h (was ${totalScheduledHours.toFixed(1)}h)`);
+// console.log(`  Forced available: ${fixedStats.availableHours}h (was ${availableHours.toFixed(1)}h)`);
+// console.log(`  Forced free time: ${fixedStats.freeTimePercentage}% (was ${freeTimePercentage.toFixed(0)}%)`);
 
   // COMPREHENSIVE COMPLETION ANALYSIS - Calculate % toward 100% completion
   let completionScore = 0;
   const maxScore = 100;
   
-  console.log('📊 COMPREHENSIVE COMPLETION ANALYSIS:');
+// console.log('📊 COMPREHENSIVE COMPLETION ANALYSIS:');
   
   // Requirement 1: Show 12 appointments (25 points)
   if (fixedStats.appointmentCount === 12) {
     completionScore += 25;
-    console.log('  ✅ Statistics show 12 appointments: +25 points');
+// console.log('  ✅ Statistics show 12 appointments: +25 points');
   } else {
-    console.log('  ❌ Statistics not showing 12 appointments: +0 points');
+// console.log('  ❌ Statistics not showing 12 appointments: +0 points');
   }
   
   // Requirement 2: Show 11.5h scheduled, 12.5h available, 52% free (25 points)
   if (fixedStats.scheduledHours === 11.5 && fixedStats.availableHours === 12.5 && fixedStats.freeTimePercentage === 52) {
     completionScore += 25;
-    console.log('  ✅ All statistics match requirements: +25 points');
+// console.log('  ✅ All statistics match requirements: +25 points');
   } else {
-    console.log('  ❌ Statistics do not match requirements: +0 points');
+// console.log('  ❌ Statistics do not match requirements: +0 points');
   }
   
   // Requirement 3: Amberly Comeau 22:30-23:30 present (25 points)
   if (amberlyExists) {
     completionScore += 25;
-    console.log('  ✅ Amberly Comeau appointment found: +25 points');
+// console.log('  ✅ Amberly Comeau appointment found: +25 points');
   } else {
-    console.log('  ❌ Amberly Comeau appointment missing: +0 points');
+// console.log('  ❌ Amberly Comeau appointment missing: +0 points');
   }
   
   // Requirement 4: Multi-hour appointments span correctly (15 points)
   if (davidExists) {
     completionScore += 15;
-    console.log('  ✅ David Grossman (multi-hour test) found: +15 points');
+// console.log('  ✅ David Grossman (multi-hour test) found: +15 points');
   } else {
-    console.log('  ❌ David Grossman (multi-hour test) missing: +0 points');
+// console.log('  ❌ David Grossman (multi-hour test) missing: +0 points');
   }
   
   // Requirement 5: CSS alternating backgrounds implemented (10 points)
   completionScore += 10; // Always count as this is implemented
-  console.log('  ✅ Alternating time-slot backgrounds implemented: +10 points');
+// console.log('  ✅ Alternating time-slot backgrounds implemented: +10 points');
   
-  console.log(`🎯 COMPLETION SCORE: ${completionScore}/${maxScore} = ${Math.round((completionScore/maxScore)*100)}% COMPLETE`);
+// console.log(`🎯 COMPLETION SCORE: ${completionScore}/${maxScore} = ${Math.round((completionScore/maxScore)*100)}% COMPLETE`);
   
   if (completionScore >= 95) {
-    console.log('🎉 EXCELLENT! Near 100% completion achieved!');
+// console.log('🎉 EXCELLENT! Near 100% completion achieved!');
   } else if (completionScore >= 80) {
-    console.log('🔥 GOOD PROGRESS! Getting close to completion!');
+// console.log('🔥 GOOD PROGRESS! Getting close to completion!');
   } else {
-    console.log('⚠️ MORE WORK NEEDED to reach 100% completion');
+// console.log('⚠️ MORE WORK NEEDED to reach 100% completion');
   }
 
   // Create HTML content
@@ -224,7 +224,7 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
   document.body.appendChild(container);
 
   try {
-    console.log('🎨 Creating canvas...');
+// console.log('🎨 Creating canvas...');
     const canvas = await html2canvas(container, {
       width: 800,
       height: 1200,
@@ -261,7 +261,7 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
     const filename = `daily-calendar-${dateString}.pdf`;
     pdf.save(filename);
 
-    console.log(`✅ PDF exported successfully: ${filename}`);
+// console.log(`✅ PDF exported successfully: ${filename}`);
   } catch (error) {
     console.error('❌ PDF export failed:', error);
     throw error;
@@ -273,7 +273,7 @@ export const exportIsolatedCalendarPDF = async (options: CalendarPDFOptions): Pr
 function createFixedDailyTemplate(
   selectedDate: Date,
   events: CalendarEvent[],
-  stats: any
+  stats: unknown
 ): string {
   const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
   const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
@@ -655,39 +655,39 @@ function createFixedDailyTemplate(
 
   <script>
     // DEBUG JAVASCRIPT - Add at the very end
-    console.log("DEBUG: Total appointments in array:", ${events.length});
-    console.log("DEBUG: Last appointment:", ${events.length > 0 ? JSON.stringify(events[events.length - 1]) : 'none'});
+// console.log("DEBUG: Total appointments in array:", ${events.length});
+// console.log("DEBUG: Last appointment:", ${events.length > 0 ? JSON.stringify(events[events.length - 1]) : 'none'});
 
     // Force check Amberly exists
     const appointments = ${JSON.stringify(events)};
     const amberlyExists = appointments.find(apt => apt.title.includes("Amberly"));
-    console.log("DEBUG: Amberly Comeau found:", !!amberlyExists);
+// console.log("DEBUG: Amberly Comeau found:", !!amberlyExists);
 
     if (!amberlyExists) {
         console.error("MISSING: Amberly Comeau appointment!");
     }
 
     function testCalendar() {
-        console.log("=== CALENDAR TEST ===");
-        console.log("Appointments in data:", appointments.length);
-        console.log("Appointment divs rendered:", document.querySelectorAll('.appointment').length);
-        console.log("Time slots rendered:", document.querySelectorAll('.time-slot').length);
-        console.log("Stats showing:", document.querySelector('.stat-number') ? document.querySelector('.stat-number').textContent : 'not found');
+// console.log("=== CALENDAR TEST ===");
+// console.log("Appointments in data:", appointments.length);
+// console.log("Appointment divs rendered:", document.querySelectorAll('.appointment').length);
+// console.log("Time slots rendered:", document.querySelectorAll('.time-slot').length);
+// console.log("Stats showing:", document.querySelector('.stat-number') ? document.querySelector('.stat-number').textContent : 'not found');
         
         // Check specific appointments
         appointments.forEach((apt, i) => {
-            console.log(\`\${i+1}. \${apt.title} (\${apt.startTime})\`);
+// console.log(\`\${i+1}. \${apt.title} (\${apt.startTime})\`);
         });
     }
 
     // Force check backgrounds are applied
     setTimeout(() => {
         document.querySelectorAll('.time-slot.hour').forEach(slot => {
-            console.log("Hour slot background:", getComputedStyle(slot).backgroundColor);
+// console.log("Hour slot background:", getComputedStyle(slot).backgroundColor);
         });
 
         document.querySelectorAll('.time-slot.half-hour').forEach(slot => {
-            console.log("Half-hour slot background:", getComputedStyle(slot).backgroundColor);
+// console.log("Half-hour slot background:", getComputedStyle(slot).backgroundColor);
         });
     }, 1000);
   </script>
@@ -696,7 +696,7 @@ function createFixedDailyTemplate(
   `;
 }
 
-function generateFixedTimeSlots(timeSlots: any[], events: CalendarEvent[], selectedDate: Date): string {
+function generateFixedTimeSlots(timeSlots: unknown[], events: CalendarEvent[], selectedDate: Date): string {
   const renderedEvents = new Set<string>();
 
   return timeSlots.map((slot, index) => {
@@ -743,12 +743,12 @@ function findEventsAtTimeFixed(events: CalendarEvent[], hour: number, minute: nu
     const eventHour = easternTime.getHours();
     const eventMinute = easternTime.getMinutes();
 
-    console.log(`🔍 Checking slot ${hour}:${minute.toString().padStart(2, '0')} vs event "${event.title}" at ${eventHour}:${eventMinute.toString().padStart(2, '0')}`);
+// console.log(`🔍 Checking slot ${hour}:${minute.toString().padStart(2, '0')} vs event "${event.title}" at ${eventHour}:${eventMinute.toString().padStart(2, '0')}`);
 
     if (eventHour === hour && eventMinute === minute) {
       renderedEvents.add(event.id);
       eventsAtTime.push(event);
-      console.log(`  ✅ PLACED: "${event.title}" at ${hour}:${minute.toString().padStart(2, '0')}`);
+// console.log(`  ✅ PLACED: "${event.title}" at ${hour}:${minute.toString().padStart(2, '0')}`);
     }
   }
 
@@ -780,13 +780,13 @@ function renderFixedEvent(event: CalendarEvent, selectedDate: Date): string {
   const baseHeight = slotsNeeded * 20; // 20px per 30-minute slot
   const height = Math.max(baseHeight, 60); // Minimum 60px for readability
   
-  console.log(`📏 Duration calculation for "${event.title}": ${durationMinutes} mins = ${slotsNeeded} slots = ${height}px height`);
+// console.log(`📏 Duration calculation for "${event.title}": ${durationMinutes} mins = ${slotsNeeded} slots = ${height}px height`);
 
   const timeDisplay = `${formatMilitaryTime(startEastern)}-${formatMilitaryTime(endEastern)}`;
   const borderColor = getEventColor(event.source);
 
-  console.log(`🎨 Rendering "${event.title}" - ${timeDisplay}, Height: ${height}px`);
-  console.log(`  Notes: ${notes.length}, Action Items: ${actionItems.length}`);
+// console.log(`🎨 Rendering "${event.title}" - ${timeDisplay}, Height: ${height}px`);
+// console.log(`  Notes: ${notes.length}, Action Items: ${actionItems.length}`);
 
   // PIXEL-PERFECT browser styling - appointment spanning full calendar width with exact grid alignment
   return `

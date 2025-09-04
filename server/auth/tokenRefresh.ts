@@ -41,7 +41,7 @@ export class TokenRefreshManager {
     expires_in: number;
   } | null> {
     if (this.refreshInProgress) {
-      console.log('⏳ Token refresh already in progress, waiting...');
+// console.log('⏳ Token refresh already in progress, waiting...');
       await new Promise(resolve => setTimeout(resolve, 2000));
       return null;
     }
@@ -49,7 +49,7 @@ export class TokenRefreshManager {
     this.refreshInProgress = true;
 
     try {
-      console.log('🔄 Refreshing Google OAuth tokens...');
+// console.log('🔄 Refreshing Google OAuth tokens...');
 
       const { google } = await import('googleapis');
       const oauth2Client = new google.auth.OAuth2(
@@ -64,7 +64,7 @@ export class TokenRefreshManager {
       const { credentials } = await oauth2Client.refreshAccessToken();
 
       if (credentials.access_token) {
-        console.log('✅ Token refresh successful');
+// console.log('✅ Token refresh successful');
         return {
           access_token: credentials.access_token,
           refresh_token: credentials.refresh_token,
@@ -99,7 +99,7 @@ export class TokenRefreshManager {
         process.env.GOOGLE_REFRESH_TOKEN = refreshToken;
       }
 
-      console.log('✅ User tokens updated successfully');
+// console.log('✅ User tokens updated successfully');
       return true;
     } catch (error) {
       console.error('❌ Failed to update user tokens:', error);
@@ -110,31 +110,31 @@ export class TokenRefreshManager {
   /**
    * Validate and refresh tokens if needed
    */
-  static async ensureValidTokens(user: any): Promise<boolean> {
+  static async ensureValidTokens(user: unknown): Promise<boolean> {
     try {
       const accessToken = user.accessToken || process.env.GOOGLE_ACCESS_TOKEN;
       const refreshToken = user.refreshToken || process.env.GOOGLE_REFRESH_TOKEN;
 
       if (!accessToken) {
-        console.log('❌ No access token found');
+// console.log('❌ No access token found');
         return false;
       }
 
       if (!this.isTokenExpired(accessToken)) {
-        console.log('✅ Access token is still valid');
+// console.log('✅ Access token is still valid');
         return true;
       }
 
       if (!refreshToken) {
-        console.log('❌ No refresh token available for renewal');
+// console.log('❌ No refresh token available for renewal');
         return false;
       }
 
-      console.log('🔄 Access token expired, attempting refresh...');
+// console.log('🔄 Access token expired, attempting refresh...');
       const newTokens = await this.refreshGoogleTokens(refreshToken);
 
       if (!newTokens) {
-        console.log('❌ Failed to refresh tokens');
+// console.log('❌ Failed to refresh tokens');
         return false;
       }
 
@@ -167,7 +167,7 @@ export class TokenRefreshManager {
       const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
       await calendar.calendarList.list({ maxResults: 1 });
 
-      console.log('✅ Google Calendar access verified');
+// console.log('✅ Google Calendar access verified');
       return true;
     } catch (error) {
       console.error('❌ Google Calendar access test failed:', error);

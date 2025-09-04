@@ -5,16 +5,16 @@
  */
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
+import { Badge } from '@/components/ui/Badge';
 import { CheckCircle, AlertCircle, RefreshCw, Calendar, Database } from "lucide-react";
 
 interface AuthStatus {
   authenticated: boolean;
   hasValidTokens: boolean;
-  user: any;
+  user: unknown;
   environment: {
     hasAccessToken: boolean;
     hasRefreshToken: boolean;
@@ -24,8 +24,8 @@ interface AuthStatus {
 interface SyncResult {
   success: boolean;
   message: string;
-  details?: any;
-  calendars?: any[];
+  details?: unknown;
+  calendars?: unknown[];
   recommendations?: string[];
 }
 

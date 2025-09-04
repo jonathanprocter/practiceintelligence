@@ -15,13 +15,13 @@ export const export100PercentPixelPerfectPDF = async (
   events: CalendarEvent[] = []
 ): Promise<void> => {
   try {
-    console.log('🎯 Creating 100% pixel-perfect PDF export...');
+// console.log('🎯 Creating 100% pixel-perfect PDF export...');
     
     // Extract exact dashboard measurements
     const measurements = await pixelPerfectAuditSystem.extractDashboardMeasurements();
     const config = pixelPerfectAuditSystem.generatePixelPerfectConfig();
     
-    console.log('📏 Using exact dashboard measurements:', measurements);
+// console.log('📏 Using exact dashboard measurements:', measurements);
     
     // Filter events for the week
     const weekEvents = filterWeekEvents(events, weekStartDate, weekEndDate);
@@ -48,7 +48,7 @@ export const export100PercentPixelPerfectPDF = async (
     
     // Run post-export audit
     const auditResult = await pixelPerfectAuditSystem.runPixelPerfectAudit(config);
-    console.log(`✅ 100% Pixel-Perfect PDF Export Complete: ${auditResult.score}% accuracy`);
+// console.log(`✅ 100% Pixel-Perfect PDF Export Complete: ${auditResult.score}% accuracy`);
     
     // Display audit results
     displayAuditResults(auditResult);
@@ -59,7 +59,7 @@ export const export100PercentPixelPerfectPDF = async (
   }
 };
 
-function drawPixelPerfectHeader(pdf: jsPDF, weekStart: Date, weekEnd: Date, config: any): void {
+function drawPixelPerfectHeader(pdf: jsPDF, weekStart: Date, weekEnd: Date, config: unknown): void {
   // Header background with exact measurements
   pdf.setFillColor(255, 255, 255);
   pdf.rect(config.gridStartX, config.margins.page, config.contentWidth, config.headerHeight, 'F');
@@ -84,7 +84,7 @@ function drawPixelPerfectHeader(pdf: jsPDF, weekStart: Date, weekEnd: Date, conf
   pdf.text(weekInfo, weekInfoX, config.margins.page + 50);
 }
 
-function drawPixelPerfectLegend(pdf: jsPDF, config: any): void {
+function drawPixelPerfectLegend(pdf: jsPDF, config: unknown): void {
   const legendY = config.margins.page + config.headerHeight + 10;
   
   // Legend background
@@ -117,7 +117,7 @@ function drawPixelPerfectLegend(pdf: jsPDF, config: any): void {
   });
 }
 
-function drawPixelPerfectGrid(pdf: jsPDF, config: any): void {
+function drawPixelPerfectGrid(pdf: jsPDF, config: unknown): void {
   const timeSlots = generateTimeSlots();
   
   // Grid background
@@ -134,7 +134,7 @@ function drawPixelPerfectGrid(pdf: jsPDF, config: any): void {
   drawPixelPerfectGridLines(pdf, timeSlots, config);
 }
 
-function drawPixelPerfectTimeColumn(pdf: jsPDF, timeSlots: string[], config: any): void {
+function drawPixelPerfectTimeColumn(pdf: jsPDF, timeSlots: string[], config: unknown): void {
   // Time column background
   pdf.setFillColor(248, 249, 250);
   pdf.rect(config.gridStartX, config.gridStartY, config.timeColumnWidth, config.gridHeight, 'F');
@@ -157,7 +157,7 @@ function drawPixelPerfectTimeColumn(pdf: jsPDF, timeSlots: string[], config: any
   });
 }
 
-function drawPixelPerfectDayColumns(pdf: jsPDF, config: any): void {
+function drawPixelPerfectDayColumns(pdf: jsPDF, config: unknown): void {
   const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   
   days.forEach((day, index) => {
@@ -178,7 +178,7 @@ function drawPixelPerfectDayColumns(pdf: jsPDF, config: any): void {
   });
 }
 
-function drawPixelPerfectGridLines(pdf: jsPDF, timeSlots: string[], config: any): void {
+function drawPixelPerfectGridLines(pdf: jsPDF, timeSlots: string[], config: unknown): void {
   // Set exact grid line width
   pdf.setLineWidth(config.borderWidths.grid);
   pdf.setDrawColor(229, 231, 235);
@@ -196,7 +196,7 @@ function drawPixelPerfectGridLines(pdf: jsPDF, timeSlots: string[], config: any)
   }
 }
 
-function drawPixelPerfectEvents(pdf: jsPDF, events: CalendarEvent[], weekStart: Date, config: any): void {
+function drawPixelPerfectEvents(pdf: jsPDF, events: CalendarEvent[], weekStart: Date, config: unknown): void {
   events.forEach(event => {
     if (!event.startTime || !event.endTime) return;
     
@@ -258,7 +258,7 @@ function drawPixelPerfectEvents(pdf: jsPDF, events: CalendarEvent[], weekStart: 
   });
 }
 
-function getPixelPerfectEventColor(source: string, config: any): { r: number; g: number; b: number } {
+function getPixelPerfectEventColor(source: string, config: unknown): { r: number; g: number; b: number } {
   const colorMap = {
     'simplepractice': hexToRgb(config.colors.simplePractice),
     'google': hexToRgb(config.colors.google),
@@ -334,27 +334,27 @@ function formatTime(date: Date): string {
   });
 }
 
-function displayAuditResults(auditResult: any): void {
-  console.log('🎯 100% PIXEL-PERFECT AUDIT RESULTS:');
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log(`📊 Pixel-Perfect Score: ${auditResult.score}%`);
-  console.log(`🔍 Inconsistencies Found: ${auditResult.inconsistencies.length}`);
-  console.log(`📅 Timestamp: ${auditResult.timestamp.toLocaleString()}`);
+function displayAuditResults(auditResult: unknown): void {
+// console.log('🎯 100% PIXEL-PERFECT AUDIT RESULTS:');
+// console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+// console.log(`📊 Pixel-Perfect Score: ${auditResult.score}%`);
+// console.log(`🔍 Inconsistencies Found: ${auditResult.inconsistencies.length}`);
+// console.log(`📅 Timestamp: ${auditResult.timestamp.toLocaleString()}`);
   
   if (auditResult.inconsistencies.length > 0) {
-    console.log('');
-    console.log('🚨 INCONSISTENCIES TO FIX:');
+// console.log('');
+// console.log('🚨 INCONSISTENCIES TO FIX:');
     auditResult.inconsistencies.forEach((inc, index) => {
       const icon = inc.severity === 'CRITICAL' ? '🚨' : inc.severity === 'MAJOR' ? '⚠️' : '💡';
-      console.log(`${icon} ${index + 1}. ${inc.property}: Dashboard(${inc.dashboardValue}) vs PDF(${inc.pdfValue}) - ${inc.fix}`);
+// console.log(`${icon} ${index + 1}. ${inc.property}: Dashboard(${inc.dashboardValue}) vs PDF(${inc.pdfValue}) - ${inc.fix}`);
     });
   }
   
   if (auditResult.score === 100) {
-    console.log('🎉 PERFECT SCORE ACHIEVED! 100% pixel-perfect accuracy!');
+// console.log('🎉 PERFECT SCORE ACHIEVED! 100% pixel-perfect accuracy!');
   } else {
-    console.log(`🎯 Target: 100% | Current: ${auditResult.score}% | Improvement needed: ${100 - auditResult.score} points`);
+// console.log(`🎯 Target: 100% | Current: ${auditResult.score}% | Improvement needed: ${100 - auditResult.score} points`);
   }
   
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+// console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 }

@@ -64,7 +64,7 @@ function filterRealAppointments(events: CalendarEvent[]): CalendarEvent[] {
                        title.trim() === '';
     
     if (isTestEvent) {
-      console.log(`🚫 Filtering out test appointment: "${event.title}"`);
+// console.log(`🚫 Filtering out test appointment: "${event.title}"`);
     }
     
     return !isTestEvent;
@@ -279,7 +279,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     return eventDate.toISOString().split('T')[0] === selectedDateString;
   });
   
-  console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
+// console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
   
   dayEvents.forEach(event => {
     const eventDate = new Date(event.startTime);
@@ -296,7 +296,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     const durationMinutes = Math.round(durationMs / (1000 * 60));
     const timeSlots = Math.max(1, Math.ceil(durationMinutes / 30)); // Minimum 1 slot, round up for partial slots
     
-    console.log(`📅 Event: ${event.title}, Duration: ${durationMinutes} minutes, Time slots: ${timeSlots}`);
+// console.log(`📅 Event: ${event.title}, Duration: ${durationMinutes} minutes, Time slots: ${timeSlots}`);
     
     // Calculate appointment position
     const appointmentY = gridStartY + slotIndex * timeSlotHeight;
@@ -440,7 +440,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
       pdf.text(sourceText, textX, textY);
     }
     
-    console.log(`✅ Drew appointment: ${cleanedTitle} at ${timeStr}${showBadge ? ` (${badgeText})` : ''}`);
+// console.log(`✅ Drew appointment: ${cleanedTitle} at ${timeStr}${showBadge ? ` (${badgeText})` : ''}`);
   });
 }
 
@@ -490,9 +490,9 @@ export async function exportHTMLTemplateExactMatch(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🎯 Starting HTML Template Exact Match Export');
-    console.log(`📅 Date: ${selectedDate.toDateString()}`);
-    console.log(`📊 Total events: ${events.length}`);
+// console.log('🎯 Starting HTML Template Exact Match Export');
+// console.log(`📅 Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
     
     // Create PDF with exact dimensions
     const pdf = new jsPDF({
@@ -503,7 +503,7 @@ export async function exportHTMLTemplateExactMatch(
     
     // Filter real appointments
     const realEvents = filterRealAppointments(events);
-    console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
+// console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
     
     // Draw sections in exact order
     let currentY = TEMPLATE_CONFIG.margin;
@@ -533,7 +533,7 @@ export async function exportHTMLTemplateExactMatch(
     await new Promise<void>((resolve, reject) => {
       try {
         pdf.save(filename);
-        console.log(`✅ HTML Template Exact Match PDF exported: ${filename}`);
+// console.log(`✅ HTML Template Exact Match PDF exported: ${filename}`);
         resolve();
       } catch (error) {
         console.error('❌ Error saving PDF:', error);

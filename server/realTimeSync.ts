@@ -1,8 +1,8 @@
 import { google } from 'googleapis';
 
 // Helper function to get authenticated user ID
-function getAuthenticatedUserId(req: any): number | null {
-  console.log('🔍 Checking authentication sources:', {
+function getAuthenticatedUserId(req: unknown): number | null {
+// console.log('🔍 Checking authentication sources:', {
     'req.user?.id': req.user?.id,
     'req.session?.user?.id': req.session?.user?.id,
     'req.session?.userId': req.session?.userId,
@@ -23,16 +23,16 @@ function getAuthenticatedUserId(req: any): number | null {
     if (source) {
       const parsed = parseInt(source);
       if (!isNaN(parsed) && parsed > 0) {
-        console.log('✅ Found valid user ID:', parsed);
+// console.log('✅ Found valid user ID:', parsed);
         return parsed;
       }
     }
   }
 
-  console.log('❌ No valid user ID found in any source');
+// console.log('❌ No valid user ID found in any source');
 
   if (req.session?.isAuthenticated && process.env.NODE_ENV === 'development') {
-    console.log('🔧 Using development fallback user ID: 2');
+// console.log('🔧 Using development fallback user ID: 2');
     return 2;
   }
 
@@ -47,7 +47,7 @@ async function getUserById(userId: number) {
 import { syncEventToNotion, createCalendarEventsDatabase, getNotionEvents } from './notion';
 
 // Real-time Google Calendar sync
-export async function syncGoogleCalendarEvents(req: any, startDate?: string, endDate?: string) {
+export async function syncGoogleCalendarEvents(req: unknown, startDate?: string, endDate?: string) {
   const userId = getAuthenticatedUserId(req);
   if (!userId) {
     throw new Error('User not authenticated');
@@ -162,7 +162,7 @@ export async function syncGoogleCalendarEvents(req: any, startDate?: string, end
 }
 
 // Real-time Notion sync
-export async function syncCalendarEventsToNotion(req: any) {
+export async function syncCalendarEventsToNotion(req: unknown) {
   try {
     const userId = getAuthenticatedUserId(req);
     if (!userId) {
@@ -218,7 +218,7 @@ export async function syncCalendarEventsToNotion(req: any) {
 }
 
 // Bidirectional sync - sync changes from Notion back to local database
-export async function syncNotionChangesToLocal(req: any) {
+export async function syncNotionChangesToLocal(req: unknown) {
   try {
     const userId = getAuthenticatedUserId(req);
     if (!userId) {
@@ -285,21 +285,21 @@ export async function syncNotionChangesToLocal(req: any) {
 }
 
 // Complete real-time sync workflow
-export async function performCompleteSync(req: any) {
+export async function performCompleteSync(req: unknown) {
   try {
-    console.log('🔄 Starting complete real-time sync...');
+// console.log('🔄 Starting complete real-time sync...');
 
     // Step 1: Sync Google Calendar events
     const googleSyncResults = await syncGoogleCalendarEvents(req);
-    console.log('✅ Google Calendar sync completed:', googleSyncResults);
+// console.log('✅ Google Calendar sync completed:', googleSyncResults);
 
     // Step 2: Sync events to Notion
     const notionSyncResults = await syncCalendarEventsToNotion(req);
-    console.log('✅ Notion sync completed:', notionSyncResults);
+// console.log('✅ Notion sync completed:', notionSyncResults);
 
     // Step 3: Sync Notion changes back to local
     const bidirectionalSyncResults = await syncNotionChangesToLocal(req);
-    console.log('✅ Bidirectional sync completed:', bidirectionalSyncResults);
+// console.log('✅ Bidirectional sync completed:', bidirectionalSyncResults);
 
     return {
       googleSync: googleSyncResults,

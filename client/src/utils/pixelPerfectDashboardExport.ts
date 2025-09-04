@@ -44,7 +44,7 @@ function extractDashboardStyles() {
     spacing: extractSpacing()
   };
   
-  console.log('🎯 Extracted dashboard styles:', styles);
+// console.log('🎯 Extracted dashboard styles:', styles);
   return styles;
 }
 
@@ -116,7 +116,7 @@ function getFallbackStyles() {
 }
 
 // Convert dashboard styles to PDF configuration
-function createPDFConfig(dashboardStyles: any, viewType: 'weekly' | 'daily') {
+function createPDFConfig(dashboardStyles: unknown, viewType: 'weekly' | 'daily') {
   const isWeekly = viewType === 'weekly';
   
   // Scale dashboard dimensions to PDF points (1 inch = 72 points)
@@ -160,7 +160,7 @@ export async function exportPixelPerfectWeekly(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🎯 Starting pixel-perfect weekly export...');
+// console.log('🎯 Starting pixel-perfect weekly export...');
     
     // Extract exact dashboard styles
     const dashboardStyles = extractDashboardStyles();
@@ -190,7 +190,7 @@ export async function exportPixelPerfectWeekly(
     const filename = `pixel-perfect-weekly-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
     
-    console.log('✅ Pixel-perfect weekly export complete!');
+// console.log('✅ Pixel-perfect weekly export complete!');
     
   } catch (error) {
     console.error('❌ Pixel-perfect weekly export failed:', error);
@@ -206,7 +206,7 @@ export async function exportPixelPerfectDaily(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🎯 Starting pixel-perfect daily export...');
+// console.log('🎯 Starting pixel-perfect daily export...');
     
     // Extract exact dashboard styles
     const dashboardStyles = extractDashboardStyles();
@@ -236,7 +236,7 @@ export async function exportPixelPerfectDaily(
     const filename = `pixel-perfect-daily-${selectedDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
     
-    console.log('✅ Pixel-perfect daily export complete!');
+// console.log('✅ Pixel-perfect daily export complete!');
     
   } catch (error) {
     console.error('❌ Pixel-perfect daily export failed:', error);
@@ -244,7 +244,7 @@ export async function exportPixelPerfectDaily(
   }
 }
 
-function drawPixelPerfectWeeklyHeader(pdf: jsPDF, config: any, weekStartDate: Date, weekEndDate: Date) {
+function drawPixelPerfectWeeklyHeader(pdf: jsPDF, config: unknown, weekStartDate: Date, weekEndDate: Date) {
   const { margin, pageWidth, colors, fonts } = config;
   
   // Title
@@ -260,7 +260,7 @@ function drawPixelPerfectWeeklyHeader(pdf: jsPDF, config: any, weekStartDate: Da
   pdf.text(weekText, pageWidth / 2, margin + 45, { align: 'center' });
 }
 
-function drawPixelPerfectWeeklyGrid(pdf: jsPDF, config: any, weekStartDate: Date) {
+function drawPixelPerfectWeeklyGrid(pdf: jsPDF, config: unknown, weekStartDate: Date) {
   const { margin, pageWidth, timeColumnWidth, dayColumnWidth, timeSlotHeight, colors } = config;
   const gridStartY = margin + 70;
   const timeSlots = generateTimeSlots();
@@ -327,7 +327,7 @@ function drawPixelPerfectWeeklyGrid(pdf: jsPDF, config: any, weekStartDate: Date
   pdf.rect(margin, gridStartY, timeColumnWidth + (7 * dayColumnWidth), 25 + (timeSlots.length * timeSlotHeight));
 }
 
-function drawPixelPerfectWeeklyEvents(pdf: jsPDF, config: any, weekStartDate: Date, events: CalendarEvent[]) {
+function drawPixelPerfectWeeklyEvents(pdf: jsPDF, config: unknown, weekStartDate: Date, events: CalendarEvent[]) {
   const { margin, timeColumnWidth, dayColumnWidth, timeSlotHeight, colors } = config;
   const gridStartY = margin + 95; // Adjust for header
   
@@ -468,7 +468,7 @@ function drawPixelPerfectWeeklyEvents(pdf: jsPDF, config: any, weekStartDate: Da
   });
 }
 
-function drawPixelPerfectDailyHeader(pdf: jsPDF, config: any, selectedDate: Date) {
+function drawPixelPerfectDailyHeader(pdf: jsPDF, config: unknown, selectedDate: Date) {
   const { margin, pageWidth, fonts } = config;
   
   // Title
@@ -489,7 +489,7 @@ function drawPixelPerfectDailyHeader(pdf: jsPDF, config: any, selectedDate: Date
   pdf.text(dateText, pageWidth / 2, margin + 45, { align: 'center' });
 }
 
-function drawPixelPerfectDailyGrid(pdf: jsPDF, config: any) {
+function drawPixelPerfectDailyGrid(pdf: jsPDF, config: unknown) {
   const { margin, pageWidth, timeColumnWidth, timeSlotHeight, colors } = config;
   const gridStartY = margin + 70;
   const appointmentColumnWidth = pageWidth - (2 * margin) - timeColumnWidth;
@@ -535,7 +535,7 @@ function drawPixelPerfectDailyGrid(pdf: jsPDF, config: any) {
   pdf.rect(margin, gridStartY, timeColumnWidth + appointmentColumnWidth, 25 + (timeSlots.length * timeSlotHeight));
 }
 
-function drawPixelPerfectDailyEvents(pdf: jsPDF, config: any, selectedDate: Date, events: CalendarEvent[]) {
+function drawPixelPerfectDailyEvents(pdf: jsPDF, config: unknown, selectedDate: Date, events: CalendarEvent[]) {
   const { margin, timeColumnWidth, timeSlotHeight } = config;
   const gridStartY = margin + 95;
   const appointmentColumnWidth = config.pageWidth - (2 * margin) - timeColumnWidth;

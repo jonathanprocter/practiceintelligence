@@ -318,7 +318,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     return eventDate.toDateString() === selectedDate.toDateString();
   }).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
 
-  console.log(`Rendering ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`Rendering ${dayEvents.length} events for ${selectedDate.toDateString()}`);
 
   // Detect overlapping events and calculate layout columns
   const eventLayout = calculateEventLayout(dayEvents);
@@ -353,7 +353,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     const eventX = baseEventX + (baseEventWidth * layoutInfo.offset);
     const eventY = gridStartY + topPosition;
 
-    console.log(`Event: ${event.title} at Y=${eventY}, height=${eventHeight}`);
+// console.log(`Event: ${event.title} at Y=${eventY}, height=${eventHeight}`);
 
     // Get event type
     const eventType = getEventTypeInfo(event);
@@ -540,9 +540,9 @@ export const exportDailyToPDF = async (
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log(`=== DAILY PDF EXPORT ===`);
-  console.log(`Date: ${selectedDate.toDateString()}`);
-  console.log(`Total events: ${events.length}`);
+// console.log(`=== DAILY PDF EXPORT ===`);
+// console.log(`Date: ${selectedDate.toDateString()}`);
+// console.log(`Total events: ${events.length}`);
 
   try {
     // Validate inputs
@@ -562,29 +562,29 @@ export const exportDailyToPDF = async (
       compress: true
     });
 
-    console.log('✓ PDF document created successfully');
+// console.log('✓ PDF document created successfully');
 
     // Draw components
     drawDailyHeader(pdf, selectedDate, events);
-    console.log('✓ Header drawn successfully');
+// console.log('✓ Header drawn successfully');
     
     drawTimeGrid(pdf);
-    console.log('✓ Time grid drawn successfully');
+// console.log('✓ Time grid drawn successfully');
     
     drawAppointments(pdf, selectedDate, events);
-    console.log('✓ Appointments drawn successfully');
+// console.log('✓ Appointments drawn successfully');
 
     // Save PDF
     const filename = `daily-planner-${selectedDate.toISOString().split('T')[0]}.pdf`;
     
-    console.log(`🔄 Attempting to save PDF as: ${filename}`);
+// console.log(`🔄 Attempting to save PDF as: ${filename}`);
     pdf.save(filename);
     
-    console.log(`✅ PDF saved successfully as: ${filename}`);
+// console.log(`✅ PDF saved successfully as: ${filename}`);
     
     // Additional success confirmation
     setTimeout(() => {
-      console.log('🎉 Daily PDF export completed successfully!');
+// console.log('🎉 Daily PDF export completed successfully!');
     }, 1000);
 
   } catch (error) {

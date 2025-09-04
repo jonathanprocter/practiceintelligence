@@ -39,21 +39,21 @@ export async function exportPixelPerfectPDF(
   events: CalendarEvent[]
 ): Promise<void> {
   try {
-    console.log('🎯 Starting Pixel-Perfect PDF Export');
-    console.log('📅 Date:', date.toISOString().split('T')[0]);
-    console.log('📊 Events:', events.length);
+// console.log('🎯 Starting Pixel-Perfect PDF Export');
+// console.log('📅 Date:', date.toISOString().split('T')[0]);
+// console.log('📊 Events:', events.length);
     
     // Extract dashboard measurements
     const dashboardMeasurements = await extractDashboardMeasurements();
-    console.log('📏 Dashboard measurements:', dashboardMeasurements);
+// console.log('📏 Dashboard measurements:', dashboardMeasurements);
     
     // Calculate PDF configuration
     const pdfConfig = calculatePDFConfig(dashboardMeasurements);
-    console.log('📐 PDF configuration:', pdfConfig);
+// console.log('📐 PDF configuration:', pdfConfig);
     
     // Generate pixel-perfect HTML
     const html = generatePixelPerfectHTML(date, events, pdfConfig);
-    console.log('✅ Pixel-perfect HTML generated, length:', html.length);
+// console.log('✅ Pixel-perfect HTML generated, length:', html.length);
     
     if (!html || html.length < 100) {
       throw new Error('Invalid HTML generated - too short or empty');
@@ -92,15 +92,15 @@ export async function exportPixelPerfectPDF(
       logging: true,
       foreignObjectRendering: true,
       onclone: (clonedDoc) => {
-        console.log('📸 html2canvas cloned document successfully');
+// console.log('📸 html2canvas cloned document successfully');
         const clonedContainer = clonedDoc.querySelector('div');
         if (clonedContainer) {
-          console.log('📸 Cloned container found:', clonedContainer.getBoundingClientRect());
+// console.log('📸 Cloned container found:', clonedContainer.getBoundingClientRect());
         }
       }
     });
     
-    console.log('✅ Canvas captured:', canvas.width, 'x', canvas.height);
+// console.log('✅ Canvas captured:', canvas.width, 'x', canvas.height);
     
     if (!canvas || canvas.width === 0 || canvas.height === 0) {
       document.body.removeChild(container);
@@ -123,7 +123,7 @@ export async function exportPixelPerfectPDF(
     const finalWidth = pdfConfig.pageWidth;
     const finalHeight = pdfConfig.pageHeight;
     
-    console.log('📐 PDF image scaling:', {
+// console.log('📐 PDF image scaling:', {
       canvasSize: `${canvas.width}x${canvas.height}`,
       pdfPageSize: `${pdfConfig.pageWidth}x${pdfConfig.pageHeight}`,
       scale,
@@ -137,7 +137,7 @@ export async function exportPixelPerfectPDF(
     const filename = `Pixel_Perfect_Daily_${date.toISOString().split('T')[0]}.pdf`;
     pdf.save(filename);
     
-    console.log('✅ Pixel-perfect PDF exported successfully:', filename);
+// console.log('✅ Pixel-perfect PDF exported successfully:', filename);
     
   } catch (error) {
     console.error('❌ Pixel-perfect PDF export failed:', error);
@@ -146,7 +146,7 @@ export async function exportPixelPerfectPDF(
 }
 
 async function extractDashboardMeasurements(): Promise<DashboardMeasurements> {
-  console.log('📏 Extracting dashboard measurements...');
+// console.log('📏 Extracting dashboard measurements...');
   
   // Find calendar container
   const calendarContainer = document.querySelector('.calendar-container');
@@ -154,7 +154,7 @@ async function extractDashboardMeasurements(): Promise<DashboardMeasurements> {
     throw new Error('Calendar container not found');
   }
   
-  console.log('📍 Found calendar container: .calendar-container');
+// console.log('📍 Found calendar container: .calendar-container');
   
   // Extract measurements
   const timeColumnSelectors = ['.time-column', '[class*="time"]'];
@@ -190,7 +190,7 @@ async function extractDashboardMeasurements(): Promise<DashboardMeasurements> {
   const dashboardTotalWidth = timeColumnWidth + (dayColumnWidth * 7);
   const scalingFactor = dashboardTotalWidth > 0 ? availableWidth / dashboardTotalWidth : 1;
   
-  console.log('📐 Scaling calculation:', {
+// console.log('📐 Scaling calculation:', {
     pageWidth,
     margins,
     availableWidth,
@@ -210,7 +210,7 @@ async function extractDashboardMeasurements(): Promise<DashboardMeasurements> {
 }
 
 function calculatePDFConfig(dashboard: DashboardMeasurements): PDFConfig {
-  console.log('📐 Calculating PDF configuration...');
+// console.log('📐 Calculating PDF configuration...');
   
   // Standard PDF dimensions
   const pageWidth = 612;
@@ -233,8 +233,8 @@ function calculatePDFConfig(dashboard: DashboardMeasurements): PDFConfig {
     eventTime: Math.max(Math.round(12 * baseFontScale), 10)
   };
   
-  console.log('🔤 Calculated font sizes:', fontSizes);
-  console.log('📏 Scaled dimensions:', {
+// console.log('🔤 Calculated font sizes:', fontSizes);
+// console.log('📏 Scaled dimensions:', {
     timeColumnWidth,
     dayColumnWidth,
     timeSlotHeight,
@@ -258,7 +258,7 @@ function generatePixelPerfectHTML(
   events: CalendarEvent[],
   config: PDFConfig
 ): string {
-  console.log('🎨 Generating pixel-perfect HTML...');
+// console.log('🎨 Generating pixel-perfect HTML...');
   
   // Filter events for the specific date
   const dayEvents = events.filter(event => {
@@ -266,7 +266,7 @@ function generatePixelPerfectHTML(
     return eventDate.toDateString() === date.toDateString();
   });
   
-  console.log(`📅 Events for ${date.toDateString()}: ${dayEvents.length}`);
+// console.log(`📅 Events for ${date.toDateString()}: ${dayEvents.length}`);
   
   // Generate simple HTML structure
   const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });

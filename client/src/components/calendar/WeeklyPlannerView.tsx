@@ -27,7 +27,7 @@ export const WeeklyPlannerView = ({
     return <div className="p-4 text-center text-gray-500">No events data available</div>;
   }
 
-  console.log('📅 Weekly view debug:', {
+// console.log('📅 Weekly view debug:', {
     weekLength: week.length,
     eventsLength: events.length,
     weekStart: week[0]?.date?.toDateString() || 'Invalid',

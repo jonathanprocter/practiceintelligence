@@ -30,7 +30,7 @@ export class WeeklyPackageAuditor {
     events: CalendarEvent[],
     packageType: string = 'standard'
   ): Promise<WeeklyPackageAuditResult> {
-    console.log('🔍 STARTING WEEKLY PACKAGE AUDIT');
+// console.log('🔍 STARTING WEEKLY PACKAGE AUDIT');
     
     this.issues = [];
     this.recommendations = [];
@@ -82,7 +82,7 @@ export class WeeklyPackageAuditor {
       timestamp: new Date().toISOString()
     };
 
-    console.log('📊 Weekly Package Audit Results:', auditResult);
+// console.log('📊 Weekly Package Audit Results:', auditResult);
     
     // Store results for testing
     localStorage.setItem('latestWeeklyPackageAudit', JSON.stringify(auditResult));
@@ -125,23 +125,23 @@ window.testWeeklyPackageAudit = () => {
   const auditor = new WeeklyPackageAuditor();
   const lastResults = auditor.getLastAuditResults();
   
-  console.log('🧪 WEEKLY PACKAGE AUDIT TEST');
-  console.log('='.repeat(50));
+// console.log('🧪 WEEKLY PACKAGE AUDIT TEST');
+// console.log('='.repeat(50));
   
   if (lastResults) {
-    console.log('📊 Last Audit Results:', lastResults);
-    console.log(`✅ Audit Score: ${lastResults.auditScore}%`);
-    console.log(`📅 Week: ${lastResults.weekStart} to ${lastResults.weekEnd}`);
-    console.log(`📊 Events: ${lastResults.validEvents}/${lastResults.eventsCount} valid`);
+// console.log('📊 Last Audit Results:', lastResults);
+// console.log(`✅ Audit Score: ${lastResults.auditScore}%`);
+// console.log(`📅 Week: ${lastResults.weekStart} to ${lastResults.weekEnd}`);
+// console.log(`📊 Events: ${lastResults.validEvents}/${lastResults.eventsCount} valid`);
     
     if (lastResults.issues.length > 0) {
-      console.log('❌ Issues:', lastResults.issues);
-      console.log('💡 Recommendations:', lastResults.recommendations);
+// console.log('❌ Issues:', lastResults.issues);
+// console.log('💡 Recommendations:', lastResults.recommendations);
     } else {
-      console.log('✅ No issues found - audit passed!');
+// console.log('✅ No issues found - audit passed!');
     }
   } else {
-    console.log('❌ No audit results found. Run a weekly package export first.');
+// console.log('❌ No audit results found. Run a weekly package export first.');
   }
 };
 

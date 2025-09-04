@@ -183,7 +183,7 @@ export const exportHTMLTemplatePDF = async (
   isDailyView: boolean = false
 ): Promise<void> => {
   try {
-    console.log('📄 Starting PDF export...');
+// console.log('📄 Starting PDF export...');
     let pdf;
 
     if (isDailyView) {
@@ -207,7 +207,7 @@ export const exportHTMLTemplatePDF = async (
 
   if (isDailyView) {
     // === DAILY VIEW LAYOUT - COMPLETELY REWRITTEN ===
-    console.log('=== DAILY EVENT DEBUGGING ===');
+// console.log('=== DAILY EVENT DEBUGGING ===');
     const dayEvents = events.filter(event => {
       const eventDate = new Date(event.startTime);
       return eventDate.getFullYear() === weekStartDate.getFullYear() &&
@@ -215,11 +215,11 @@ export const exportHTMLTemplatePDF = async (
              eventDate.getDate() === weekStartDate.getDate();
     });
 
-    console.log(`Found ${dayEvents.length} events for ${weekStartDate.toDateString()}`);
+// console.log(`Found ${dayEvents.length} events for ${weekStartDate.toDateString()}`);
 
     dayEvents.forEach(event => {
       const eventType = getEventTypeInfo(event);
-      console.log({
+// console.log({
         title: event.title,
         source: event.source,
         calendarId: event.calendarId,
@@ -240,8 +240,8 @@ export const exportHTMLTemplatePDF = async (
 
     try {
       pdf.save(filename);
-      console.log(`✅ Daily Template PDF exported: ${filename}`);
-      console.log('✅ PDF download should have started automatically');
+// console.log(`✅ Daily Template PDF exported: ${filename}`);
+// console.log('✅ PDF download should have started automatically');
     } catch (error) {
       console.error('❌ Error saving daily PDF:', error);
       alert('Sorry, something went wrong while generating your daily PDF. Please try again or contact support if this issue persists.\n\nError details: ' + (error instanceof Error ? error.message : 'Unknown error'));
@@ -257,8 +257,8 @@ export const exportHTMLTemplatePDF = async (
 
     try {
       pdf.save(filename);
-      console.log(`✅ HTML Template PDF exported: ${filename}`);
-      console.log('✅ PDF download should have started automatically');
+// console.log(`✅ HTML Template PDF exported: ${filename}`);
+// console.log('✅ PDF download should have started automatically');
     } catch (error) {
       console.error('❌ Error saving weekly PDF:', error);
       alert('Sorry, something went wrong while generating your weekly PDF. Please try again or contact support if this issue persists.\n\nError details: ' + (error instanceof Error ? error.message : 'Unknown error'));
@@ -913,23 +913,23 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
       event.title.trim() === '' ||
       event.title.trim().length === 0
     )) {
-      console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
+// console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
       return false;
     }
 
-    console.log(`Event: ${event.title} on ${eventDateString}, Selected: ${selectedDateString}, Matches: ${matches}`);
+// console.log(`Event: ${event.title} on ${eventDateString}, Selected: ${selectedDateString}, Matches: ${matches}`);
     return matches;
   }).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
 
-  console.log(`=== RENDERING ${dayEvents.length} EVENTS FOR ${selectedDateString} ===`);
-  console.log(`Available events: ${events.length}`);
+// console.log(`=== RENDERING ${dayEvents.length} EVENTS FOR ${selectedDateString} ===`);
+// console.log(`Available events: ${events.length}`);
 
   if (dayEvents.length === 0) {
-    console.log(`No events found for ${selectedDateString}. Available event dates:`);
+// console.log(`No events found for ${selectedDateString}. Available event dates:`);
     events.forEach(event => {
       const eventDate = new Date(event.startTime);
       const eventDateString = eventDate.toISOString().split('T')[0];
-      console.log(`  - ${event.title}: ${eventDateString}`);
+// console.log(`  - ${event.title}: ${eventDateString}`);
     });
   }
 
@@ -941,9 +941,9 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
     const endHour = endDate.getHours();
     const endMinute = endDate.getMinutes();
 
-    console.log(`\n--- Event ${index + 1}: "${event.title}" ---`);
-    console.log(`Has notes: ${!!(event.notes && event.notes.trim())}`);
-    console.log(`Has action items: ${!!(event.actionItems && event.actionItems.trim())}`);
+// console.log(`\n--- Event ${index + 1}: "${event.title}" ---`);
+// console.log(`Has notes: ${!!(event.notes && event.notes.trim())}`);
+// console.log(`Has action items: ${!!(event.actionItems && event.actionItems.trim())}`);
 
     // Calculate position EXACTLY like daily view (DailyView.tsx line 101-106)
     const minutesSince6am = (startHour - 6) * 60 + startMinute;
@@ -955,7 +955,7 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
 
     // Skip events outside time range
     if (minutesSince6am < 0 || minutesSince6am > (17.5 * 60)) { // 6:00 to 23:30
-      console.log('Event outside time range, skipping');
+// console.log('Event outside time range, skipping');
       return;
     }
 
@@ -981,8 +981,8 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
       eventHeight = Math.max(minimumHeight, eventHeight);
     }
 
-    console.log(`Position: X=${eventX}, Y=${eventY}, Width=${eventWidth}, Height=${eventHeight}`);
-    console.log(`Expanded layout: ${needsExpandedLayout}`);
+// console.log(`Position: X=${eventX}, Y=${eventY}, Width=${eventWidth}, Height=${eventHeight}`);
+// console.log(`Expanded layout: ${needsExpandedLayout}`);
 
     // Determine event type - EXACTLY match daily view logic (line 110-114)
     const isSimplePractice = event.source === 'simplepractice' || 
@@ -1051,12 +1051,12 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
 
     // Skip empty events
     if (!displayTitle || displayTitle.length === 0) {
-      console.log('Skipping empty/corrupted event');
+// console.log('Skipping empty/corrupted event');
       return;
     }
 
-    console.log(`Original title: "${event.title}"`);
-    console.log(`Display title: "${displayTitle}"`);
+// console.log(`Original title: "${event.title}"`);
+// console.log(`Display title: "${displayTitle}"`);
 
     if (needsExpandedLayout) {
       // === 3-COLUMN LAYOUT ===
@@ -1249,9 +1249,9 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
             currentY += 12;
           }
         }
-        console.log(`Drew simple title: "${displayTitle}"`);
+// console.log(`Drew simple title: "${displayTitle}"`);
       } else {
-        console.log('WARNING: No display title for simple layout!');
+// console.log('WARNING: No display title for simple layout!');
       }
 
       // Add spacing between title and source
@@ -1270,7 +1270,7 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
         else sourceText = (event.source || 'MANUAL').toUpperCase();
 
         pdf.text(sourceText, startX, currentY);
-        console.log(`Drew simple source: "${sourceText}"`);
+// console.log(`Drew simple source: "${sourceText}"`);
         currentY += 10;
       }
 
@@ -1287,11 +1287,11 @@ function drawRemarkableDailyAppointments(pdf: jsPDF, selectedDate: Date, events:
         const timeRange = `${formatTime(eventDate)}-${formatTime(endDate)}`;
 
         pdf.text(timeRange, startX, currentY);
-        console.log(`Drew simple time range: "${timeRange}"`);
+// console.log(`Drew simple time range: "${timeRange}"`);
       }
     }
 
-    console.log(`Finished rendering event ${index + 1}`);
+// console.log(`Finished rendering event ${index + 1}`);
   });
 }
 
@@ -1311,7 +1311,7 @@ function drawDailyAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarE
       event.title.trim() === '' ||
       event.title.trim().length === 0
     )) {
-      console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
+// console.log(`❌ FILTERED OUT test/ghost appointment: "${event.title}"`);
       return false;
     }
 
@@ -1675,7 +1675,7 @@ function drawRemarkableDailyAppointments_old(pdf: jsPDF, selectedDate: Date, eve
     // Clean title using centralized function
     const displayTitle = cleanEventTitle(event.title);
 
-    console.log(`Event ${event.id}: "${event.title}" -> "${displayTitle}"`);
+// console.log(`Event ${event.id}: "${event.title}" -> "${displayTitle}"`);
 
     // Calculate vertical spacing based on appointment duration
     const is30MinuteAppt = durationMinutes <= 30;

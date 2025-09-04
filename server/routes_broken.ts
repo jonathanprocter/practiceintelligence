@@ -44,7 +44,7 @@ function getRedirectURI() {
 export async function registerRoutes(app: Express): Promise<Server> {
   // PUBLIC ENDPOINT - Live sync calendar events without authentication
   app.get("/api/live-sync/calendar/events", async (req, res) => {
-    console.log("[LIVE SYNC] LIVE SYNC CALENDAR EVENTS - NO AUTH REQUIRED");
+// console.log("[LIVE SYNC] LIVE SYNC CALENDAR EVENTS - NO AUTH REQUIRED");
 
     try {
       const { start, end } = req.query;
@@ -60,13 +60,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
 
       if (!accessToken || accessToken.startsWith("dev-")) {
-        console.log("[ERROR] No valid Google tokens for live sync");
+// console.log("[ERROR] No valid Google tokens for live sync");
         return res
           .status(401)
           .json({ error: "Valid Google tokens required for live sync" });
       }
 
-      console.log("[SUCCESS] Using environment tokens for live sync");
+// console.log("[SUCCESS] Using environment tokens for live sync");
 
       // Set up OAuth2 client with the tokens
       const oauth2Client = new google.auth.OAuth2(
@@ -82,15 +82,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Test token and refresh if needed
       try {
         await oauth2Client.getAccessToken();
-        console.log("[SUCCESS] Token validation successful");
+// console.log("[SUCCESS] Token validation successful");
       } catch (tokenError) {
-        console.log("[WARNING] Token validation failed, attempting refresh...");
+// console.log("[WARNING] Token validation failed, attempting refresh...");
         try {
           const { credentials } = await oauth2Client.refreshAccessToken();
           oauth2Client.setCredentials(credentials);
-          console.log("[SUCCESS] Token refresh successful");
+// console.log("[SUCCESS] Token refresh successful");
         } catch (refreshError) {
-          console.log("[ERROR] Token refresh failed:", refreshError.message);
+// console.log("[ERROR] Token refresh failed:", refreshError.message);
 
           // Fallback to database events
           const fallbackEvents = await db
@@ -138,14 +138,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const calendarListResponse = await calendar.calendarList.list();
       const calendars = calendarListResponse.data.items || [];
 
-      console.log("[CALENDAR] Found " + calendars.length + " calendars to fetch from");
+// console.log("[CALENDAR] Found " + calendars.length + " calendars to fetch from");
 
       const allGoogleEvents = [];
 
       // Fetch events from all calendars
       for (const cal of calendars) {
         try {
-          console.log("[DEBUG] Fetching from calendar: " + cal.summary + " (" + cal.id + ")");
+// console.log("[DEBUG] Fetching from calendar: " + cal.summary + " (" + cal.id + ")");
 
           const eventsResponse = await calendar.events.list({
             calendarId: cal.id,
@@ -196,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const simplePracticeEventCount = allEvents.filter(e => e.source === "simplepractice").length;
 
           if (allEvents.length > 0) {
-            console.log(
+// console.log(
               "[SUCCESS] Found " + allEvents.length + " events in " + cal.summary + " (" + googleEventCount + " Google, " + simplePracticeEventCount + " SimplePractice)",
             );
           }
@@ -207,7 +207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      console.log(
+// console.log(
         "[TARGET] Total live Google Calendar events found: " + allGoogleEvents.length,
       );
 
@@ -255,7 +255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deletedCount++;
         }
       }
-      console.log(
+// console.log(
         "[SAVE] Saved " + savedCount + " events (" + simplePracticeCount + " SimplePractice, " + googleCount + " Google), removed " + deletedCount + " old events",
       );
 
@@ -304,7 +304,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const spCount = formattedFallbackEvents.filter(e => e.source === 'simplepractice').length;
         const gCount = formattedFallbackEvents.filter(e => e.source === 'google').length;
 
-        console.log(
+// console.log(
           "[SUCCESS] Fallback: Found " + formattedFallbackEvents.length + " cached events (" + spCount + " SimplePractice, " + gCount + " Google)",
         );
 
@@ -338,7 +338,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Ensure session exists
     if (!req.session) {
-      console.log("[ERROR] No session found, creating new session");
+// console.log("[ERROR] No session found, creating new session");
       req.session = {} as any;
     }
 
@@ -387,12 +387,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.session.passport = { user: knownUser };
         req.user = knownUser;
         user = knownUser;
-        console.log("[SUCCESS] Auto-authenticated user with environment tokens:", knownUser.email);
+// console.log("[SUCCESS] Auto-authenticated user with environment tokens:", knownUser.email);
       } else {
         // Only log this message once per minute to reduce noise
         const now = Date.now();
         if (!global.lastAuthWarning || now - global.lastAuthWarning > 60000) {
-          console.log("[WARNING] No valid environment tokens found, user will need to authenticate");
+// console.log("[WARNING] No valid environment tokens found, user will need to authenticate");
           global.lastAuthWarning = now;
         }
       }
@@ -405,8 +405,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // 1. Start OAuth Flow
   app.get("/api/auth/google", (req, res) => {
-    console.log("[START] Starting Google OAuth flow...");
-    console.log("[LINK] Redirect URI:", getRedirectURI());
+// console.log("[START] Starting Google OAuth flow...");
+// console.log("[LINK] Redirect URI:", getRedirectURI());
 
     const oauth2Client = createOAuth2Client();
 
@@ -424,7 +424,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       include_granted_scopes: true,
     });
 
-    console.log("[LINK] Redirecting to Google OAuth:", authUrl);
+// console.log("[LINK] Redirecting to Google OAuth:", authUrl);
     res.redirect(authUrl);
   });
 
@@ -443,12 +443,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Authentication fix endpoints
   app.post("/api/auth/force-env-tokens", async (req, res) => {
-    console.log('[FIX] Force token restoration requested...');
+// console.log('[FIX] Force token restoration requested...');
 
     try {
       // Check if user is authenticated via session
       if (!req.session || !req.session.passport?.user) {
-        console.log('[ERROR] No authenticated session found');
+// console.log('[ERROR] No authenticated session found');
         return res.status(401).json({ 
           error: 'Not authenticated',
           message: 'Please log in with Google first' 
@@ -459,7 +459,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { accessToken, refreshToken } = user;
 
       if (!accessToken || !refreshToken) {
-        console.log('[ERROR] Session exists but tokens are missing');
+// console.log('[ERROR] Session exists but tokens are missing');
         return res.status(400).json({ 
           error: 'Missing tokens',
           message: 'Session exists but OAuth tokens are missing. Please re-authenticate.',
@@ -471,7 +471,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       process.env.GOOGLE_ACCESS_TOKEN = accessToken;
       process.env.GOOGLE_REFRESH_TOKEN = refreshToken;
 
-      console.log('[SUCCESS] Tokens successfully restored to environment');
+// console.log('[SUCCESS] Tokens successfully restored to environment');
 
       // Test the tokens by making a quick Google API call
       try {
@@ -483,7 +483,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         if (testResponse.ok) {
           const userInfo = await testResponse.json();
-          console.log('[SUCCESS] Token validation successful:', userInfo.email);
+// console.log('[SUCCESS] Token validation successful:', userInfo.email);
 
           return res.status(200).json({
             success: true,
@@ -492,7 +492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             timestamp: new Date().toISOString()
           });
         } else {
-          console.log('[WARNING] Token validation failed, may need refresh');
+// console.log('[WARNING] Token validation failed, may need refresh');
           return res.status(200).json({
             success: true,
             message: 'Tokens restored but validation failed - may need refresh',
@@ -501,7 +501,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
       } catch (testError) {
-        console.log('[WARNING] Token validation test failed:', testError);
+// console.log('[WARNING] Token validation test failed:', testError);
         return res.status(200).json({
           success: true,
           message: 'Tokens restored but validation test failed',
@@ -521,7 +521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/auth/refresh-tokens", async (req, res) => {
-    console.log('[REFRESH] Token refresh requested...');
+// console.log('[REFRESH] Token refresh requested...');
 
     try {
       const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
@@ -561,7 +561,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         process.env.GOOGLE_REFRESH_TOKEN = tokens.refresh_token;
       }
 
-      console.log('[SUCCESS] Tokens refreshed successfully');
+// console.log('[SUCCESS] Tokens refreshed successfully');
 
       return res.status(200).json({
         success: true,
@@ -580,7 +580,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/auth/test-authentication", async (req, res) => {
-    console.log('[DEBUG] Testing authentication status...');
+// console.log('[DEBUG] Testing authentication status...');
 
     try {
       // Check environment variables
@@ -680,7 +680,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       result.recommendations = recommendations;
 
-      console.log('[TARGET] Authentication test completed:', result.overall);
+// console.log('[TARGET] Authentication test completed:', result.overall);
 
       return res.status(200).json(result);
 
@@ -696,8 +696,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // 2. Handle OAuth Callback - Multiple routes for compatibility
   const handleOAuthCallback = async (req, res) => {
-    console.log("[NOTE] Google OAuth callback received");
-    console.log("[DEBUG] Query params:", req.query);
+// console.log("[NOTE] Google OAuth callback received");
+// console.log("[DEBUG] Query params:", req.query);
 
     try {
       const { code, error } = req.query;
@@ -716,7 +716,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Exchange code for tokens
       const { tokens } = await oauth2Client.getToken(code as string);
-      console.log("[SUCCESS] Tokens received successfully");
+// console.log("[SUCCESS] Tokens received successfully");
 
       // Validate tokens
       if (!tokens.access_token || !tokens.refresh_token) {
@@ -748,8 +748,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       process.env.GOOGLE_ACCESS_TOKEN = tokens.access_token;
       process.env.GOOGLE_REFRESH_TOKEN = tokens.refresh_token;
 
-      console.log("[SUCCESS] User authenticated:", user.email);
-      console.log("[TARGET] Tokens stored in session and environment");
+// console.log("[SUCCESS] User authenticated:", user.email);
+// console.log("[TARGET] Tokens stored in session and environment");
 
       // Redirect to success page
       res.redirect("/?auth=success");
@@ -852,15 +852,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 6. Force OAuth configuration refresh
   app.post("/api/auth/refresh-config", (req, res) => {
     try {
-      console.log('[REFRESH] Refreshing OAuth configuration...');
+// console.log('[REFRESH] Refreshing OAuth configuration...');
 
       // Log current environment variables (masked)
       const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
       const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
 
-      console.log('[INFO] Client ID:', clientId ? clientId.substring(0, 20) + "..." : 'NOT SET');
-      console.log('[INFO] Client Secret:', clientSecret ? 'SET' : 'NOT SET');
-      console.log('[INFO] Redirect URI:', getRedirectURI());
+// console.log('[INFO] Client ID:', clientId ? clientId.substring(0, 20) + "..." : 'NOT SET');
+// console.log('[INFO] Client Secret:', clientSecret ? 'SET' : 'NOT SET');
+// console.log('[INFO] Redirect URI:', getRedirectURI());
 
       if (!clientId || !clientSecret) {
         return res.status(400).json({ 
@@ -876,7 +876,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         getRedirectURI()
       );
 
-      console.log('[SUCCESS] OAuth configuration refreshed successfully');
+// console.log('[SUCCESS] OAuth configuration refreshed successfully');
 
       res.json({
         success: true,
@@ -897,7 +897,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 7. Test OAuth callback endpoint
   app.post("/api/auth/test-callback", async (req, res) => {
     try {
-      console.log("[TEST] Testing OAuth callback with manual token setup...");
+// console.log("[TEST] Testing OAuth callback with manual token setup...");
 
       // For testing, we'll simulate a successful OAuth callback
       const user = {
@@ -915,8 +915,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       req.session.passport = { user };
       req.user = user;
 
-      console.log("[SUCCESS] Test user authenticated:", user.email);
-      console.log("[TARGET] Test tokens stored in session");
+// console.log("[SUCCESS] Test user authenticated:", user.email);
+// console.log("[TARGET] Test tokens stored in session");
 
       res.json({ 
         success: true, 
@@ -938,7 +938,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 8. Auth fix endpoint - restore environment tokens from session
   app.post("/api/auth/fix", ensureAuthenticated, async (req, res) => {
     try {
-      console.log("[FIX] Auth fix requested...");
+// console.log("[FIX] Auth fix requested...");
 
       const user = req.user || req.session?.passport?.user;
 
@@ -957,7 +957,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                             !user.refreshToken.startsWith('dev-');
 
       if (!hasValidTokens) {
-        console.log("[WARNING] User has invalid/dev tokens - needs re-authentication");
+// console.log("[WARNING] User has invalid/dev tokens - needs re-authentication");
         return res.status(401).json({ 
           error: 'Invalid or dev tokens detected - authentication required',
           needsAuth: true,
@@ -969,7 +969,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       process.env.GOOGLE_ACCESS_TOKEN = user.accessToken;
       process.env.GOOGLE_REFRESH_TOKEN = user.refreshToken;
 
-      console.log("[SUCCESS] Environment tokens restored from session");
+// console.log("[SUCCESS] Environment tokens restored from session");
 
       res.json({ 
         success: true, 
@@ -991,12 +991,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 9. Force Google token refresh endpoint
   app.post("/api/auth/google/force-refresh", ensureAuthenticated, async (req, res) => {
     try {
-      console.log("[REFRESH] Force token refresh requested...");
+// console.log("[REFRESH] Force token refresh requested...");
 
       // Check if we have valid tokens first
       const tokenStatus = await getTokenStatus(req);
       if (!tokenStatus.hasValidTokens) {
-        console.log("[WARNING] No valid tokens available - redirecting to auth");
+// console.log("[WARNING] No valid tokens available - redirecting to auth");
         return res.status(401).json({ 
           error: 'Authentication required - invalid or expired tokens',
           needsAuth: true,
@@ -1030,14 +1030,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 10. Live sync endpoint - comprehensive calendar sync
   app.post("/api/sync/calendar", ensureAuthenticated, async (req, res) => {
     try {
-      console.log("[CALENDAR] Calendar sync requested...");
+// console.log("[CALENDAR] Calendar sync requested...");
 
       const user = req.user || req.session?.passport?.user;
 
       // Check if we have valid tokens first
       const tokenStatus = await getTokenStatus(req);
       if (!tokenStatus.hasValidTokens) {
-        console.log("[WARNING] No valid tokens available - redirecting to auth");
+// console.log("[WARNING] No valid tokens available - redirecting to auth");
         return res.status(401).json({ 
           error: 'Authentication required - invalid or expired tokens',
           needsAuth: true,
@@ -1054,7 +1054,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Save to database
       const summary = await saveEventsToDb(events, parseInt(user.id) || 1);
 
-      console.log("[SUCCESS] Calendar sync completed successfully");
+// console.log("[SUCCESS] Calendar sync completed successfully");
 
       res.json({ 
         success: true, 
@@ -1081,7 +1081,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 9. Sync Calendar endpoint (legacy)
   app.post("/api/sync-calendar", async (req, res) => {
     try {
-      console.log("[REFRESH] Sync calendar endpoint called");
+// console.log("[REFRESH] Sync calendar endpoint called");
 
       // Check if user is authenticated
       if (!req.session?.passport?.user) {
@@ -1112,7 +1112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // 10. Deployment fix endpoint
   app.post("/api/auth/deployment-fix", async (req, res) => {
     try {
-      console.log('[FIX] Deployment authentication fix requested...');
+// console.log('[FIX] Deployment authentication fix requested...');
 
       // Check current authentication state
       const user = req.user || req.session?.passport?.user;
@@ -1121,7 +1121,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // If user is authenticated and we have environment tokens, we're good
       if (user && envAccessToken && envRefreshToken && !envAccessToken.startsWith('dev-')) {
-        console.log('[SUCCESS] Authentication already working properly');
+// console.log('[SUCCESS] Authentication already working properly');
         return res.json({
           success: true,
           message: 'Authentication is working properly',
@@ -1136,7 +1136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         process.env.GOOGLE_ACCESS_TOKEN = user.accessToken;
         process.env.GOOGLE_REFRESH_TOKEN = user.refreshToken;
 
-        console.log('[SUCCESS] Environment tokens restored from session');
+// console.log('[SUCCESS] Environment tokens restored from session');
         return res.json({
           success: true,
           message: 'Environment tokens restored from session',
@@ -1147,7 +1147,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // If no authentication, provide guidance
-      console.log('[WARNING] No valid authentication found');
+// console.log('[WARNING] No valid authentication found');
       return res.json({
         success: false,
         message: 'No valid authentication found',
@@ -1235,7 +1235,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         await oauth2Client.getAccessToken();
       } catch (tokenError) {
-        console.log("[WARNING] Token validation failed during sync");
+// console.log("[WARNING] Token validation failed during sync");
         return res.status(401).json({ error: "Token validation failed" });
       }
 
@@ -1250,7 +1250,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const startDate = new Date(2025, 0, 1); // January 1, 2025
       const endDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate()); // 3 months ahead
 
-      console.log("[REFRESH] Syncing events from " + calendars.length + " calendars");
+// console.log("[REFRESH] Syncing events from " + calendars.length + " calendars");
 
       let totalGoogleEvents = 0;
       let totalSimplePracticeEvents = 0;
@@ -1348,7 +1348,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               try {
                 const { credentials } = await oauth2Client.refreshAccessToken();
                 oauth2Client.setCredentials(credentials);
-                console.log("Token refreshed for calendar " + cal.summary);
+// console.log("Token refreshed for calendar " + cal.summary);
                 retryCount++;
                 continue;
               } catch (refreshError) {
@@ -1363,7 +1363,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      console.log("[SUCCESS] Sync completed: " + totalGoogleEvents + " Google events, " + totalSimplePracticeEvents + " SimplePractice events");
+// console.log("[SUCCESS] Sync completed: " + totalGoogleEvents + " Google events, " + totalSimplePracticeEvents + " SimplePractice events");
 
       res.json({
         success: true,
@@ -1400,7 +1400,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Always try database first unless forceSync is requested
       if (!forceSync) {
-        console.log("[FOLDER] Loading SimplePractice events from database...");
+// console.log("[FOLDER] Loading SimplePractice events from database...");
         const events = await storage.getEvents(parseInt(user.id) || 1);
         const simplePracticeEvents = events.filter(
           (event) =>
@@ -1408,7 +1408,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             (event.title && event.title.toLowerCase().includes("appointment")),
         );
 
-        console.log("[SUCCESS] Found " + simplePracticeEvents.length + " SimplePractice events in database");
+// console.log("[SUCCESS] Found " + simplePracticeEvents.length + " SimplePractice events in database");
         return res.json({
           events: simplePracticeEvents,
           calendars: [
@@ -1423,7 +1423,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // If tokens are missing and forceSync is requested, use cached events
       if (!user.accessToken) {
-        console.log("[ERROR] No access token for SimplePractice live sync");
+// console.log("[ERROR] No access token for SimplePractice live sync");
         const events = await storage.getEvents(parseInt(user.id) || 1);
         const simplePracticeEvents = events.filter(
           (event) =>
@@ -1453,7 +1453,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         await oauth2Client.getAccessToken();
       } catch (tokenError) {
-        console.log("[WARNING] SimplePractice: Token expired, using cached events");
+// console.log("[WARNING] SimplePractice: Token expired, using cached events");
         const events = await storage.getEvents(parseInt(user.id) || 1);
         const simplePracticeEvents = events.filter(
           (event) =>
@@ -1480,7 +1480,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let calendarListResponse;
       try {
         calendarListResponse = await calendar.calendarList.list();
-      } catch (authError: any) {
+      } catch (authError: unknown) {
         // Fall back to database events on auth error
         const events = await storage.getEvents(parseInt(user.id) || 1);
         const simplePracticeEvents = events.filter(
@@ -1568,7 +1568,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      console.log(
+// console.log(
         "[TARGET] Total SimplePractice events found: " + allSimplePracticeEvents.length,
       );
 
@@ -1624,7 +1624,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Always try database first unless forceSync is requested
       if (!forceSync) {
-        console.log("[FOLDER] Loading Google Calendar events from database...");
+// console.log("[FOLDER] Loading Google Calendar events from database...");
         const events = await storage.getEvents(parseInt(user?.id) || 1);
         const googleEvents = events
           .filter((event) => event.source === "google")
@@ -1639,7 +1639,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             calendarId: event.calendarId || "fallback",
           }));
 
-        console.log("[SUCCESS] Found " + googleEvents.length + " Google Calendar events in database");
+// console.log("[SUCCESS] Found " + googleEvents.length + " Google Calendar events in database");
         return res.json({
           events: googleEvents,
           calendars: [
@@ -1651,7 +1651,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (!user?.accessToken) {
-        console.log("[ERROR] No access token for live sync, falling back to database");
+// console.log("[ERROR] No access token for live sync, falling back to database");
         // Fall back to database events
         const events = await storage.getEvents(parseInt(user?.id) || 1);
         const formattedEvents = events
@@ -1687,7 +1687,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         await oauth2Client.getAccessToken();
       } catch (tokenError) {
-        console.log("[WARNING] Token expired, falling back to cached events");
+// console.log("[WARNING] Token expired, falling back to cached events");
         // Fall back to database events when tokens are invalid
         const events = await storage.getEvents(parseInt(user?.id) || 1);
         const formattedEvents = events
@@ -1876,7 +1876,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Upload the PDF
-      const fileMetadata: any = {
+      const fileMetadata: unknown = {
         name: filename,
       };
 
@@ -1961,7 +1961,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         withStatus: eventsFormatted.filter(e => e.status !== 'scheduled').length
       };
 
-      console.log('[STATS] Unified Events API response:', eventCounts);
+// console.log('[STATS] Unified Events API response:', eventCounts);
 
       res.json(eventsFormatted);
     } catch (error) {
@@ -2175,7 +2175,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Event not found" });
       }
 
-      console.log("[SUCCESS] Updated event " + eventId + " with notes/action items");
+// console.log("[SUCCESS] Updated event " + eventId + " with notes/action items");
       res.json(event);
     } catch (error) {
       console.error("Patch event error:", error);
@@ -2191,9 +2191,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/events/:id", async (req, res) => {
     try {
       const eventId = req.params.id;
-      console.log("[DELETE] Delete request for event: " + eventId);
-      console.log("[DEBUG] Session user:", req.user);
-      console.log("[DEBUG] Session passport:", req.session?.passport);
+// console.log("[DELETE] Delete request for event: " + eventId);
+// console.log("[DEBUG] Session user:", req.user);
+// console.log("[DEBUG] Session passport:", req.session?.passport);
 
       // Get user from multiple sources
       let user = req.user;
@@ -2202,11 +2202,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (!user) {
-        console.log("[ERROR] No user found for deletion request");
+// console.log("[ERROR] No user found for deletion request");
         return res.status(401).json({ error: "Not authenticated" });
       }
 
-      console.log("[AUTH] User authenticated for deletion: " + (user.email || user.name));
+// console.log("[AUTH] User authenticated for deletion: " + (user.email || user.name));
 
       // Try to delete by sourceId first (for Google Calendar events)
       const userId = parseInt(user.id) || 1;
@@ -2222,10 +2222,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       if (success) {
-        console.log("[SUCCESS] Successfully deleted event: " + eventId);
+// console.log("[SUCCESS] Successfully deleted event: " + eventId);
         res.json({ success: true });
       } else {
-        console.log("[ERROR] Event not found for deletion:", eventId);
+// console.log("[ERROR] Event not found for deletion:", eventId);
         res.status(404).json({ error: "Event not found" });
       }
     } catch (error) {
@@ -2264,7 +2264,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid status" });
       }
 
-      console.log('Updating status for eventId:', eventId, 'to status:', status);
+// console.log('Updating status for eventId:', eventId, 'to status:', status);
 
       // First try to find the event in the database by numeric ID
       let event = null;
@@ -2288,7 +2288,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // If still not found, create a new event record for live sync events
       if (!event) {
-        console.log('Event not found in database, creating new event record');
+// console.log('Event not found in database, creating new event record');
 
         const newEvent = await db.insert(events).values({
           title: "Event " + eventId,
@@ -2465,13 +2465,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   setupAuditRoutes(app);
 
   // Simplified authentication middleware
-  function requireAuth(req: any, res: any, next: any) {
+  function requireAuth(req: unknown, res: unknown, next: unknown) {
   // Check if user exists in session
   const sessionUser = req.session?.passport?.user;
 
   if (sessionUser) {
     req.user = sessionUser;
-    console.log("[SUCCESS] Auth middleware: User", sessionUser.email, "authenticated for", req.path);
+// console.log("[SUCCESS] Auth middleware: User", sessionUser.email, "authenticated for", req.path);
     next();
   } else {
     // Check if we have valid environment tokens
@@ -2492,11 +2492,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       req.user = fallbackUser;
       req.session.passport = { user: fallbackUser };
-      console.log("[SUCCESS] Auth middleware: Auto-authenticated user", fallbackUser.email, "for", req.path);
+// console.log("[SUCCESS] Auth middleware: Auto-authenticated user", fallbackUser.email, "for", req.path);
       next();
     } else {
       // No valid authentication found
-      console.log("[ERROR] Auth middleware: No valid authentication for", req.path);
+// console.log("[ERROR] Auth middleware: No valid authentication for", req.path);
       res.status(401).json({ 
         error: "Authentication required",
         needsAuth: true,
@@ -2512,10 +2512,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 app.get('/api/auth/google', async (req, res) => {
   try {
     const userId = req.user?.id || req.session?.userId || "1";
-    console.log('[START] Starting Google OAuth flow for user:', userId);
+// console.log('[START] Starting Google OAuth flow for user:', userId);
 
     const authUrl = oauthManager.generateAuthUrl(userId);
-    console.log('[LINK] Redirecting to Google OAuth:', authUrl);
+// console.log('[LINK] Redirecting to Google OAuth:', authUrl);
 
     res.redirect(authUrl);
   } catch (error) {
@@ -2528,7 +2528,7 @@ app.get('/api/auth/google', async (req, res) => {
 app.get('/api/auth/google/callback', async (req, res) => {
   try {
     const { code, state: userId } = req.query;
-    console.log('[REFRESH] OAuth callback received for user:', userId);
+// console.log('[REFRESH] OAuth callback received for user:', userId);
 
     if (!code || !userId) {
       console.error('[ERROR] Missing code or user ID in callback');
@@ -2536,7 +2536,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
     }
 
     const tokens = await oauthManager.handleOAuthCallback(code as string, userId as string);
-    console.log('[SUCCESS] OAuth callback successful, tokens obtained');
+// console.log('[SUCCESS] OAuth callback successful, tokens obtained');
 
     // Store user in session
     const user = {

@@ -175,73 +175,73 @@ export function auditExportData(
 }
 
 export function logExportAudit(report: ExportAuditReport, exportType: string): void {
-  console.log(`\n🔍 PIXEL-PERFECT EXPORT AUDIT - ${exportType.toUpperCase()}`);
-  console.log('='.repeat(60));
+// console.log(`\n🔍 PIXEL-PERFECT EXPORT AUDIT - ${exportType.toUpperCase()}`);
+// console.log('='.repeat(60));
   
   // Data integrity score
   const scoreColor = report.dataIntegrityScore >= 95 ? '✅' : report.dataIntegrityScore >= 80 ? '⚠️' : '❌';
-  console.log(`${scoreColor} Data Integrity Score: ${report.dataIntegrityScore.toFixed(1)}%`);
-  console.log(`${report.pixelPerfectMatch ? '✅' : '❌'} Pixel-Perfect Match: ${report.pixelPerfectMatch ? 'YES' : 'NO'}`);
+// console.log(`${scoreColor} Data Integrity Score: ${report.dataIntegrityScore.toFixed(1)}%`);
+// console.log(`${report.pixelPerfectMatch ? '✅' : '❌'} Pixel-Perfect Match: ${report.pixelPerfectMatch ? 'YES' : 'NO'}`);
   
-  console.log(`\n📊 EVENT SUMMARY:`);
-  console.log(`  - Total Events: ${report.totalEvents}`);
+// console.log(`\n📊 EVENT SUMMARY:`);
+// console.log(`  - Total Events: ${report.totalEvents}`);
   if (report.dayEvents > 0) {
-    console.log(`  - Day Events: ${report.dayEvents}`);
+// console.log(`  - Day Events: ${report.dayEvents}`);
   }
   
-  console.log(`\n🎯 EVENTS BY SOURCE:`);
-  console.log(`  - SimplePractice: ${report.eventsBySource.simplepractice}`);
-  console.log(`  - Google Calendar: ${report.eventsBySource.google}`);
-  console.log(`  - Manual: ${report.eventsBySource.manual}`);
-  console.log(`  - Holidays: ${report.eventsBySource.holiday}`);
+// console.log(`\n🎯 EVENTS BY SOURCE:`);
+// console.log(`  - SimplePractice: ${report.eventsBySource.simplepractice}`);
+// console.log(`  - Google Calendar: ${report.eventsBySource.google}`);
+// console.log(`  - Manual: ${report.eventsBySource.manual}`);
+// console.log(`  - Holidays: ${report.eventsBySource.holiday}`);
 
-  console.log(`\n🔍 DASHBOARD vs EXPORT COMPARISON:`);
-  console.log(`  - Dashboard Event IDs: ${report.dashboardEventIds.length}`);
-  console.log(`  - Export Event IDs: ${report.exportEventIds.length}`);
-  console.log(`  - Missing Events: ${report.missingEvents.length}`);
-  console.log(`  - Extra Events: ${report.extraEvents.length}`);
+// console.log(`\n🔍 DASHBOARD vs EXPORT COMPARISON:`);
+// console.log(`  - Dashboard Event IDs: ${report.dashboardEventIds.length}`);
+// console.log(`  - Export Event IDs: ${report.exportEventIds.length}`);
+// console.log(`  - Missing Events: ${report.missingEvents.length}`);
+// console.log(`  - Extra Events: ${report.extraEvents.length}`);
 
   if (report.missingEvents.length > 0) {
-    console.log(`\n❌ MISSING EVENTS IN EXPORT:`);
-    report.missingEvents.forEach(id => console.log(`  - Event ID: ${id}`));
+// console.log(`\n❌ MISSING EVENTS IN EXPORT:`);
+// report.missingEvents.forEach(id => console.log(`  - Event ID: ${id}`));
   }
 
   if (report.extraEvents.length > 0) {
-    console.log(`\n⚠️ EXTRA EVENTS IN EXPORT:`);
-    report.extraEvents.forEach(id => console.log(`  - Event ID: ${id}`));
+// console.log(`\n⚠️ EXTRA EVENTS IN EXPORT:`);
+// report.extraEvents.forEach(id => console.log(`  - Event ID: ${id}`));
   }
 
   if (report.warnings.length > 0) {
-    console.log(`\n⚠️ WARNINGS:`);
-    report.warnings.forEach(warning => console.log(`  - ${warning}`));
+// console.log(`\n⚠️ WARNINGS:`);
+// report.warnings.forEach(warning => console.log(`  - ${warning}`));
   }
 
   if (report.errors.length > 0) {
-    console.log(`\n❌ ERRORS:`);
-    report.errors.forEach(error => console.log(`  - ${error}`));
+// console.log(`\n❌ ERRORS:`);
+// report.errors.forEach(error => console.log(`  - ${error}`));
   }
 
   if (report.missingNotes.length > 0) {
-    console.log(`\n📝 EVENTS MISSING NOTES:`);
-    report.missingNotes.forEach(title => console.log(`  - ${title}`));
+// console.log(`\n📝 EVENTS MISSING NOTES:`);
+// report.missingNotes.forEach(title => console.log(`  - ${title}`));
   }
 
   if (report.missingActionItems.length > 0) {
-    console.log(`\n✅ EVENTS MISSING ACTION ITEMS:`);
-    report.missingActionItems.forEach(title => console.log(`  - ${title}`));
+// console.log(`\n✅ EVENTS MISSING ACTION ITEMS:`);
+// report.missingActionItems.forEach(title => console.log(`  - ${title}`));
   }
 
   // Final assessment
-  console.log(`\n🎯 PIXEL-PERFECT ASSESSMENT:`);
+// console.log(`\n🎯 PIXEL-PERFECT ASSESSMENT:`);
   if (report.pixelPerfectMatch) {
-    console.log('✅ PERFECT MATCH: PDF export will match dashboard exactly');
+// console.log('✅ PERFECT MATCH: PDF export will match dashboard exactly');
   } else {
-    console.log('❌ ISSUES DETECTED: PDF export may not match dashboard');
-    console.log('   - Check warnings and errors above for details');
+// console.log('❌ ISSUES DETECTED: PDF export may not match dashboard');
+// console.log('   - Check warnings and errors above for details');
   }
 
-  console.log('='.repeat(60));
-  console.log(`⏰ Audit completed at ${new Date().toLocaleTimeString()}\n`);
+// console.log('='.repeat(60));
+// console.log(`⏰ Audit completed at ${new Date().toLocaleTimeString()}\n`);
 }
 
 /**
@@ -473,7 +473,7 @@ export function runPixelPerfectAudit(
   auditReport: ExportAuditReport;
   unifiedData: UnifiedEventData[];
   gridValidation: { isValid: boolean; issues: string[] };
-  exportConfig: any;
+  exportConfig: unknown;
   pixelPerfectScore: number;
 } {
   // Run basic audit
@@ -535,11 +535,11 @@ export function runEnhancedPixelPerfectAudit(
   pixelPerfectScore: number;
   dataIntegrityScore: number;
   auditReport: ExportAuditReport;
-  enhancedReport: any;
+  enhancedReport: unknown;
   recommendations: string[];
 } {
-  console.log('🔍 ENHANCED PIXEL-PERFECT AUDIT STARTING');
-  console.log('='.repeat(80));
+// console.log('🔍 ENHANCED PIXEL-PERFECT AUDIT STARTING');
+// console.log('='.repeat(80));
   
   // Generate comprehensive pixel-perfect report
   const enhancedReport = generatePixelPerfectReport(
@@ -572,33 +572,33 @@ export function runEnhancedPixelPerfectAudit(
   };
   
   // Log enhanced results
-  console.log('🎯 ENHANCED PIXEL-PERFECT ANALYSIS:');
-  console.log(`   📊 Overall Score: ${enhancedReport.pixelPerfectScore}/100`);
-  console.log(`   🔍 Data Integrity: ${enhancedReport.dataIntegrityScore.toFixed(1)}%`);
-  console.log(`   📝 Summary: ${enhancedReport.summary}`);
+// console.log('🎯 ENHANCED PIXEL-PERFECT ANALYSIS:');
+// console.log(`   📊 Overall Score: ${enhancedReport.pixelPerfectScore}/100`);
+// console.log(`   🔍 Data Integrity: ${enhancedReport.dataIntegrityScore.toFixed(1)}%`);
+// console.log(`   📝 Summary: ${enhancedReport.summary}`);
   
-  console.log('\n📋 ENHANCED EVENT DATA ANALYSIS:');
+// console.log('\n📋 ENHANCED EVENT DATA ANALYSIS:');
   enhancedDashboardData.forEach((eventData, index) => {
-    console.log(`   Event ${index + 1}: "${eventData.displayTitle}"`);
-    console.log(`     - Source: ${eventData.sourceType}`);
-    console.log(`     - Has Notes: ${eventData.hasNotes ? 'YES' : 'NO'}`);
-    console.log(`     - Has Action Items: ${eventData.hasActionItems ? 'YES' : 'NO'}`);
-    console.log(`     - Enhanced Notes: ${eventData.enhancedNotes ? 'YES' : 'NO'}`);
-    console.log(`     - Enhanced Action Items: ${eventData.enhancedActionItems ? 'YES' : 'NO'}`);
-    console.log(`     - Background: ${eventData.styling.backgroundColor}`);
-    console.log(`     - Border: ${eventData.styling.borderStyle} ${eventData.styling.borderColor}`);
+// console.log(`   Event ${index + 1}: "${eventData.displayTitle}"`);
+// console.log(`     - Source: ${eventData.sourceType}`);
+// console.log(`     - Has Notes: ${eventData.hasNotes ? 'YES' : 'NO'}`);
+// console.log(`     - Has Action Items: ${eventData.hasActionItems ? 'YES' : 'NO'}`);
+// console.log(`     - Enhanced Notes: ${eventData.enhancedNotes ? 'YES' : 'NO'}`);
+// console.log(`     - Enhanced Action Items: ${eventData.enhancedActionItems ? 'YES' : 'NO'}`);
+// console.log(`     - Background: ${eventData.styling.backgroundColor}`);
+// console.log(`     - Border: ${eventData.styling.borderStyle} ${eventData.styling.borderColor}`);
   });
   
   if (enhancedReport.recommendations.length > 0) {
-    console.log('\n💡 RECOMMENDATIONS:');
-    enhancedReport.recommendations.forEach(rec => console.log(`  - ${rec}`));
+// console.log('\n💡 RECOMMENDATIONS:');
+// enhancedReport.recommendations.forEach(rec => console.log(`  - ${rec}`));
   }
   
-  console.log('\n🏆 FINAL ENHANCED ASSESSMENT:');
-  console.log(`   ${enhancedReport.summary}`);
+// console.log('\n🏆 FINAL ENHANCED ASSESSMENT:');
+// console.log(`   ${enhancedReport.summary}`);
   
-  console.log('='.repeat(80));
-  console.log('🔍 ENHANCED PIXEL-PERFECT AUDIT COMPLETE');
+// console.log('='.repeat(80));
+// console.log('🔍 ENHANCED PIXEL-PERFECT AUDIT COMPLETE');
   
   return {
     pixelPerfectScore: enhancedReport.pixelPerfectScore,

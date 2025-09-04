@@ -8,7 +8,7 @@ export const exportExactWeeklySpec = async (
   weekEndDate: Date,
   events: CalendarEvent[]
 ): Promise<void> => {
-  console.log('🎯 Starting EXACT weekly planner export with precise specifications...');
+// console.log('🎯 Starting EXACT weekly planner export with precise specifications...');
   
   // EXACT CANVAS DIMENSIONS - 3300x2550 pixels at 300 DPI
   // Convert to points for jsPDF: 1 inch = 72 points, 300 DPI = 300 pixels per inch
@@ -74,10 +74,10 @@ export const exportExactWeeklySpec = async (
     return eventLocalDate >= weekStartLocalDate && eventLocalDate <= weekEndLocalDate;
   });
 
-  console.log(`📅 Week Export Debug:`);
-  console.log(`Week Start: ${weekStartDate.toDateString()}`);
-  console.log(`Week End: ${weekEndDate.toDateString()}`);
-  console.log(`Total Events: ${weekEvents.length}`);
+// console.log(`📅 Week Export Debug:`);
+// console.log(`Week Start: ${weekStartDate.toDateString()}`);
+// console.log(`Week End: ${weekEndDate.toDateString()}`);
+// console.log(`Total Events: ${weekEvents.length}`);
   
   // Log events by day for debugging
   const eventsByDay = {};
@@ -87,7 +87,7 @@ export const exportExactWeeklySpec = async (
     if (!eventsByDay[dayName]) eventsByDay[dayName] = [];
     eventsByDay[dayName].push(event.title);
   });
-  console.log('Events by day:', eventsByDay);
+// console.log('Events by day:', eventsByDay);
   
   // Verify first day of week is Monday
   const firstDayOfWeek = weekStartDate.getDay(); // 0=Sunday, 1=Monday
@@ -107,10 +107,10 @@ export const exportExactWeeklySpec = async (
   const filename = `exact-weekly-planner-${weekStartDate.toISOString().split('T')[0]}.pdf`;
   pdf.save(filename);
   
-  console.log(`✅ EXACT weekly planner exported: ${filename}`);
+// console.log(`✅ EXACT weekly planner exported: ${filename}`);
 };
 
-function drawExactHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, SPEC: any, SCALE: number): void {
+function drawExactHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, SPEC: unknown, SCALE: number): void {
   // Header font setup (matching Python: font_header_large 60pt)
   pdf.setFont('helvetica', 'bold');
   pdf.setFontSize(SPEC.HEADER_FONT * SCALE);
@@ -141,7 +141,7 @@ function drawExactHeader(pdf: jsPDF, weekStartDate: Date, weekEndDate: Date, SPE
   );
 }
 
-function drawExactTable(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], SPEC: any, SCALE: number): void {
+function drawExactTable(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], SPEC: unknown, SCALE: number): void {
   // Column positions - ensure Monday column is properly positioned
   const columnPositions = [];
   let currentX = SPEC.MARGIN;
@@ -162,7 +162,7 @@ function drawExactTable(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[]
     currentX += dayWidth;
     
     const dayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i];
-    console.log(`${dayName} column: ${colStart}-${colEnd} (width: ${dayWidth})`);
+// console.log(`${dayName} column: ${colStart}-${colEnd} (width: ${dayWidth})`);
   }
 
   // Day headers with full day names and dates
@@ -175,7 +175,7 @@ function drawExactTable(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[]
     dayDate.setDate(weekStartDate.getDate() + i);
     const formattedDate = `${dayDate.getMonth() + 1}-${dayDate.getDate()}-${dayDate.getFullYear()}`;
     
-    console.log(`Day ${i}: ${dayNames[i]} ${formattedDate} (${dayDate.toDateString()})`);
+// console.log(`Day ${i}: ${dayNames[i]} ${formattedDate} (${dayDate.toDateString()})`);
     
     dayHeaders.push(`${dayNames[i]} ${formattedDate}`);
   }
@@ -288,7 +288,7 @@ function drawExactTable(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[]
   drawExactAppointments(pdf, weekStartDate, events, SPEC, SCALE, columnPositions, SPEC.TABLE_START_Y * SCALE, timeSlots);
 }
 
-function drawExactAppointments(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], SPEC: any, SCALE: number, columnPositions: any[], headerY: number, timeSlots: any[]): void {
+function drawExactAppointments(pdf: jsPDF, weekStartDate: Date, events: CalendarEvent[], SPEC: unknown, SCALE: number, columnPositions: unknown[], headerY: number, timeSlots: unknown[]): void {
   events.forEach(event => {
     const eventDate = new Date(event.startTime);
     const endDate = new Date(event.endTime);
@@ -301,7 +301,7 @@ function drawExactAppointments(pdf: jsPDF, weekStartDate: Date, events: Calendar
     const dayIndex = Math.floor((eventLocalDate.getTime() - weekStartLocalDate.getTime()) / (1000 * 60 * 60 * 24));
     const dayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][dayIndex];
     
-    console.log(`📍 Event: ${event.title} | Event Date: ${eventDate.toDateString()} | Day: ${dayName} | Day Index: ${dayIndex}`);
+// console.log(`📍 Event: ${event.title} | Event Date: ${eventDate.toDateString()} | Day: ${dayName} | Day Index: ${dayIndex}`);
     
     if (dayIndex < 0 || dayIndex > 6) {
       console.warn(`⚠️ Event ${event.title} outside week range - Day Index: ${dayIndex}`);
@@ -309,7 +309,7 @@ function drawExactAppointments(pdf: jsPDF, weekStartDate: Date, events: Calendar
     }
     
     const columnIndex = dayIndex + 1; // +1 to skip TIME column (1-7 for Mon-Sun)
-    console.log(`📊 ${event.title} -> Column ${columnIndex} (${dayName})`);
+// console.log(`📊 ${event.title} -> Column ${columnIndex} (${dayName})`);
     
     // Verify column exists
     if (!columnPositions[columnIndex]) {
@@ -348,7 +348,7 @@ function drawExactAppointments(pdf: jsPDF, weekStartDate: Date, events: Calendar
     );
     
     // Debug logging for appointment spacing
-    console.log(`📊 Appointment: ${event.title} | Duration: ${durationInMinutes}min (${durationInSlots} slots) | Height: ${height}px`);
+// console.log(`📊 Appointment: ${event.title} | Duration: ${durationInMinutes}min (${durationInSlots} slots) | Height: ${height}px`);
     
     // White background for all appointments
     pdf.setFillColor(...SPEC.WHITE);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CalendarEvent } from '../types/calendar';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PerfectDailyCalendarProps {

@@ -4,7 +4,7 @@
  */
 
 function debugColumnWidths() {
-    console.log('=== COLUMN WIDTH DEBUG ===');
+// console.log('=== COLUMN WIDTH DEBUG ===');
     
     // Find the calendar grid
     const calendarGrid = document.querySelector('.calendar-grid');
@@ -13,19 +13,19 @@ function debugColumnWidths() {
         return;
     }
     
-    console.log('Calendar grid:', calendarGrid);
-    console.log('Grid computed styles:', window.getComputedStyle(calendarGrid));
+// console.log('Calendar grid:', calendarGrid);
+// console.log('Grid computed styles:', window.getComputedStyle(calendarGrid));
     
     // Get all header cells (day columns)
     const headerCells = document.querySelectorAll('.calendar-cell.header-cell');
-    console.log(`Found ${headerCells.length} header cells`);
+// console.log(`Found ${headerCells.length} header cells`);
     
     // Analyze each header cell
     headerCells.forEach((cell, index) => {
         const rect = cell.getBoundingClientRect();
         const computedStyle = window.getComputedStyle(cell);
         
-        console.log(`Header Cell ${index}:`, {
+// console.log(`Header Cell ${index}:`, {
             text: cell.textContent,
             width: rect.width,
             computedWidth: computedStyle.width,
@@ -42,14 +42,14 @@ function debugColumnWidths() {
     
     // Check grid template columns
     const gridTemplateColumns = window.getComputedStyle(calendarGrid).gridTemplateColumns;
-    console.log('Grid template columns:', gridTemplateColumns);
+// console.log('Grid template columns:', gridTemplateColumns);
     
     // Check for any width constraints on parent containers
     let parent = calendarGrid.parentElement;
     let level = 0;
     while (parent && level < 5) {
         const parentStyle = window.getComputedStyle(parent);
-        console.log(`Parent ${level} (${parent.className}):`, {
+// console.log(`Parent ${level} (${parent.className}):`, {
             width: parentStyle.width,
             maxWidth: parentStyle.maxWidth,
             minWidth: parentStyle.minWidth,
@@ -63,12 +63,12 @@ function debugColumnWidths() {
     
     // Check for any overlapping CSS rules
     const allCalendarCells = document.querySelectorAll('.calendar-cell');
-    console.log(`Total calendar cells: ${allCalendarCells.length}`);
+// console.log(`Total calendar cells: ${allCalendarCells.length}`);
     
     // Test CSS rule conflicts
     const testCell = headerCells[1]; // Test second header cell
     if (testCell) {
-        console.log('Test cell CSS rules:', {
+// console.log('Test cell CSS rules:', {
             appliedRules: window.getComputedStyle(testCell),
             classList: testCell.classList.toString()
         });

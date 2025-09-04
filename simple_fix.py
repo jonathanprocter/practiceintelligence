@@ -17,16 +17,16 @@ def safe_parse_datetime(date_str):
     try:
         # Try standard format first
         return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
-    except:
+    except Exception:
         try:
             # Try without milliseconds
             clean_date = date_str.split('.')[0] + 'Z'
             return datetime.fromisoformat(clean_date.replace('Z', '+00:00'))
-        except:
+        except Exception:
             try:
                 # Try space format
                 return datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-            except:
+            except Exception:
                 return None
 
 

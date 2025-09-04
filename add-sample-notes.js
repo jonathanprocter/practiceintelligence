@@ -4,7 +4,7 @@
  */
 
 async function addSampleNotesAndActionItems() {
-  console.log('🎯 Adding sample Event Notes and Action Items to your real upcoming week events...');
+// // console.log('🎯 Adding sample Event Notes and Action Items to your real upcoming week events...');
   
   // Get upcoming week date range
   const today = new Date();
@@ -13,7 +13,7 @@ async function addSampleNotesAndActionItems() {
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6); // Next Sunday
   
-  console.log(`📅 Targeting events for week: ${startOfWeek.toDateString()} to ${endOfWeek.toDateString()}`);
+// // console.log(`📅 Targeting events for week: ${startOfWeek.toDateString()} to ${endOfWeek.toDateString()}`);
   
   // Sample data for events with notes and action items - will be applied to matching events
   const sampleEnhancements = [
@@ -96,7 +96,7 @@ async function addSampleNotesAndActionItems() {
     const response = await fetch('/api/events');
     const events = await response.json();
     
-    console.log(`📊 Found ${events.length} existing events in database`);
+// // console.log(`📊 Found ${events.length} existing events in database`);
     
     // Filter events for the upcoming week
     const upcomingWeekEvents = events.filter(event => {
@@ -104,12 +104,12 @@ async function addSampleNotesAndActionItems() {
       return eventDate >= startOfWeek && eventDate <= endOfWeek;
     });
     
-    console.log(`📊 Found ${upcomingWeekEvents.length} events in upcoming week (${startOfWeek.toDateString()} to ${endOfWeek.toDateString()})`);
+// // console.log(`📊 Found ${upcomingWeekEvents.length} events in upcoming week (${startOfWeek.toDateString()} to ${endOfWeek.toDateString()})`);
     
     if (upcomingWeekEvents.length === 0) {
-      console.log('⚠️ No events found for upcoming week. Showing all events to select from:');
+// // console.log('⚠️ No events found for upcoming week. Showing all events to select from:');
       events.slice(0, 10).forEach(event => {
-        console.log(`- ${event.title} (${new Date(event.startTime).toDateString()})`);
+// // console.log(`- ${event.title} (${new Date(event.startTime).toDateString()})`);
       });
       return { success: false, message: 'No events found for upcoming week' };
     }
@@ -127,7 +127,7 @@ async function addSampleNotesAndActionItems() {
       });
       
       for (const matchingEvent of matchingEvents) {
-        console.log(`📝 Updating event: ${matchingEvent.title} (${new Date(matchingEvent.startTime).toDateString()})`);
+// // console.log(`📝 Updating event: ${matchingEvent.title} (${new Date(matchingEvent.startTime).toDateString()})`);
         
         // Update the event with notes and action items
         const updateResponse = await fetch(`/api/events/${matchingEvent.id}`, {
@@ -142,7 +142,7 @@ async function addSampleNotesAndActionItems() {
         });
         
         if (updateResponse.ok) {
-          console.log(`✅ Successfully updated: ${matchingEvent.title}`);
+// // console.log(`✅ Successfully updated: ${matchingEvent.title}`);
           updatedCount++;
         } else {
           console.error(`❌ Failed to update: ${matchingEvent.title}`);
@@ -159,10 +159,10 @@ async function addSampleNotesAndActionItems() {
       );
     });
     
-    console.log(`📝 Adding generic notes to ${unenhancedEvents.length} remaining events`);
+// // console.log(`📝 Adding generic notes to ${unenhancedEvents.length} remaining events`);
     
     for (const event of unenhancedEvents.slice(0, 5)) { // Limit to first 5 to avoid overwhelming
-      console.log(`📝 Adding generic notes to: ${event.title}`);
+// // console.log(`📝 Adding generic notes to: ${event.title}`);
       
       const updateResponse = await fetch(`/api/events/${event.id}`, {
         method: 'PATCH',
@@ -182,20 +182,20 @@ async function addSampleNotesAndActionItems() {
       });
       
       if (updateResponse.ok) {
-        console.log(`✅ Successfully added generic notes to: ${event.title}`);
+// // console.log(`✅ Successfully added generic notes to: ${event.title}`);
         updatedCount++;
       }
     }
     
-    console.log(`🎉 Successfully updated ${updatedCount} events with sample notes and action items`);
-    console.log('📦 Enhanced PDF exports will now show Event Notes and Action Items for these events');
+// // console.log(`🎉 Successfully updated ${updatedCount} events with sample notes and action items`);
+// // console.log('📦 Enhanced PDF exports will now show Event Notes and Action Items for these events');
     
     // Provide instructions for testing
-    console.log('\n🔍 To test the enhanced exports:');
-    console.log('1. Use "Enhanced Weekly with Notes" button');
-    console.log('2. Use "Enhanced Daily with Notes" button');
-    console.log('3. Use "Enhanced Weekly Package (8 Pages)" button');
-    console.log('\nThese exports will include the Event Notes and Action Items in expanded layouts.');
+// // console.log('\n🔍 To test the enhanced exports:');
+// // console.log('1. Use "Enhanced Weekly with Notes" button');
+// // console.log('2. Use "Enhanced Daily with Notes" button');
+// // console.log('3. Use "Enhanced Weekly Package (8 Pages)" button');
+// // console.log('\nThese exports will include the Event Notes and Action Items in expanded layouts.');
     
     return {
       success: true,
@@ -217,8 +217,8 @@ window.addSampleNotesAndActionItems = addSampleNotesAndActionItems;
 
 // Auto-run if this script is executed directly
 if (typeof window !== 'undefined') {
-  console.log('🎯 Sample notes enhancement script loaded');
-  console.log('Run addSampleNotesAndActionItems() to add sample data');
+// // console.log('🎯 Sample notes enhancement script loaded');
+// // console.log('Run addSampleNotesAndActionItems() to add sample data');
 }
 
 export { addSampleNotesAndActionItems };

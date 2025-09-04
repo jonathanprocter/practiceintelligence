@@ -28,7 +28,7 @@ export interface PixelPerfectAuditResult {
 }
 
 export async function runPixelPerfectAudit(): Promise<PixelPerfectAuditResult> {
-  console.log('🔍 Starting pixel-perfect audit...');
+// console.log('🔍 Starting pixel-perfect audit...');
   
   const startTime = Date.now();
   const errors: string[] = [];
@@ -68,7 +68,7 @@ export async function runPixelPerfectAudit(): Promise<PixelPerfectAuditResult> {
       success: true
     };
     
-    console.log('✅ Pixel-perfect audit completed:', overallScore + '/100');
+// console.log('✅ Pixel-perfect audit completed:', overallScore + '/100');
     
     // Save results to localStorage
     localStorage.setItem('pixelPerfectAuditResults', JSON.stringify(result));
@@ -93,7 +93,7 @@ export async function runPixelPerfectAudit(): Promise<PixelPerfectAuditResult> {
 }
 
 export async function extractVisualTruthTable(measurements: DashboardMeasurements): Promise<VisualTruthTable[]> {
-  console.log('📊 Extracting visual truth table...');
+// console.log('📊 Extracting visual truth table...');
   
   // PDF configuration (simulated - in real implementation this would come from actual PDF export)
   const pdfConfig = {
@@ -152,7 +152,7 @@ export async function extractVisualTruthTable(measurements: DashboardMeasurement
     }
   ];
   
-  console.log('📊 Visual truth table extracted:', truthTable.length + ' parameters');
+// console.log('📊 Visual truth table extracted:', truthTable.length + ' parameters');
   
   return truthTable;
 }
@@ -211,5 +211,5 @@ if (typeof window !== 'undefined') {
   (window as any).extractVisualTruthTable = extractVisualTruthTable;
   (window as any).calculatePixelPerfectScore = calculatePixelPerfectScore;
   
-  console.log('🔍 Pixel-perfect audit system ready!');
+// console.log('🔍 Pixel-perfect audit system ready!');
 }

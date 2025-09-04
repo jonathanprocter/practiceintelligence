@@ -202,7 +202,7 @@ function drawEnhancedEvents(pdf: jsPDF, selectedDate: Date, events: CalendarEven
     return eventDate.toDateString() === selectedDate.toDateString();
   }).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
   
-  console.log(`Drawing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
+// console.log(`Drawing ${dayEvents.length} events for ${selectedDate.toDateString()}`);
   
   dayEvents.forEach((event) => {
     const eventStart = new Date(event.startTime);
@@ -302,9 +302,9 @@ export const exportEnhancedDailyPDF = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('=== ENHANCED DAILY PDF EXPORT ===');
-    console.log('Date:', selectedDate.toDateString());
-    console.log('Total events:', events.length);
+// console.log('=== ENHANCED DAILY PDF EXPORT ===');
+// console.log('Date:', selectedDate.toDateString());
+// console.log('Total events:', events.length);
     
     // Create PDF
     const pdf = new jsPDF({
@@ -322,8 +322,8 @@ export const exportEnhancedDailyPDF = async (
     const fileName = `enhanced-daily-planner-${selectedDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(fileName);
     
-    console.log(`Enhanced PDF saved as: ${fileName}`);
-    console.log('=== ENHANCED DAILY PDF EXPORT COMPLETE ===');
+// console.log(`Enhanced PDF saved as: ${fileName}`);
+// console.log('=== ENHANCED DAILY PDF EXPORT COMPLETE ===');
     
   } catch (error) {
     console.error('Enhanced daily PDF export failed:', error);

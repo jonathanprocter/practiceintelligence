@@ -23,10 +23,10 @@ interface ScheduleData {
 }
 
 // Transform your existing data to match the component interface
-export const transformScheduleData = (rawData: any): ScheduleData => {
+export const transformScheduleData = (rawData: unknown): ScheduleData => {
   // Calculate metrics properly
   const totalAppointments = rawData.appointments.length;
-  const scheduledHours = rawData.appointments.reduce((sum: number, apt: any) => {
+  const scheduledHours = rawData.appointments.reduce((sum: number, apt: unknown) => {
     return sum + (apt.duration || 1); // Default to 1 hour if duration not provided
   }, 0);
   
@@ -37,7 +37,7 @@ export const transformScheduleData = (rawData: any): ScheduleData => {
 
   return {
     date: rawData.date,
-    appointments: rawData.appointments.map((apt: any) => ({
+    appointments: rawData.appointments.map((apt: unknown) => ({
       id: apt.id,
       title: apt.title,
       startTime: apt.startTime,
@@ -154,7 +154,7 @@ export const usePDFExport = () => {
 };
 
 // Example integration with your existing code
-export const ExportButton: React.FC<{ scheduleData: any }> = ({ scheduleData }) => {
+export const ExportButton: React.FC<{ scheduleData: unknown }> = ({ scheduleData }) => {
   const { exportToPDF } = usePDFExport();
   
   const handleExport = async () => {

@@ -11,15 +11,15 @@ export interface AuthFixResult {
   message: string;
   needsReload?: boolean;
   oauthUrl?: string;
-  details?: any;
+  details?: unknown;
 }
 
 export async function runSimpleAuthFix(): Promise<AuthFixResult> {
-  console.log('🔧 Starting simple authentication fix...');
+// console.log('🔧 Starting simple authentication fix...');
   
   // Prevent multiple simultaneous fix attempts
   if (hasAttemptedFix) {
-    console.log('⚠️ Auth fix already attempted, skipping');
+// console.log('⚠️ Auth fix already attempted, skipping');
     return {
       success: false,
       message: 'Authentication fix already attempted'
@@ -35,10 +35,10 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     });
     
     const authData = await authResponse.json();
-    console.log('📊 Current auth status:', authData);
+// console.log('📊 Current auth status:', authData);
     
     if (authData.authenticated && authData.hasValidTokens) {
-      console.log('✅ Authentication already working correctly');
+// console.log('✅ Authentication already working correctly');
       return {
         success: true,
         message: 'Authentication is already working correctly',
@@ -47,7 +47,7 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     }
     
     // Step 2: Try to run comprehensive OAuth fix
-    console.log('🔄 Running comprehensive OAuth fix...');
+// console.log('🔄 Running comprehensive OAuth fix...');
     const fixResponse = await fetch('/api/auth/comprehensive-fix', {
       method: 'POST',
       headers: {
@@ -59,7 +59,7 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     const fixData = await fixResponse.json();
     
     if (fixResponse.ok && fixData.success) {
-      console.log('✅ OAuth fix successful:', fixData.message);
+// console.log('✅ OAuth fix successful:', fixData.message);
       
       // Test calendar sync after fix
       const syncResponse = await fetch('/api/auth/test-live-sync', {
@@ -80,7 +80,7 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     }
     
     // Step 3: If OAuth fix failed, try force Google sync
-    console.log('🔄 Attempting force Google Calendar sync...');
+// console.log('🔄 Attempting force Google Calendar sync...');
     const syncResponse = await fetch('/api/auth/force-google-sync', {
       method: 'POST',
       headers: {
@@ -92,7 +92,7 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     const syncData = await syncResponse.json();
     
     if (syncResponse.ok && syncData.success) {
-      console.log('✅ Force sync successful:', syncData.message);
+// console.log('✅ Force sync successful:', syncData.message);
       return {
         success: true,
         message: 'Google Calendar sync restored successfully',
@@ -101,7 +101,7 @@ export async function runSimpleAuthFix(): Promise<AuthFixResult> {
     }
     
     // Step 4: If all else fails, need fresh OAuth
-    console.log('⚠️ All fixes failed, need fresh OAuth authentication');
+// console.log('⚠️ All fixes failed, need fresh OAuth authentication');
     return {
       success: false,
       message: 'Authentication failed - need fresh OAuth',
@@ -131,7 +131,7 @@ export async function testAuthenticationStatus(): Promise<{
   authenticated: boolean;
   hasValidTokens: boolean;
   needsOAuth: boolean;
-  details: any;
+  details: unknown;
 }> {
   try {
     const response = await fetch('/api/auth/status', {
@@ -161,7 +161,7 @@ export async function forceCalendarSync(): Promise<{
   success: boolean;
   message: string;
   eventCount?: number;
-  details?: any;
+  details?: unknown;
 }> {
   try {
     const response = await fetch('/api/auth/force-google-sync', {

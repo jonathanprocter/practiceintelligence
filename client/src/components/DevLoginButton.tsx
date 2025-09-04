@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 
 export function DevLoginButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,13 +14,13 @@ export function DevLoginButton() {
       });
       
       if (refreshResponse.ok) {
-        console.log('✅ Tokens refreshed successfully');
+// console.log('✅ Tokens refreshed successfully');
         window.location.reload();
         return;
       }
       
       // If refresh fails, redirect to fresh OAuth
-      console.log('🔄 Redirecting to fresh Google OAuth...');
+// console.log('🔄 Redirecting to fresh Google OAuth...');
       window.location.href = '/api/auth/google';
     } catch (error) {
       console.error('❌ Authentication error:', error);

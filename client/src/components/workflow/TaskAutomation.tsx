@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Switch } from '@/components/ui/Switch';
+import { Badge } from '@/components/ui/Badge';
+import { Textarea } from '@/components/ui/Textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { AlertTriangle, Calendar, CheckCircle, Clock, Plus, Settings, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface TaskAutomationProps {
-  events: any[];
+  events: unknown[];
 }
 
 export function TaskAutomation({ events }: TaskAutomationProps) {
@@ -38,7 +38,7 @@ export function TaskAutomation({ events }: TaskAutomationProps) {
 
   // Create automation mutation
   const createAutomationMutation = useMutation({
-    mutationFn: async (automationData: any) => {
+    mutationFn: async (automationData: unknown) => {
       const response = await fetch('/api/automations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -58,7 +58,7 @@ export function TaskAutomation({ events }: TaskAutomationProps) {
       setSelectedTrigger("");
       setSelectedAction("");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       toast({
         title: "Error",
         description: error.message || "Failed to create automation",
@@ -154,7 +154,7 @@ export function TaskAutomation({ events }: TaskAutomationProps) {
     { value: 'archive_event', label: 'Archive Event', description: 'Move completed events to archive storage' }
   ];
 
-  const getStatusBadge = (automation: any) => {
+  const getStatusBadge = (automation: unknown) => {
     if (!automation.isActive) return <Badge variant="secondary">Inactive</Badge>;
     if (automation.lastTriggered) return <Badge variant="default">Active</Badge>;
     return <Badge variant="outline">Waiting</Badge>;
@@ -275,7 +275,7 @@ export function TaskAutomation({ events }: TaskAutomationProps) {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {automations.map((automation: any) => (
+                  {automations.map((automation: unknown) => (
                     <Card key={automation.id}>
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
@@ -325,18 +325,18 @@ export function TaskAutomation({ events }: TaskAutomationProps) {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{automations.filter((a: any) => a.isActive).length}</div>
+              <div className="text-2xl font-bold text-green-600">{automations.filter((a: unknown) => a.isActive).length}</div>
               <div className="text-sm text-muted-foreground">Active Automations</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">
-                {automations.reduce((sum: number, a: any) => sum + (a.timesTriggered || 0), 0)}
+                {automations.reduce((sum: number, a: unknown) => sum + (a.timesTriggered || 0), 0)}
               </div>
               <div className="text-sm text-muted-foreground">Total Triggers</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">
-                {Math.round(automations.reduce((sum: number, a: any) => sum + (a.timeSaved || 0), 0) / 60)}h
+                {Math.round(automations.reduce((sum: number, a: unknown) => sum + (a.timeSaved || 0), 0) / 60)}h
               </div>
               <div className="text-sm text-muted-foreground">Time Saved</div>
             </div>

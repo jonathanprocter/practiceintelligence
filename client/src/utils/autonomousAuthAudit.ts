@@ -8,12 +8,12 @@ interface AuthAuditResult {
   status: 'PASS' | 'FAIL' | 'FIXED';
   issue?: string;
   action?: string;
-  details?: any;
+  details?: unknown;
 }
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: any;
+  user: unknown;
   sessionId: string;
   hasTokens: boolean;
 }
@@ -116,7 +116,7 @@ export class AutonomousAuthAudit {
     }
   }
 
-  private detectSyncIssues(backendAuth: AuthState, frontendAuth: any): string[] {
+  private detectSyncIssues(backendAuth: AuthState, frontendAuth: unknown): string[] {
     const issues: string[] = [];
     
     // Check if backend is authenticated but frontend is not
@@ -162,7 +162,7 @@ export class AutonomousAuthAudit {
 
   private async fixFrontendSync(): Promise<void> {
     try {
-      console.log('🔧 Fixing frontend authentication synchronization...');
+// console.log('🔧 Fixing frontend authentication synchronization...');
       
       // Force refresh the authentication hook
       if ((window as any).refreshAuth) {
@@ -199,7 +199,7 @@ export class AutonomousAuthAudit {
 
   private async fixQuerySync(): Promise<void> {
     try {
-      console.log('🔧 Fixing query synchronization...');
+// console.log('🔧 Fixing query synchronization...');
       
       // Force refresh all queries
       if ((window as any).queryClient) {
@@ -223,7 +223,7 @@ export class AutonomousAuthAudit {
   }
 
   private async verifyFixes(): Promise<void> {
-    console.log('🔍 Verifying fixes...');
+// console.log('🔍 Verifying fixes...');
     
     // Wait a moment for fixes to take effect
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -269,14 +269,14 @@ export class AutonomousAuthAudit {
     const frontendAuth = await this.checkFrontendAuth();
     
     if (backendAuth.isAuthenticated && (!frontendAuth || !frontendAuth.user)) {
-      console.log('🚨 Authentication desync detected - starting auto-fix...');
+// console.log('🚨 Authentication desync detected - starting auto-fix...');
       const result = await this.runComprehensiveAudit();
       
       if (result.fixed) {
-        console.log('✅ Authentication issues automatically resolved');
+// console.log('✅ Authentication issues automatically resolved');
       } else {
-        console.log('❌ Some authentication issues could not be auto-fixed');
-        console.log('📊 Audit results:', result.results);
+// console.log('❌ Some authentication issues could not be auto-fixed');
+// console.log('📊 Audit results:', result.results);
       }
     }
   }

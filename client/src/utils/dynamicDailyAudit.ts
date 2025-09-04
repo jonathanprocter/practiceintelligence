@@ -14,15 +14,15 @@ export interface DailyAuditResult {
   fixes: AuditFix[];
   recommendations: string[];
   success: boolean;
-  debugInfo: any;
+  debugInfo: unknown;
 }
 
 export interface AuditIssue {
   severity: 'critical' | 'high' | 'medium' | 'low';
   category: 'timeline' | 'scaling' | 'layout' | 'data';
   description: string;
-  currentValue: any;
-  expectedValue: any;
+  currentValue: unknown;
+  expectedValue: unknown;
   impact: string;
 }
 
@@ -30,7 +30,7 @@ export interface AuditFix {
   issue: string;
   fix: string;
   implemented: boolean;
-  result?: any;
+  result?: unknown;
 }
 
 export class DynamicDailyAudit {
@@ -43,9 +43,9 @@ export class DynamicDailyAudit {
   }
 
   public async runComprehensiveAudit(date: Date, events: CalendarEvent[]): Promise<DailyAuditResult> {
-    console.log('🔍 STARTING COMPREHENSIVE DAILY PLANNER AUDIT');
-    console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
-    console.log('📋 Events:', events.length);
+// console.log('🔍 STARTING COMPREHENSIVE DAILY PLANNER AUDIT');
+// console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
+// console.log('📋 Events:', events.length);
 
     this.issues = [];
     this.fixes = [];
@@ -91,15 +91,15 @@ export class DynamicDailyAudit {
       }
     };
 
-    console.log('✅ AUDIT COMPLETE - Score:', overallScore + '/100');
-    console.log('🐛 Issues Found:', this.issues.length);
-    console.log('🔧 Fixes Applied:', this.fixes.filter(f => f.implemented).length);
+// console.log('✅ AUDIT COMPLETE - Score:', overallScore + '/100');
+// console.log('🐛 Issues Found:', this.issues.length);
+// console.log('🔧 Fixes Applied:', this.fixes.filter(f => f.implemented).length);
 
     return result;
   }
 
   private async auditTimelineCoverage(): Promise<void> {
-    console.log('🔍 AUDITING: Timeline Coverage');
+// console.log('🔍 AUDITING: Timeline Coverage');
 
     // Check if time slots cover 06:00 to 23:30
     const timeSlots = (this.generator as any).timeSlots;
@@ -140,11 +140,11 @@ export class DynamicDailyAudit {
       });
     }
 
-    console.log('✅ Timeline Coverage: First=' + firstSlot + ', Last=' + lastSlot + ', Total=' + totalSlots);
+// console.log('✅ Timeline Coverage: First=' + firstSlot + ', Last=' + lastSlot + ', Total=' + totalSlots);
   }
 
   private async auditScalingConfiguration(): Promise<void> {
-    console.log('🔍 AUDITING: Scaling Configuration');
+// console.log('🔍 AUDITING: Scaling Configuration');
 
     // Check PDF export scaling parameters
     const expectedTimeSlotHeight = 40;
@@ -153,12 +153,12 @@ export class DynamicDailyAudit {
     const expectedPadding = 100;
     const expectedTotalHeight = expectedHeaderHeight + (expectedTimeSlotHeight * expectedTotalSlots) + expectedPadding;
 
-    console.log('🔧 SCALING AUDIT DETAILS:');
-    console.log('🔧 Expected time slot height:', expectedTimeSlotHeight);
-    console.log('🔧 Expected total slots:', expectedTotalSlots);
-    console.log('🔧 Expected header height:', expectedHeaderHeight);
-    console.log('🔧 Expected padding:', expectedPadding);
-    console.log('🔧 Calculated total height:', expectedTotalHeight);
+// console.log('🔧 SCALING AUDIT DETAILS:');
+// console.log('🔧 Expected time slot height:', expectedTimeSlotHeight);
+// console.log('🔧 Expected total slots:', expectedTotalSlots);
+// console.log('🔧 Expected header height:', expectedHeaderHeight);
+// console.log('🔧 Expected padding:', expectedPadding);
+// console.log('🔧 Calculated total height:', expectedTotalHeight);
 
     // Check if scaling matches timeline requirements
     if (expectedTotalHeight < 1740) {
@@ -186,12 +186,12 @@ export class DynamicDailyAudit {
 
     // Check if PDF canvas scale is appropriate
     const expectedCanvasScale = 3;
-    console.log('🔧 Expected canvas scale:', expectedCanvasScale);
+// console.log('🔧 Expected canvas scale:', expectedCanvasScale);
 
     // Verify total timeline coverage
     const timeSlots = (this.generator as any).timeSlots;
     if (timeSlots.length === 36) {
-      console.log('✅ Timeline slot count matches scaling requirements');
+// console.log('✅ Timeline slot count matches scaling requirements');
     } else {
       this.issues.push({
         severity: 'critical',
@@ -205,7 +205,7 @@ export class DynamicDailyAudit {
   }
 
   private async auditTimeSlotGeneration(): Promise<void> {
-    console.log('🔍 AUDITING: Time Slot Generation');
+// console.log('🔍 AUDITING: Time Slot Generation');
 
     const timeSlots = (this.generator as any).timeSlots;
 
@@ -230,11 +230,11 @@ export class DynamicDailyAudit {
       });
     }
 
-    console.log('✅ Time Slot Generation: Generated=' + timeSlots.length + ', Expected=' + expectedSlots.length);
+// console.log('✅ Time Slot Generation: Generated=' + timeSlots.length + ', Expected=' + expectedSlots.length);
   }
 
   private async auditHTMLGeneration(date: Date, events: CalendarEvent[]): Promise<void> {
-    console.log('🔍 AUDITING: HTML Generation');
+// console.log('🔍 AUDITING: HTML Generation');
 
     try {
       const html = this.generator.generateCompleteDailyPlannerHTML(date, events);
@@ -266,7 +266,7 @@ export class DynamicDailyAudit {
         });
       }
 
-      console.log('✅ HTML Generation: Length=' + html.length + ', Missing slots=' + missingTimeSlots.length);
+// console.log('✅ HTML Generation: Length=' + html.length + ', Missing slots=' + missingTimeSlots.length);
 
     } catch (error) {
       this.issues.push({
@@ -281,7 +281,7 @@ export class DynamicDailyAudit {
   }
 
   private async auditPDFExportConfiguration(): Promise<void> {
-    console.log('🔍 AUDITING: PDF Export Configuration');
+// console.log('🔍 AUDITING: PDF Export Configuration');
 
     // Check PDF export parameters that should match our calculations
     const expectedScale = 3;
@@ -289,19 +289,19 @@ export class DynamicDailyAudit {
     const expectedHeight = 1740; // 200 + (40 * 36) + 100
     const expectedImageTimeout = 15000;
 
-    console.log('🔧 PDF EXPORT CONFIGURATION AUDIT:');
-    console.log('🔧 Expected scale:', expectedScale);
-    console.log('🔧 Expected width:', expectedWidth);
-    console.log('🔧 Expected height:', expectedHeight);
-    console.log('🔧 Expected timeout:', expectedImageTimeout);
+// console.log('🔧 PDF EXPORT CONFIGURATION AUDIT:');
+// console.log('🔧 Expected scale:', expectedScale);
+// console.log('🔧 Expected width:', expectedWidth);
+// console.log('🔧 Expected height:', expectedHeight);
+// console.log('🔧 Expected timeout:', expectedImageTimeout);
 
     // Check if PDF page size matches US Letter format
     const expectedPDFWidth = 612;
     const expectedPDFHeight = 792;
 
-    console.log('🔧 PDF Page Configuration:');
-    console.log('🔧 Expected PDF width:', expectedPDFWidth);
-    console.log('🔧 Expected PDF height:', expectedPDFHeight);
+// console.log('🔧 PDF Page Configuration:');
+// console.log('🔧 Expected PDF width:', expectedPDFWidth);
+// console.log('🔧 Expected PDF height:', expectedPDFHeight);
 
     // Verify that the canvas height accommodates the full timeline
     if (expectedHeight < 1740) {
@@ -319,9 +319,9 @@ export class DynamicDailyAudit {
     const expectedPopupWidth = 816;
     const expectedPopupHeight = 1740; // Updated to match canvas height
 
-    console.log('🔧 Popup Window Configuration:');
-    console.log('🔧 Expected popup width:', expectedPopupWidth);
-    console.log('🔧 Expected popup height:', expectedPopupHeight);
+// console.log('🔧 Popup Window Configuration:');
+// console.log('🔧 Expected popup width:', expectedPopupWidth);
+// console.log('🔧 Expected popup height:', expectedPopupHeight);
 
     if (expectedPopupHeight < expectedHeight) {
       this.issues.push({
@@ -336,7 +336,7 @@ export class DynamicDailyAudit {
   }
 
   private async auditEventProcessing(date: Date, events: CalendarEvent[]): Promise<void> {
-    console.log('🔍 AUDITING: Event Processing');
+// console.log('🔍 AUDITING: Event Processing');
 
     const targetDateStr = format(date, 'yyyy-MM-dd');
     const dailyEvents = events.filter(event => {
@@ -344,7 +344,7 @@ export class DynamicDailyAudit {
       return eventDateStr === targetDateStr;
     });
 
-    console.log('🔧 Event filtering: Total=' + events.length + ', Daily=' + dailyEvents.length);
+// console.log('🔧 Event filtering: Total=' + events.length + ', Daily=' + dailyEvents.length);
 
     // Check if events are properly converted
     const appointments = this.generator.convertCalendarEventsToAppointments(dailyEvents);
@@ -360,11 +360,11 @@ export class DynamicDailyAudit {
       });
     }
 
-    console.log('✅ Event Processing: Converted=' + appointments.length + ', Original=' + dailyEvents.length);
+// console.log('✅ Event Processing: Converted=' + appointments.length + ', Original=' + dailyEvents.length);
   }
 
   private async applySystematicFixes(): Promise<void> {
-    console.log('🔧 APPLYING SYSTEMATIC FIXES');
+// console.log('🔧 APPLYING SYSTEMATIC FIXES');
 
     // Fix 1: Ensure timeline coverage
     if (this.issues.some(i => i.category === 'timeline' && i.severity === 'critical')) {
@@ -425,12 +425,12 @@ export class DynamicDailyAudit {
 
     const score = Math.max(0, 100 - totalDeductions);
 
-    console.log('📊 SCORE CALCULATION:');
-    console.log('📊 Critical issues:', criticalIssues, '(-' + (criticalIssues * criticalWeight) + ')');
-    console.log('📊 High issues:', highIssues, '(-' + (highIssues * highWeight) + ')');
-    console.log('📊 Medium issues:', mediumIssues, '(-' + (mediumIssues * mediumWeight) + ')');
-    console.log('📊 Low issues:', lowIssues, '(-' + (lowIssues * lowWeight) + ')');
-    console.log('📊 Final score:', score + '/100');
+// console.log('📊 SCORE CALCULATION:');
+// console.log('📊 Critical issues:', criticalIssues, '(-' + (criticalIssues * criticalWeight) + ')');
+// console.log('📊 High issues:', highIssues, '(-' + (highIssues * highWeight) + ')');
+// console.log('📊 Medium issues:', mediumIssues, '(-' + (mediumIssues * mediumWeight) + ')');
+// console.log('📊 Low issues:', lowIssues, '(-' + (lowIssues * lowWeight) + ')');
+// console.log('📊 Final score:', score + '/100');
 
     return score;
   }
@@ -467,7 +467,7 @@ export class DynamicDailyAudit {
   }
 
   private filterEventsForDate(events: CalendarEvent[], targetDate: Date): CalendarEvent[] {
-    console.log(`🔍 Dynamic audit filtering ${events.length} events for:`, targetDate.toDateString());
+// console.log(`🔍 Dynamic audit filtering ${events.length} events for:`, targetDate.toDateString());
 
     const startOfDay = new Date(targetDate);
     startOfDay.setHours(0, 0, 0, 0);
@@ -477,7 +477,7 @@ export class DynamicDailyAudit {
 
     // Check for Calvin Hill specifically for July 19th
     const calvinEvents = events.filter(e => e.title?.toLowerCase().includes('calvin hill'));
-    console.log(`🔍 Calvin Hill events found:`, calvinEvents.length, calvinEvents.map(e => ({
+// console.log(`🔍 Calvin Hill events found:`, calvinEvents.length, calvinEvents.map(e => ({
       title: e.title,
       date: new Date(e.startTime || e.start).toDateString(),
       start: e.startTime || e.start
@@ -488,13 +488,13 @@ export class DynamicDailyAudit {
       const isOnDate = eventStart >= startOfDay && eventStart <= endOfDay;
 
       if (isOnDate) {
-        console.log(`✅ Event on ${targetDate.toDateString()}: ${event.title} at ${eventStart.toLocaleTimeString()}`);
+// console.log(`✅ Event on ${targetDate.toDateString()}: ${event.title} at ${eventStart.toLocaleTimeString()}`);
       }
 
       return isOnDate;
     });
 
-    console.log(`📊 Dynamic audit found ${filtered.length} events for ${targetDate.toDateString()}`);
+// console.log(`📊 Dynamic audit found ${filtered.length} events for ${targetDate.toDateString()}`);
     return filtered;
   }
 }

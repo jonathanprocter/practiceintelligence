@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/Button';
+import { Textarea } from '@/components/ui/Textarea';
 import { formatDate } from '../../utils/dateUtils';
 import { generateTimeSlots } from '../../utils/timeSlots';
 import { CalendarEvent } from '../../types/calendar';
@@ -62,7 +62,7 @@ export const DailyView = ({
 
       // Debug specific events
       if (event.title.toLowerCase().includes('calvin') || event.title.toLowerCase().includes('hill')) {
-        console.log(`🎯 Calvin Hill Event Debug:`, {
+// console.log(`🎯 Calvin Hill Event Debug:`, {
           title: event.title,
           selectedDate: selectedDateString,
           eventDate: eventDateString,
@@ -80,7 +80,7 @@ export const DailyView = ({
   });
 
   // Debug logging for event filtering
-  console.log(`📊 Daily View Debug:`, {
+// console.log(`📊 Daily View Debug:`, {
     selectedDate: selectedDate?.toDateString(),
     totalEvents: events.length,
     filteredEvents: dayEvents.length,
@@ -207,7 +207,7 @@ export const DailyView = ({
     const leftPosition = totalOverlaps > 1 ? `${(eventPosition * 95) / totalOverlaps + 2}%` : '8px';
     
     // Debug log for all appointments to verify positioning
-    console.log(`📍 Event: ${event.title} | Time: ${startHour}:${startMinute.toString().padStart(2, '0')} | Grid: ${gridRowStart} / ${gridRowEnd} | Duration: ${durationMinutes}min | Overlaps: ${overlapCount} | Position: ${eventPosition} | Width: ${baseWidth} | Left: ${leftPosition}`);
+// console.log(`📍 Event: ${event.title} | Time: ${startHour}:${startMinute.toString().padStart(2, '0')} | Grid: ${gridRowStart} / ${gridRowEnd} | Duration: ${durationMinutes}min | Overlaps: ${overlapCount} | Position: ${eventPosition} | Width: ${baseWidth} | Left: ${leftPosition}`);
 
     // Source-specific styling - check if it's a SimplePractice appointment
     let className = 'appointment ';
@@ -273,7 +273,7 @@ export const DailyView = ({
     setDragOverSlot(null);
   };
 
-  const handleDrop = (e: React.DragEvent, slot: any, slotIndex: number) => {
+  const handleDrop = (e: React.DragEvent, slot: unknown, slotIndex: number) => {
     e.preventDefault();
     setDragOverSlot(null);
     
@@ -294,7 +294,7 @@ export const DailyView = ({
 
       const newEndTime = new Date(newStartTime.getTime() + duration);
 
-      console.log(`🔄 Moving event ${eventId} to ${newStartTime.toLocaleTimeString()}`);
+// console.log(`🔄 Moving event ${eventId} to ${newStartTime.toLocaleTimeString()}`);
 
       if (onEventMove) {
         onEventMove(eventId, newStartTime, newEndTime);
@@ -321,7 +321,7 @@ export const DailyView = ({
     }
   };
 
-  const handleSlotDoubleClick = (slot: any, slotIndex: number) => {
+  const handleSlotDoubleClick = (slot: unknown, slotIndex: number) => {
     if (onCreateEvent) {
       const slotHour = Math.floor(slotIndex / 2) + 6; // 6:00 AM start, 2 slots per hour
       const slotMinute = (slotIndex % 2) * 30;
@@ -357,7 +357,7 @@ export const DailyView = ({
 
     // Set new timer with debouncing (500ms delay)
     const newTimer = setTimeout(() => {
-      console.log(`💾 Saving ${field} for event ${eventId}:`, value);
+// console.log(`💾 Saving ${field} for event ${eventId}:`, value);
       onUpdateEvent(eventId, { [field]: value });
 
       // Clean up timer
@@ -659,7 +659,7 @@ export const DailyView = ({
                             .map(item => item.trim().replace(/^[•\s-]+/, '').trim())
                             .filter(item => item.length > 0 && item !== '•' && item !== '-')
                             .map((item, index) => (
-                              <div key={index} className="action-item">{item}</div>
+                              <div key={index} className="action-item" key={item.id || index}>{item}</div>
                             ))}
                         </div>
                       )}

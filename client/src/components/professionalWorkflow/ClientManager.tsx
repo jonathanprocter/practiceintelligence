@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Textarea } from '@/components/ui/Textarea';
+import { Badge } from '@/components/ui/Badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Search, Plus, User, Phone, Mail, MapPin, Calendar, DollarSign, FileText } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface ClientManagerProps {
-  onSelectClient?: (client: any) => void;
+  onSelectClient?: (client: unknown) => void;
   selectedClientId?: number;
 }
 
@@ -59,7 +59,7 @@ export function ClientManager({ onSelectClient, selectedClientId }: ClientManage
 
   // Create client mutation
   const createClientMutation = useMutation({
-    mutationFn: async (clientData: any) => {
+    mutationFn: async (clientData: unknown) => {
       return apiRequest('/api/clients', {
         method: 'POST',
         body: JSON.stringify({
@@ -88,7 +88,7 @@ export function ClientManager({ onSelectClient, selectedClientId }: ClientManage
         description: "New client has been added successfully.",
       });
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       toast({
         title: "Error",
         description: error.message || "Failed to add client",
@@ -102,7 +102,7 @@ export function ClientManager({ onSelectClient, selectedClientId }: ClientManage
   const formatCurrency = (cents: number) => 
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
 
-  const handleSelectClient = (client: any) => {
+  const handleSelectClient = (client: unknown) => {
     onSelectClient?.(client);
     toast({
       title: "Client Selected",
@@ -252,7 +252,7 @@ export function ClientManager({ onSelectClient, selectedClientId }: ClientManage
                   {searchQuery ? 'No clients found matching your search' : 'No clients added yet'}
                 </div>
               ) : (
-                displayedClients.map((client: any) => (
+                displayedClients.map((client: unknown) => (
                   <Card 
                     key={client.id} 
                     className={`cursor-pointer transition-colors hover:bg-muted/50 ${

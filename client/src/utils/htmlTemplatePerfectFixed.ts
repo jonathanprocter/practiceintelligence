@@ -96,7 +96,7 @@ function filterRealAppointments(events: CalendarEvent[]): CalendarEvent[] {
                        title.trim() === '';
     
     if (isTestEvent) {
-      console.log(`🚫 Filtering out test appointment: "${event.title}"`);
+// console.log(`🚫 Filtering out test appointment: "${event.title}"`);
     }
     
     return !isTestEvent;
@@ -121,7 +121,7 @@ function cleanTitle(title: string): string {
 /**
  * Draw header section exactly like HTML
  */
-function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, config: any): number {
+function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, config: unknown): number {
   const { margin, scaleFactor } = config;
   const { layout, fonts, colors } = TEMPLATE_CONSTANTS;
   
@@ -200,7 +200,7 @@ function drawHeader(pdf: jsPDF, selectedDate: Date, appointmentCount: number, co
 /**
  * Draw stats bar exactly like HTML
  */
-function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: any, yPosition: number): number {
+function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: unknown, yPosition: number): number {
   const { margin, scaleFactor } = config;
   const { layout, fonts, colors } = TEMPLATE_CONSTANTS;
   
@@ -257,7 +257,7 @@ function drawStatsBar(pdf: jsPDF, events: CalendarEvent[], config: any, yPositio
 /**
  * Draw time grid exactly like HTML
  */
-function drawTimeGrid(pdf: jsPDF, config: any, yPosition: number): { gridStartY: number, gridEndY: number } {
+function drawTimeGrid(pdf: jsPDF, config: unknown, yPosition: number): { gridStartY: number, gridEndY: number } {
   const { margin, scaleFactor } = config;
   const { layout, fonts, colors } = TEMPLATE_CONSTANTS;
   
@@ -310,7 +310,7 @@ function drawTimeGrid(pdf: jsPDF, config: any, yPosition: number): { gridStartY:
 /**
  * Draw appointments exactly like HTML
  */
-function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[], config: any, gridStartY: number) {
+function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[], config: unknown, gridStartY: number) {
   const { margin, scaleFactor } = config;
   const { layout, fonts, colors } = TEMPLATE_CONSTANTS;
   
@@ -321,7 +321,7 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     return eventDate.toISOString().split('T')[0] === selectedDateString;
   });
   
-  console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
+// console.log(`📅 Drawing ${dayEvents.length} appointments for ${selectedDate.toDateString()}`);
   
   dayEvents.forEach(event => {
     const eventDate = new Date(event.startTime);
@@ -413,14 +413,14 @@ function drawAppointments(pdf: jsPDF, selectedDate: Date, events: CalendarEvent[
     const endTime = eventEndDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
     pdf.text(`${startTime}-${endTime}`, textX, textY);
     
-    console.log(`✅ Drew appointment: ${cleanedTitle} (${startTime}-${endTime})`);
+// console.log(`✅ Drew appointment: ${cleanedTitle} (${startTime}-${endTime})`);
   });
 }
 
 /**
  * Draw footer exactly like HTML
  */
-function drawFooter(pdf: jsPDF, selectedDate: Date, config: any, yPosition: number) {
+function drawFooter(pdf: jsPDF, selectedDate: Date, config: unknown, yPosition: number) {
   const { margin, scaleFactor } = config;
   const { layout, fonts, colors } = TEMPLATE_CONSTANTS;
   
@@ -497,14 +497,14 @@ export async function exportHTMLTemplatePerfectFixed(
   deviceType: 'remarkable' | 'usLetter' = 'usLetter'
 ): Promise<void> {
   try {
-    console.log('🎯 Starting HTML Template Perfect Fixed Export');
-    console.log(`📱 Device: ${deviceType}`);
-    console.log(`📅 Date: ${selectedDate.toDateString()}`);
-    console.log(`📊 Total events: ${events.length}`);
+// console.log('🎯 Starting HTML Template Perfect Fixed Export');
+// console.log(`📱 Device: ${deviceType}`);
+// console.log(`📅 Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total events: ${events.length}`);
     
     // Get device configuration
     const config = DEVICE_CONFIGS[deviceType];
-    console.log(`📏 Dimensions: ${config.pageWidth}x${config.pageHeight}pt`);
+// console.log(`📏 Dimensions: ${config.pageWidth}x${config.pageHeight}pt`);
     
     // Create PDF
     const pdf = new jsPDF({
@@ -515,7 +515,7 @@ export async function exportHTMLTemplatePerfectFixed(
     
     // Filter real appointments
     const realEvents = filterRealAppointments(events);
-    console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
+// console.log(`📋 Filtered ${events.length} → ${realEvents.length} real appointments`);
     
     // Draw sections in exact HTML order
     let currentY = config.scaleFactor * 20; // Margin
@@ -542,7 +542,7 @@ export async function exportHTMLTemplatePerfectFixed(
     await new Promise<void>((resolve, reject) => {
       try {
         pdf.save(filename);
-        console.log(`✅ HTML Template Perfect Fixed PDF exported: ${filename}`);
+// console.log(`✅ HTML Template Perfect Fixed PDF exported: ${filename}`);
         resolve();
       } catch (error) {
         console.error('❌ Error saving PDF:', error);

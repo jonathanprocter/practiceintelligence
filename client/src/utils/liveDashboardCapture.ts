@@ -24,7 +24,7 @@ interface CaptureResult {
  * Capture the live weekly dashboard grid exactly as rendered
  */
 export const captureLiveWeeklyDashboard = async (): Promise<CaptureResult> => {
-  console.log('🎯 Capturing live weekly dashboard DOM/CSS grid...');
+// console.log('🎯 Capturing live weekly dashboard DOM/CSS grid...');
   
   // Find the actual rendered weekly calendar grid
   const weeklyGrid = document.querySelector('.calendar-grid') as HTMLElement;
@@ -32,7 +32,7 @@ export const captureLiveWeeklyDashboard = async (): Promise<CaptureResult> => {
     throw new Error('Weekly calendar grid not found in DOM');
   }
 
-  console.log('📍 DOM node captured:', weeklyGrid.tagName, weeklyGrid.className);
+// console.log('📍 DOM node captured:', weeklyGrid.tagName, weeklyGrid.className);
   
   // Get computed styles for exact replication
   const computedStyles = window.getComputedStyle(weeklyGrid);
@@ -43,8 +43,8 @@ export const captureLiveWeeklyDashboard = async (): Promise<CaptureResult> => {
     scrollHeight: weeklyGrid.scrollHeight
   };
 
-  console.log('📐 Computed dimensions:', dimensions);
-  console.log('🎨 Key computed styles:', {
+// console.log('📐 Computed dimensions:', dimensions);
+// console.log('🎨 Key computed styles:', {
     gridTemplateColumns: computedStyles.gridTemplateColumns,
     gridTemplateRows: computedStyles.gridTemplateRows,
     gap: computedStyles.gap,
@@ -75,7 +75,7 @@ export const captureLiveWeeklyDashboard = async (): Promise<CaptureResult> => {
  * Capture the live daily view exactly as rendered
  */
 export const captureLiveDailyView = async (): Promise<CaptureResult> => {
-  console.log('🎯 Capturing live daily view DOM/CSS...');
+// console.log('🎯 Capturing live daily view DOM/CSS...');
   
   // Find the actual rendered daily view container
   const dailyView = document.querySelector('.daily-view') || 
@@ -86,7 +86,7 @@ export const captureLiveDailyView = async (): Promise<CaptureResult> => {
     throw new Error('Daily view container not found in DOM');
   }
 
-  console.log('📍 DOM node captured:', dailyView.tagName, dailyView.className);
+// console.log('📍 DOM node captured:', dailyView.tagName, dailyView.className);
   
   const computedStyles = window.getComputedStyle(dailyView as HTMLElement);
   const dimensions = {
@@ -96,7 +96,7 @@ export const captureLiveDailyView = async (): Promise<CaptureResult> => {
     scrollHeight: (dailyView as HTMLElement).scrollHeight
   };
 
-  console.log('📐 Computed dimensions:', dimensions);
+// console.log('📐 Computed dimensions:', dimensions);
 
   const canvas = await html2canvas(dailyView as HTMLElement, {
     useCORS: true,
@@ -125,7 +125,7 @@ export const exportLiveWeeklyDashboard = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('=== LIVE WEEKLY DASHBOARD EXPORT ===');
+// console.log('=== LIVE WEEKLY DASHBOARD EXPORT ===');
     
     // Capture live DOM/CSS grid
     const capture = await captureLiveWeeklyDashboard();
@@ -134,8 +134,8 @@ export const exportLiveWeeklyDashboard = async (
     const pdfWidth = 1191;
     const pdfHeight = 842;
     
-    console.log('📄 PDF format: A3 landscape (1191x842pt)');
-    console.log('🎯 Orientation: landscape');
+// console.log('📄 PDF format: A3 landscape (1191x842pt)');
+// console.log('🎯 Orientation: landscape');
     
     // Create raster PDF (image-based)
     const rasterPdf = new jsPDF({
@@ -168,7 +168,7 @@ export const exportLiveWeeklyDashboard = async (
     const rasterFilename = `live-weekly-raster-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     rasterPdf.save(rasterFilename);
     
-    console.log('✅ Raster PDF exported:', rasterFilename);
+// console.log('✅ Raster PDF exported:', rasterFilename);
     
     // Create vector PDF (CSS/HTML-based)
     await createVectorWeeklyPDF(capture, weekStartDate, weekEndDate, events);
@@ -187,7 +187,7 @@ export const exportLiveDailyView = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('=== LIVE DAILY VIEW EXPORT ===');
+// console.log('=== LIVE DAILY VIEW EXPORT ===');
     
     // Capture live DOM/CSS
     const capture = await captureLiveDailyView();
@@ -196,8 +196,8 @@ export const exportLiveDailyView = async (
     const pdfWidth = 595;
     const pdfHeight = 842;
     
-    console.log('📄 PDF format: A4 portrait (595x842pt)');
-    console.log('🎯 Orientation: portrait');
+// console.log('📄 PDF format: A4 portrait (595x842pt)');
+// console.log('🎯 Orientation: portrait');
     
     // Create raster PDF
     const rasterPdf = new jsPDF({
@@ -228,7 +228,7 @@ export const exportLiveDailyView = async (
     const rasterFilename = `live-daily-raster-${selectedDate.toISOString().split('T')[0]}.pdf`;
     rasterPdf.save(rasterFilename);
     
-    console.log('✅ Raster daily PDF exported:', rasterFilename);
+// console.log('✅ Raster daily PDF exported:', rasterFilename);
     
     // Create vector version
     await createVectorDailyPDF(capture, selectedDate, events);
@@ -259,7 +259,7 @@ async function createVectorWeeklyPDF(
   const gridRows = capture.computedStyles.gridTemplateRows;
   const gap = parseFloat(capture.computedStyles.gap || '0');
   
-  console.log('🔧 Extracted grid styles:', {
+// console.log('🔧 Extracted grid styles:', {
     columns: gridColumns,
     rows: gridRows,
     gap: gap,
@@ -275,7 +275,7 @@ async function createVectorWeeklyPDF(
   const { exportExactGridPDF } = await import('./exactGridPDFExport');
   await exportExactGridPDF(weekStartDate, weekEndDate, events);
   
-  console.log('✅ Vector weekly PDF exported using exact grid replication');
+// console.log('✅ Vector weekly PDF exported using exact grid replication');
 }
 
 /**
@@ -286,13 +286,13 @@ async function createVectorDailyPDF(
   selectedDate: Date,
   events: CalendarEvent[]
 ): Promise<void> {
-  console.log('🔧 Creating vector daily PDF with extracted styles...');
+// console.log('🔧 Creating vector daily PDF with extracted styles...');
   
   // Import existing daily export
   const { exportExactDailyPDF } = await import('./exactDailyPDFExport');
   await exportExactDailyPDF(selectedDate, events);
   
-  console.log('✅ Vector daily PDF exported');
+// console.log('✅ Vector daily PDF exported');
 }
 
 /**
@@ -304,13 +304,13 @@ export const exportLiveWeeklyPackage = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('=== LIVE WEEKLY PACKAGE EXPORT ===');
+// console.log('=== LIVE WEEKLY PACKAGE EXPORT ===');
     
     // Page 1: Live weekly dashboard capture (A3 landscape)
     const weeklyCapture = await captureLiveWeeklyDashboard();
     
-    console.log('📄 Page 1: Live weekly dashboard (A3 landscape)');
-    console.log('🎯 Orientation: landscape');
+// console.log('📄 Page 1: Live weekly dashboard (A3 landscape)');
+// console.log('🎯 Orientation: landscape');
     
     const pdf = new jsPDF({
       orientation: 'landscape',
@@ -349,8 +349,8 @@ export const exportLiveWeeklyPackage = async (
       // Add new page in portrait orientation
       pdf.addPage([595, 842], 'portrait');
       
-      console.log(`📄 Page ${dayIndex + 2}: ${dayNames[dayIndex]} (A4 portrait)`);
-      console.log('🎯 Orientation: portrait');
+// console.log(`📄 Page ${dayIndex + 2}: ${dayNames[dayIndex]} (A4 portrait)`);
+// console.log('🎯 Orientation: portrait');
       
       // Filter events for this day
       const dayEvents = events.filter(event => {
@@ -369,11 +369,11 @@ export const exportLiveWeeklyPackage = async (
     const packageFilename = `live-weekly-package-${weekStartDate.toISOString().split('T')[0]}.pdf`;
     pdf.save(packageFilename);
     
-    console.log('✅ Live weekly package exported:', packageFilename);
-    console.log('📊 Package summary:');
-    console.log(`  - Page 1: Live weekly dashboard (A3 landscape)`);
-    console.log(`  - Pages 2-8: Daily views (A4 portrait)`);
-    console.log(`  - Navigation: Bidirectional links between pages`);
+// console.log('✅ Live weekly package exported:', packageFilename);
+// console.log('📊 Package summary:');
+// console.log(`  - Page 1: Live weekly dashboard (A3 landscape)`);
+// console.log(`  - Pages 2-8: Daily views (A4 portrait)`);
+// console.log(`  - Navigation: Bidirectional links between pages`);
     
   } catch (error) {
     console.error('❌ Live weekly package export failed:', error);

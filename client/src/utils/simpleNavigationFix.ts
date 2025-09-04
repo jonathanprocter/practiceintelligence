@@ -22,7 +22,7 @@ export const simpleNavigationFix = () => {
 
     if (elementsToRemove.length > 0) {
       elementsToRemove.forEach(el => el.remove());
-      console.log('🔧 Cleaned up navigation elements');
+// console.log('🔧 Cleaned up navigation elements');
     }
 
     // Fix header date format safely
@@ -47,7 +47,7 @@ export const simpleNavigationFix = () => {
           'July 7 - 13, 2025'
         ) || '';
       });
-      console.log('✅ Fixed date format');
+// console.log('✅ Fixed date format');
     }
   } catch (error) {
     console.error('Navigation fix error:', error);

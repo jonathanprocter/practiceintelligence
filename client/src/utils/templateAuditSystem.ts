@@ -76,8 +76,8 @@ interface AuditResult {
   section: string;
   issue: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
-  currentValue: any;
-  expectedValue: any;
+  currentValue: unknown;
+  expectedValue: unknown;
   fix: string;
 }
 
@@ -100,7 +100,7 @@ class TemplateAuditSystem {
   /**
    * Audit the current template configuration against reference
    */
-  auditTemplateConfiguration(currentConfig: any): TemplateAudit {
+  auditTemplateConfiguration(currentConfig: unknown): TemplateAudit {
     this.auditResults = [];
 
     // Audit page dimensions
@@ -124,7 +124,7 @@ class TemplateAuditSystem {
     return this.generateAuditReport();
   }
 
-  private auditPageDimensions(config: any) {
+  private auditPageDimensions(config: unknown) {
     const pageConfig = config.pageWidth && config.pageHeight ? 
       { width: config.pageWidth, height: config.pageHeight } : 
       { width: 612, height: 792 };
@@ -152,7 +152,7 @@ class TemplateAuditSystem {
     }
   }
 
-  private auditHeaderConfiguration(config: any) {
+  private auditHeaderConfiguration(config: unknown) {
     const headerConfig = config.headerHeight || 80;
     
     if (headerConfig !== REFERENCE_TEMPLATE.header.height) {
@@ -192,7 +192,7 @@ class TemplateAuditSystem {
     }
   }
 
-  private auditStatsBarConfiguration(config: any) {
+  private auditStatsBarConfiguration(config: unknown) {
     const statsHeight = config.statsBarHeight || 60;
     
     if (statsHeight !== REFERENCE_TEMPLATE.statsBar.height) {
@@ -207,7 +207,7 @@ class TemplateAuditSystem {
     }
   }
 
-  private auditTimeGridConfiguration(config: any) {
+  private auditTimeGridConfiguration(config: unknown) {
     const timeSlotHeight = config.timeSlotHeight || 22;
     
     if (timeSlotHeight !== REFERENCE_TEMPLATE.timeGrid.timeSlotHeight) {
@@ -234,7 +234,7 @@ class TemplateAuditSystem {
     }
   }
 
-  private auditAppointmentConfiguration(config: any) {
+  private auditAppointmentConfiguration(config: unknown) {
     const appointmentHeight = config.appointmentHeight || 22;
     const expectedHeight = REFERENCE_TEMPLATE.timeGrid.timeSlotHeight - 4; // Allow for margins
     
@@ -250,7 +250,7 @@ class TemplateAuditSystem {
     }
   }
 
-  private auditFooterConfiguration(config: any) {
+  private auditFooterConfiguration(config: unknown) {
     const footerHeight = config.footerHeight || 40;
     
     if (footerHeight !== REFERENCE_TEMPLATE.footer.height) {
@@ -322,7 +322,7 @@ class TemplateAuditSystem {
       return eventDate.toISOString().split('T')[0] === selectedDateString;
     });
 
-    console.log(`🔍 Auditing ${dayAppointments.length} appointments for ${selectedDate.toDateString()}`);
+// console.log(`🔍 Auditing ${dayAppointments.length} appointments for ${selectedDate.toDateString()}`);
 
     // Check for overlapping appointments
     const timeSlots = new Map<string, CalendarEvent[]>();
@@ -396,8 +396,8 @@ class TemplateAuditSystem {
   /**
    * Run complete audit of template system
    */
-  async runCompleteAudit(config: any, events: CalendarEvent[], selectedDate: Date): Promise<TemplateAudit> {
-    console.log('🔍 Starting Complete Template Audit...');
+  async runCompleteAudit(config: unknown, events: CalendarEvent[], selectedDate: Date): Promise<TemplateAudit> {
+// console.log('🔍 Starting Complete Template Audit...');
     
     // Audit configuration
     const configAudit = this.auditTemplateConfiguration(config);
@@ -424,8 +424,8 @@ class TemplateAuditSystem {
       recommendations: this.generateRecommendations()
     };
 
-    console.log('📊 Audit Complete:', audit.summary);
-    console.log('🔧 Recommendations:', audit.recommendations);
+// console.log('📊 Audit Complete:', audit.summary);
+// console.log('🔧 Recommendations:', audit.recommendations);
 
     return audit;
   }
@@ -433,8 +433,8 @@ class TemplateAuditSystem {
   /**
    * Generate optimized template configuration based on audit results
    */
-  generateOptimizedConfig(auditResults: AuditResult[]): any {
-    console.log('🔧 Generating optimized configuration...');
+  generateOptimizedConfig(auditResults: AuditResult[]): unknown {
+// console.log('🔧 Generating optimized configuration...');
     
     const config = {
       // Page dimensions (exact from reference)
@@ -491,7 +491,7 @@ class TemplateAuditSystem {
     // Apply fixes based on audit results
     auditResults.forEach(issue => {
       if (issue.severity === 'critical' || issue.severity === 'high') {
-        console.log(`🔧 Applying fix for ${issue.section}: ${issue.fix}`);
+// console.log(`🔧 Applying fix for ${issue.section}: ${issue.fix}`);
       }
     });
 

@@ -37,9 +37,9 @@ export class DailyPlannerAudit {
   private fixes: AuditFix[] = [];
 
   public async runDailyPlannerAudit(date: Date, events: CalendarEvent[]): Promise<DailyPlannerAuditResult> {
-    console.log('🔍 RUNNING DAILY PLANNER EXPORT AUDIT');
-    console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
-    console.log('📋 Events:', events.length);
+// console.log('🔍 RUNNING DAILY PLANNER EXPORT AUDIT');
+// console.log('📅 Date:', format(date, 'yyyy-MM-dd'));
+// console.log('📋 Events:', events.length);
 
     this.issues = [];
     this.fixes = [];
@@ -78,14 +78,14 @@ export class DailyPlannerAudit {
       exportFunction: 'workingDailyExport.ts needs improvement'
     };
 
-    console.log('✅ AUDIT COMPLETE - Score:', overallScore + '/100');
-    console.log('🐛 Issues Found:', this.issues.length);
+// console.log('✅ AUDIT COMPLETE - Score:', overallScore + '/100');
+// console.log('🐛 Issues Found:', this.issues.length);
 
     return result;
   }
 
   private async auditTimeSlotConfiguration(): Promise<void> {
-    console.log('🔍 AUDITING: Time Slot Configuration');
+// console.log('🔍 AUDITING: Time Slot Configuration');
     
     // Check if time slots are properly configured (6:00 AM to 11:30 PM)
     const expectedSlots = 36; // 30-minute intervals from 6:00 to 23:30
@@ -110,7 +110,7 @@ export class DailyPlannerAudit {
   }
 
   private async auditPageDimensions(): Promise<void> {
-    console.log('🔍 AUDITING: Page Dimensions');
+// console.log('🔍 AUDITING: Page Dimensions');
     
     this.issues.push({
       severity: 'critical',
@@ -130,7 +130,7 @@ export class DailyPlannerAudit {
   }
 
   private async auditTextFormatting(): Promise<void> {
-    console.log('🔍 AUDITING: Text Formatting');
+// console.log('🔍 AUDITING: Text Formatting');
     
     this.issues.push({
       severity: 'high',
@@ -150,7 +150,7 @@ export class DailyPlannerAudit {
   }
 
   private async auditEventPositioning(): Promise<void> {
-    console.log('🔍 AUDITING: Event Positioning');
+// console.log('🔍 AUDITING: Event Positioning');
     
     this.issues.push({
       severity: 'critical',
@@ -170,7 +170,7 @@ export class DailyPlannerAudit {
   }
 
   private async auditStylingConsistency(): Promise<void> {
-    console.log('🔍 AUDITING: Styling Consistency');
+// console.log('🔍 AUDITING: Styling Consistency');
     
     this.issues.push({
       severity: 'medium',
@@ -182,7 +182,7 @@ export class DailyPlannerAudit {
   }
 
   private async auditExportFunction(): Promise<void> {
-    console.log('🔍 AUDITING: Export Function Quality');
+// console.log('🔍 AUDITING: Export Function Quality');
     
     this.issues.push({
       severity: 'critical',
@@ -194,7 +194,7 @@ export class DailyPlannerAudit {
   }
 
   private async generateFixes(): Promise<void> {
-    console.log('🔧 GENERATING FIXES');
+// console.log('🔧 GENERATING FIXES');
     
     this.fixes.push({
       issue: 'Poor formatting and layout issues',

@@ -9,8 +9,8 @@ export interface PixelComparisonResult {
   dashboardScreenshot: string;
   visualDifferences: Array<{
     element: string;
-    dashboard: any;
-    pdf: any;
+    dashboard: unknown;
+    pdf: unknown;
     difference: string;
   }>;
   pixelPerfectScore: number;
@@ -39,14 +39,14 @@ export const captureDashboardScreenshot = async (): Promise<string> => {
   for (const selector of possibleSelectors) {
     calendarContainer = document.querySelector(selector);
     if (calendarContainer) {
-      console.log(`📸 Found calendar container using selector: ${selector}`);
+// console.log(`📸 Found calendar container using selector: ${selector}`);
       break;
     }
   }
 
   // If no specific container found, use the entire viewport
   if (!calendarContainer) {
-    console.log('📸 No specific calendar container found, using document.body');
+// console.log('📸 No specific calendar container found, using document.body');
     calendarContainer = document.body;
   }
 
@@ -72,10 +72,10 @@ export const captureDashboardScreenshot = async (): Promise<string> => {
  * Extracts exact computed styles from dashboard elements for true pixel-perfect replication
  */
 export const extractExactDashboardStyles = () => {
-  console.log('🔍 Extracting exact dashboard styles...');
+// console.log('🔍 Extracting exact dashboard styles...');
 
   // Debug: Log all available elements to help with selector detection
-  console.log('🔍 Inspecting DOM structure...');
+// console.log('🔍 Inspecting DOM structure...');
   const allElements = document.querySelectorAll('*');
   const elementClasses = new Set();
   const elementIds = new Set();
@@ -87,8 +87,8 @@ export const extractExactDashboardStyles = () => {
     if (el.id) elementIds.add(el.id);
   });
 
-  console.log('📋 Available classes:', Array.from(elementClasses).slice(0, 20));
-  console.log('📋 Available IDs:', Array.from(elementIds).slice(0, 10));
+// console.log('📋 Available classes:', Array.from(elementClasses).slice(0, 20));
+// console.log('📋 Available IDs:', Array.from(elementIds).slice(0, 10));
 
   // Try multiple selector strategies to find calendar elements
   const selectorStrategies = {
@@ -145,11 +145,11 @@ export const extractExactDashboardStyles = () => {
     for (const strategy of strategies) {
       const element = document.querySelector(strategy) as HTMLElement;
       if (element) {
-        console.log(`✅ Found element with: ${strategy}`);
+// console.log(`✅ Found element with: ${strategy}`);
         return element;
       }
     }
-    console.log(`❌ No element found with strategies: ${strategies.join(', ')}`);
+// console.log(`❌ No element found with strategies: ${strategies.join(', ')}`);
     return null;
   };
 
@@ -157,11 +157,11 @@ export const extractExactDashboardStyles = () => {
     for (const strategy of strategies) {
       const elements = document.querySelectorAll(strategy) as NodeListOf<HTMLElement>;
       if (elements.length > 0) {
-        console.log(`✅ Found ${elements.length} elements with: ${strategy}`);
+// console.log(`✅ Found ${elements.length} elements with: ${strategy}`);
         return elements;
       }
     }
-    console.log(`❌ No elements found with strategies: ${strategies.join(', ')}`);
+// console.log(`❌ No elements found with strategies: ${strategies.join(', ')}`);
     return document.querySelectorAll('') as NodeListOf<HTMLElement>; // Empty list
   };
 
@@ -209,7 +209,7 @@ export const extractExactDashboardStyles = () => {
 
     // If grid width seems too small (likely measuring wrong element), use standard proportions
     if (gridWidth < 500) {
-      console.log('⚠️ Grid width too small, using standard proportions');
+// console.log('⚠️ Grid width too small, using standard proportions');
       // Standard weekly calendar: time column ~80px, each day column ~100-120px
       return 110; // Use reasonable day column width
     }
@@ -232,7 +232,7 @@ export const extractExactDashboardStyles = () => {
     header: extractExactDimensions(elements.header)
   };
 
-  console.log('📐 Exact Dashboard Dimensions:', exactStyles);
+// console.log('📐 Exact Dashboard Dimensions:', exactStyles);
 
   return exactStyles;
 };
@@ -241,7 +241,7 @@ export const extractExactDashboardStyles = () => {
  * Performs visual comparison between dashboard and PDF output
  */
 export const performVisualComparison = async (): Promise<PixelComparisonResult> => {
-  console.log('🎯 Starting pixel-perfect visual comparison...');
+// console.log('🎯 Starting pixel-perfect visual comparison...');
 
   try {
     // Capture current dashboard state
@@ -281,10 +281,10 @@ export const performVisualComparison = async (): Promise<PixelComparisonResult> 
     const totalElements = Object.keys(exactStyles).length;
     const pixelPerfectScore = (elementsFound / totalElements) * 100;
 
-    console.log('📊 Visual Comparison Results:');
-    console.log(`   - Elements detected: ${elementsFound}/${totalElements}`);
-    console.log(`   - Pixel-perfect score: ${pixelPerfectScore}%`);
-    console.log(`   - Recommendations: ${recommendations.length}`);
+// console.log('📊 Visual Comparison Results:');
+// console.log(`   - Elements detected: ${elementsFound}/${totalElements}`);
+// console.log(`   - Pixel-perfect score: ${pixelPerfectScore}%`);
+// console.log(`   - Recommendations: ${recommendations.length}`);
 
     return {
       dashboardScreenshot,
@@ -302,7 +302,7 @@ export const performVisualComparison = async (): Promise<PixelComparisonResult> 
  * Enhanced style extraction that matches user requirements exactly
  */
 export const extractPrintOptimizedStyles = () => {
-  console.log('🖨️ Extracting print-optimized dashboard styles...');
+// console.log('🖨️ Extracting print-optimized dashboard styles...');
 
   // Get the actual calendar grid with multiple selector options
   const calendarGrid = document.querySelector('table, [class*="grid"], [class*="calendar"], .planner-view, main') as HTMLElement;
@@ -345,7 +345,7 @@ export const extractPrintOptimizedStyles = () => {
   // If grid width seems too small (likely measuring wrong element), use standard proportions
   let calculatedDayColumnWidth;
   if (gridRect.width < 500) {
-    console.log('⚠️ Grid width too small in print styles, using standard proportions');
+// console.log('⚠️ Grid width too small in print styles, using standard proportions');
     calculatedDayColumnWidth = 110; // Use reasonable day column width
   } else {
     const availableWidth = gridRect.width - timeColumnWidth;
@@ -381,17 +381,17 @@ export const extractPrintOptimizedStyles = () => {
     }
   };
 
-  console.log('📏 Print-Optimized Measurements:', measurements);
+// console.log('📏 Print-Optimized Measurements:', measurements);
   return measurements;
 };
 
 /**
  * Log detailed style comparison for debugging as requested by user
  */
-export const logDetailedStyleComparison = (dashboardStyles: any, pdfStyles: any) => {
+export const logDetailedStyleComparison = (dashboardStyles: unknown, pdfStyles: unknown) => {
   console.group('🎯 DETAILED STYLE COMPARISON');
 
-  console.log('📐 DIMENSIONS COMPARISON:');
+// console.log('📐 DIMENSIONS COMPARISON:');
   console.table({
     'Time Column Width': {
       Dashboard: `${dashboardStyles.timeColumnWidth}px`,
@@ -410,7 +410,7 @@ export const logDetailedStyleComparison = (dashboardStyles: any, pdfStyles: any)
     }
   });
 
-  console.log('🎨 TYPOGRAPHY COMPARISON:');
+// console.log('🎨 TYPOGRAPHY COMPARISON:');
   console.table({
     'Font Family': {
       Dashboard: dashboardStyles.gridStyles?.fontFamily || 'Not extracted',

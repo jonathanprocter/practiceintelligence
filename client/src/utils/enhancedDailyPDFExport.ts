@@ -124,23 +124,23 @@ const ENHANCED_CONFIG: EnhancedDailyExportConfig = {
 };
 
 export async function exportEnhancedDailyPDF(selectedDate: Date, events: CalendarEvent[]): Promise<void> {
-  console.log('🎯 ENHANCED DAILY PDF EXPORT STARTING...');
-  console.log(`📅 Selected Date: ${selectedDate.toDateString()}`);
-  console.log(`📊 Total Events: ${events.length}`);
+// console.log('🎯 ENHANCED DAILY PDF EXPORT STARTING...');
+// console.log(`📅 Selected Date: ${selectedDate.toDateString()}`);
+// console.log(`📊 Total Events: ${events.length}`);
 
   // Filter events for the selected date
   const dailyEvents = filterDailyEvents(selectedDate, events);
-  console.log(`📅 Daily Events: ${dailyEvents.length}`);
+// console.log(`📅 Daily Events: ${dailyEvents.length}`);
   
   // Log daily events for debugging
   dailyEvents.forEach(event => {
     const startTime = new Date(event.startTime);
-    console.log(`📋 Event: ${event.title} at ${startTime.toLocaleTimeString()} (${event.source})`);
+// console.log(`📋 Event: ${event.title} at ${startTime.toLocaleTimeString()} (${event.source})`);
   });
 
   // Generate time slots
   const timeSlots = generateTimeSlots();
-  console.log(`🕒 Generated ${timeSlots.length} time slots`);
+// console.log(`🕒 Generated ${timeSlots.length} time slots`);
 
   // Create enhanced HTML template
   const htmlContent = createEnhancedHTMLTemplate(selectedDate, dailyEvents, timeSlots);
@@ -148,7 +148,7 @@ export async function exportEnhancedDailyPDF(selectedDate: Date, events: Calenda
   // Render and export to PDF
   await renderAndExportPDF(htmlContent, selectedDate);
   
-  console.log('✅ Enhanced Daily PDF Export completed successfully');
+// console.log('✅ Enhanced Daily PDF Export completed successfully');
 }
 
 function filterDailyEvents(selectedDate: Date, events: CalendarEvent[]): CalendarEvent[] {
@@ -570,7 +570,7 @@ async function renderAndExportPDF(htmlContent: string, selectedDate: Date): Prom
 
         // Save PDF
         pdf.save(filename);
-        console.log(`💾 PDF saved as: ${filename}`);
+// console.log(`💾 PDF saved as: ${filename}`);
         
         resolve();
 

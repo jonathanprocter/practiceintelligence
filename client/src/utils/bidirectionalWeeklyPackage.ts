@@ -41,9 +41,9 @@ export const exportBidirectionalWeeklyPackage = async (
   events: CalendarEvent[]
 ): Promise<void> => {
   try {
-    console.log('🎯 STARTING BIDIRECTIONAL WEEKLY PACKAGE EXPORT');
-    console.log(`📅 Week: ${format(weekStartDate, 'MMM dd')} - ${format(weekEndDate, 'MMM dd, yyyy')}`);
-    console.log(`📊 Events: ${events.length}`);
+// console.log('🎯 STARTING BIDIRECTIONAL WEEKLY PACKAGE EXPORT');
+// console.log(`📅 Week: ${format(weekStartDate, 'MMM dd')} - ${format(weekEndDate, 'MMM dd, yyyy')}`);
+// console.log(`📊 Events: ${events.length}`);
 
     // Audit validation
     const auditResults = {
@@ -56,7 +56,7 @@ export const exportBidirectionalWeeklyPackage = async (
       timestamp: new Date().toISOString()
     };
 
-    console.log('🔍 Audit validation:', auditResults);
+// console.log('🔍 Audit validation:', auditResults);
 
     // Initialize PDF in landscape mode for the weekly overview
     const pdf = new jsPDF({
@@ -71,7 +71,7 @@ export const exportBidirectionalWeeklyPackage = async (
       return eventDate >= weekStartDate && eventDate <= weekEndDate;
     });
 
-    console.log('📊 Week events:', weekEvents.length);
+// console.log('📊 Week events:', weekEvents.length);
 
     // PAGE 1: Weekly Overview (Landscape)
     const eventMap = await generateWeeklyOverviewPage(
@@ -89,7 +89,7 @@ export const exportBidirectionalWeeklyPackage = async (
         return eventDate.toDateString() === currentDate.toDateString();
       });
 
-      console.log(`📅 Day ${dayIndex + 1} (${format(currentDate, 'EEE MMM dd')}):`, dayEvents.length, 'events');
+// console.log(`📅 Day ${dayIndex + 1} (${format(currentDate, 'EEE MMM dd')}):`, dayEvents.length, 'events');
 
       // Add new page for daily view
       pdf.addPage('letter', 'portrait');
@@ -110,9 +110,9 @@ export const exportBidirectionalWeeklyPackage = async (
     // Save the complete package
     pdf.save(filename);
 
-    console.log('✅ BIDIRECTIONAL WEEKLY PACKAGE EXPORT COMPLETE');
-    console.log('📄 Total pages:', 8);
-    console.log('📁 Filename:', filename);
+// console.log('✅ BIDIRECTIONAL WEEKLY PACKAGE EXPORT COMPLETE');
+// console.log('📄 Total pages:', 8);
+// console.log('📁 Filename:', filename);
 
   } catch (error) {
     console.error('❌ Bidirectional weekly package export failed:', error);

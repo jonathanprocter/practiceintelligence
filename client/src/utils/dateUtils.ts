@@ -50,7 +50,7 @@ export const formatWeekRange = (startDate: Date, endDate: Date): string => {
   return `Week ${weekNumber} - ${startFormat} - ${endFormat}`;
 };
 
-export const generateWeekDays = (referenceDate: Date): any[] => {
+export const generateWeekDays = (referenceDate: Date): unknown[] => {
   const startDate = getWeekStartDate(referenceDate);
   const days = [];
   

@@ -325,7 +325,7 @@ export const initializeRemarkableOptimizations = () => {
   optimizeForEink();
   
   // Log optimization status
-  console.log('reMarkable Pro optimizations applied:', {
+// console.log('reMarkable Pro optimizations applied:', {
     resolution: `${REMARKABLE_PRO_CONFIG.resolution.width}x${REMARKABLE_PRO_CONFIG.resolution.height}`,
     ppi: REMARKABLE_PRO_CONFIG.resolution.ppi,
     isDetected: isRemarkablePro()

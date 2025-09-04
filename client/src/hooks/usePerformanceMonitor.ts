@@ -80,7 +80,7 @@ export const usePerformanceMonitor = (
     if (isFirstRender.current) {
       mountCount.current += 1;
       isFirstRender.current = false;
-      console.log(`Component ${componentName} mounted (count: ${mountCount.current})`);
+// console.log(`Component ${componentName} mounted (count: ${mountCount.current})`);
     }
   }, [componentName]);
 

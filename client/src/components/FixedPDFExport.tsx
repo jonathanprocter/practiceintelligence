@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 // STEP 1: Fix your data transformation FIRST
-export const fixScheduleData = (rawAppointments: any[]): any => {
+export const fixScheduleData = (rawAppointments: unknown[]): unknown => {
   // Filter out invalid appointments
   const validAppointments = rawAppointments.filter(apt => 
     apt && apt.startTime && apt.endTime && apt.clientName
@@ -21,7 +21,7 @@ export const fixScheduleData = (rawAppointments: any[]): any => {
 
   return {
     date: 'Friday, July 18, 2025',
-    appointments: validAppointments.map((apt: any) => ({
+    appointments: validAppointments.map((apt: unknown) => ({
       id: apt.id || Math.random().toString(),
       startTime: apt.startTime,
       endTime: apt.endTime,
@@ -36,14 +36,14 @@ export const fixScheduleData = (rawAppointments: any[]): any => {
 };
 
 // STEP 2: Create the EXACT styled component for PDF
-const PDFScheduleComponent: React.FC<{ data: any }> = ({ data }) => {
+const PDFScheduleComponent: React.FC<{ data: unknown }> = ({ data }) => {
   const timeSlots = [];
   for (let hour = 6; hour <= 19; hour++) {
     timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
     if (hour < 19) timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
   }
 
-  const appointmentsByTime = data.appointments.reduce((acc: any, apt: any) => {
+  const appointmentsByTime = data.appointments.reduce((acc: unknown, apt: unknown) => {
     acc[apt.startTime] = apt;
     return acc;
   }, {});
@@ -241,13 +241,13 @@ const PDFScheduleComponent: React.FC<{ data: any }> = ({ data }) => {
 };
 
 // STEP 3: Complete PDF generation function
-export const generateCorrectPDF = async (rawAppointments: any[]) => {
-  console.log('Starting PDF generation...');
+export const generateCorrectPDF = async (rawAppointments: unknown[]) => {
+// console.log('Starting PDF generation...');
   
   try {
     // Fix the data first
     const fixedData = fixScheduleData(rawAppointments);
-    console.log('Fixed data:', fixedData);
+// console.log('Fixed data:', fixedData);
 
     // Create container
     const container = document.createElement('div');
@@ -298,7 +298,7 @@ export const generateCorrectPDF = async (rawAppointments: any[]) => {
 
     // Cleanup
     document.body.removeChild(container);
-    console.log('PDF generated successfully!');
+// console.log('PDF generated successfully!');
 
   } catch (error) {
     console.error('PDF generation failed:', error);
@@ -307,7 +307,7 @@ export const generateCorrectPDF = async (rawAppointments: any[]) => {
 };
 
 // STEP 4: Export button component
-export const FixedExportButton: React.FC<{ appointments: any[] }> = ({ appointments }) => {
+export const FixedExportButton: React.FC<{ appointments: unknown[] }> = ({ appointments }) => {
   const [isExporting, setIsExporting] = React.useState(false);
 
   const handleExport = async () => {

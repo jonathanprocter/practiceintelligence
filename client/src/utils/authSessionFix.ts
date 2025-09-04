@@ -6,7 +6,7 @@
 interface AuthFixResult {
   success: boolean;
   message: string;
-  user?: any;
+  user?: unknown;
   needsReauth?: boolean;
   authUrl?: string;
   requiresReload?: boolean;
@@ -14,7 +14,7 @@ interface AuthFixResult {
 
 export async function fixAuthenticationSession(): Promise<AuthFixResult> {
   try {
-    console.log('🔧 Attempting to fix authentication session...');
+// console.log('🔧 Attempting to fix authentication session...');
     
     const response = await fetch('/api/auth/fix-session', {
       method: 'POST',
@@ -27,22 +27,22 @@ export async function fixAuthenticationSession(): Promise<AuthFixResult> {
     const result = await response.json();
     
     if (result.success) {
-      console.log('✅ Authentication session fixed:', result.message);
+// console.log('✅ Authentication session fixed:', result.message);
       
       // If requires reload, reload the page to refresh authentication state
       if (result.requiresReload) {
-        console.log('🔄 Reloading page to apply authentication fix...');
+// console.log('🔄 Reloading page to apply authentication fix...');
         window.location.reload();
         return result;
       }
       
       return result;
     } else {
-      console.log('❌ Authentication fix failed:', result.error);
+// console.log('❌ Authentication fix failed:', result.error);
       
       // If needs reauth, redirect to Google OAuth
       if (result.needsReauth && result.authUrl) {
-        console.log('🔄 Redirecting to Google OAuth for fresh authentication...');
+// console.log('🔄 Redirecting to Google OAuth for fresh authentication...');
         window.location.href = result.authUrl;
         return result;
       }
@@ -71,7 +71,7 @@ export async function checkAndFixAuthentication(): Promise<boolean> {
     
     // If not authenticated, try to fix
     if (!status.authenticated && !status.isAuthenticated) {
-      console.log('🔍 Authentication issue detected, attempting fix...');
+// console.log('🔍 Authentication issue detected, attempting fix...');
       const fixResult = await fixAuthenticationSession();
       return fixResult.success;
     }

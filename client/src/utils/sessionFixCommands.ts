@@ -4,16 +4,16 @@
 
 class SessionFixCommands {
   static async fixSessionNow() {
-    console.log('🔧 Starting comprehensive session fix...');
+// console.log('🔧 Starting comprehensive session fix...');
     
     try {
       // Step 1: Check current session status
       const statusResponse = await fetch('/api/auth/status', { credentials: 'include' });
       const status = await statusResponse.json();
-      console.log('📊 Current auth status:', status);
+// console.log('📊 Current auth status:', status);
       
       // Step 2: Try the force-fix endpoint first
-      console.log('🔧 Attempting force authentication fix...');
+// console.log('🔧 Attempting force authentication fix...');
       const forceFixResponse = await fetch('/api/auth/force-fix', { 
         method: 'POST',
         credentials: 'include',
@@ -24,7 +24,7 @@ class SessionFixCommands {
       
       if (forceFixResponse.ok) {
         const forceFixResult = await forceFixResponse.json();
-        console.log('✅ Force fix result:', forceFixResult);
+// console.log('✅ Force fix result:', forceFixResult);
         
         if (forceFixResult.success) {
           // Wait a moment for session to propagate
@@ -33,10 +33,10 @@ class SessionFixCommands {
           // Verify authentication worked
           const verifyResponse = await fetch('/api/auth/status', { credentials: 'include' });
           const verifyStatus = await verifyResponse.json();
-          console.log('✅ Post-fix auth status:', verifyStatus);
+// console.log('✅ Post-fix auth status:', verifyStatus);
           
           if (verifyStatus.authenticated) {
-            console.log('🎉 Authentication fixed successfully!');
+// console.log('🎉 Authentication fixed successfully!');
             window.location.reload();
             return;
           }
@@ -49,35 +49,35 @@ class SessionFixCommands {
         credentials: 'include' 
       });
       const fixResult = await fixResponse.json();
-      console.log('🔧 Session fix result:', fixResult);
+// console.log('🔧 Session fix result:', fixResult);
       
       // Step 4: Check if tokens exist in environment
       const configResponse = await fetch('/api/auth/test-oauth-config', { credentials: 'include' });
       const config = await configResponse.json();
-      console.log('🔑 OAuth config:', config);
+// console.log('🔑 OAuth config:', config);
       
       // Step 5: If we have tokens but no session, try to restore
       if (config.hasAccessToken && !status.authenticated) {
-        console.log('🔄 Attempting session restoration...');
+// console.log('🔄 Attempting session restoration...');
         const restoreResponse = await fetch('/api/auth/restore-session', { 
           method: 'POST',
           credentials: 'include'
         });
         const restoreResult = await restoreResponse.json();
-        console.log('✨ Session restoration result:', restoreResult);
+// console.log('✨ Session restoration result:', restoreResult);
       }
       
       // Step 6: Final status check
       const finalStatus = await fetch('/api/auth/status', { credentials: 'include' });
       const final = await finalStatus.json();
-      console.log('✅ Final auth status:', final);
+// console.log('✅ Final auth status:', final);
       
       if (final.authenticated) {
-        console.log('🎉 Authentication fixed successfully!');
+// console.log('🎉 Authentication fixed successfully!');
         window.location.reload();
       } else {
-        console.log('⚠️ Authentication still requires attention');
-        console.log('💡 Try: forceGoogleOAuth() for fresh authentication');
+// console.log('⚠️ Authentication still requires attention');
+// console.log('💡 Try: forceGoogleOAuth() for fresh authentication');
       }
       
     } catch (error) {
@@ -86,7 +86,7 @@ class SessionFixCommands {
   }
   
   static async testAuthenticatedSession() {
-    console.log('🧪 Testing authenticated session...');
+// console.log('🧪 Testing authenticated session...');
     
     try {
       // Test various auth endpoints
@@ -98,10 +98,10 @@ class SessionFixCommands {
       ];
       
       for (const endpoint of endpoints) {
-        console.log(`🔍 Testing ${endpoint}...`);
+// console.log(`🔍 Testing ${endpoint}...`);
         const response = await fetch(endpoint);
         const result = await response.json();
-        console.log(`📡 ${endpoint} (${response.status}):`, result);
+// console.log(`📡 ${endpoint} (${response.status}):`, result);
       }
       
     } catch (error) {
@@ -110,7 +110,7 @@ class SessionFixCommands {
   }
   
   static async clearAuthenticationData() {
-    console.log('🧹 Clearing authentication data...');
+// console.log('🧹 Clearing authentication data...');
     
     try {
       // Clear all possible auth storage
@@ -122,8 +122,8 @@ class SessionFixCommands {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
       });
       
-      console.log('✅ Local authentication data cleared');
-      console.log('💡 Use forceGoogleOAuth() to start fresh authentication');
+// console.log('✅ Local authentication data cleared');
+// console.log('💡 Use forceGoogleOAuth() to start fresh authentication');
       
     } catch (error) {
       console.error('❌ Clear auth data error:', error);
@@ -131,18 +131,18 @@ class SessionFixCommands {
   }
   
   static forceGoogleOAuth() {
-    console.log('🔄 Forcing fresh Google OAuth...');
+// console.log('🔄 Forcing fresh Google OAuth...');
     window.location.href = '/api/auth/google';
   }
   
   static async runDiagnostics() {
-    console.log('🚨 Running comprehensive diagnostics...');
+// console.log('🚨 Running comprehensive diagnostics...');
     
     try {
       const diagResponse = await fetch('/api/auth/quick-diag');
       const diag = await diagResponse.json();
       
-      console.log('📊 Full Diagnostics:', diag);
+// console.log('📊 Full Diagnostics:', diag);
       
       // Show user-friendly summary
       const summary = `
@@ -152,10 +152,10 @@ Tokens: ${diag.environment?.hasAccessToken ? '✅ Present' : '❌ Missing'}
 Recommendations: ${diag.recommendations?.join(', ') || 'None'}
       `.trim();
       
-      console.log('📋 Summary:', summary);
+// console.log('📋 Summary:', summary);
       
       if (!diag.session?.user) {
-        console.log('🔧 No user found, running automatic fix...');
+// console.log('🔧 No user found, running automatic fix...');
         await this.fixSessionNow();
       }
       
@@ -173,12 +173,12 @@ window.forceGoogleOAuth = () => SessionFixCommands.forceGoogleOAuth();
 window.runDiagnostics = () => SessionFixCommands.runDiagnostics();
 
 // Display available commands
-console.log('🛠️ Session fix commands available:');
-console.log('  fixSessionNow() - Fix authentication session');
-console.log('  testAuthenticatedSession() - Test and debug session');
-console.log('  clearAuthenticationData() - Clear all auth data');
-console.log('  forceGoogleOAuth() - Force fresh OAuth');
-console.log('  runDiagnostics() - Run comprehensive diagnostics');
+// console.log('🛠️ Session fix commands available:');
+// console.log('  fixSessionNow() - Fix authentication session');
+// console.log('  testAuthenticatedSession() - Test and debug session');
+// console.log('  clearAuthenticationData() - Clear all auth data');
+// console.log('  forceGoogleOAuth() - Force fresh OAuth');
+// console.log('  runDiagnostics() - Run comprehensive diagnostics');
 
 // Auto-run authentication fix on module load if needed
 async function checkAndFixAuth() {
@@ -187,11 +187,11 @@ async function checkAndFixAuth() {
     const status = await response.json();
     
     if (!status.authenticated) {
-      console.log('🔧 No authentication detected, running auto-fix...');
+// console.log('🔧 No authentication detected, running auto-fix...');
       await SessionFixCommands.fixSessionNow();
     }
   } catch (error) {
-    console.log('Auth check failed:', error);
+// console.log('Auth check failed:', error);
   }
 }
 
